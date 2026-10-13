@@ -11,19 +11,20 @@ Author: the community
 ## Papers
 
 1. [Exponential decay in two-dimensional classical $O(n)$ models](https://github.com/openai/math/blob/main/preprints/Exponential-decay-in-two-dimensional-classical-On-models-September-23-2026/paper.pdf)
-   - Seems understandable, Lean available
+   - Establishes exponential decay for lattice model without estimate on rate
    - Result is not used in the subsequent papers, but related idea implemented there in a stronger way
-2. [$O(4)$ mass bounds](https://github.com/openai/math/blob/main/preprints/Sharp-mass-bounds-for-the-two-dimensional-O4-model-September-23-2026/paper.pdf)
+   - Understable, Lean available
+2. [O(4) mass bounds](https://github.com/openai/math/blob/main/preprints/Sharp-mass-bounds-for-the-two-dimensional-O4-model-September-23-2026/paper.pdf)
    - Establishes $m(\beta) \asymp \sqrt{\beta}e^{-\pi\beta}$
    - Gets referred to and adapted a lot in the $O(3)$ papers
    - No Lean
 3. [O(4) exact mass asymptotics](https://github.com/openai/math/blob/main/preprints/Exact-mass-asymptotics-for-the-two-dimensional-O4-lattice-model-October-5-2026/exact-mass-o4.pdf)
    - Establishes $m(\beta) \sim C\sqrt{\beta}e^{-\pi\beta}$ as $\beta\to\infty$ with explicit constant
    - No Lean
-4. [$O(3)$ massive continuum limit](https://github.com/openai/math/blob/main/preprints/The-canonical-massive-continuum-limit-of-the-two-dimensional-O3-model-October-4-2026/massive-continuum-o3.pdf)
+4. [O(3) massive continuum limit](https://github.com/openai/math/blob/main/preprints/The-canonical-massive-continuum-limit-of-the-two-dimensional-O3-model-October-4-2026/massive-continuum-o3.pdf)
    - Establishes continuum limit and all OS axioms
    - No Lean
-5. [$O(3)$ isolated particle pole](https://github.com/openai/math/blob/main/preprints/An-Isolated-Particle-Pole-for-the-Two-Dimensional-O3-Spin-Field-October-4-2026/o3-particle-pole.pdf)
+5. [O(3) isolated particle pole](https://github.com/openai/math/blob/main/preprints/An-Isolated-Particle-Pole-for-the-Two-Dimensional-O3-Spin-Field-October-4-2026/o3-particle-pole.pdf)
    - Establishes isolated particle pole and upper mass gap
    - No Lean
 
