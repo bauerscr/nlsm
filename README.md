@@ -7,7 +7,7 @@ Author: the community
 ## Organization
 
 - <del>Discord channel: https://discord.gg/bF8Hd2ahP</del>
-- Zulip channel: https://probabilistic-qft.zulipchat.com/#narrow/channel/644409-NLSM
+- Zulip channel: https://probabilistic-qft.zulipchat.com/join/whlijwfr75fksr5gxezhynp5/
 - Mailing list: nlsm@probabilistic-qft.org (not in place yet)
 - Catchup meetings: Mondays 4pm Amsterdam time
 
