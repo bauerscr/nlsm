@@ -1,0 +1,549 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\setlist[description]{font=\normalfont\bfseries,style=nextline,
+  leftmargin=0pt,labelsep=0pt,labelwidth=0pt,itemsep=8pt,parsep=2pt}
+\newcommand{\src}[2]{\textsf{#1}, line~#2}
+\newcommand{\where}[1]{\par{\small\textit{Source:} #1.}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\title{Reading glossary for the \(O(3)\) continuum-limit paper}
+\author{}
+\date{Source locators checked October 13, 2026}
+\begin{document}
+\maketitle
+
+This glossary explains the specialized terminology of
+\emph{The canonical massive continuum limit of the two-dimensional
+\(O(3)\) model} (October 4, 2026), principally the density class and
+fluctuation integration in Sections 3--5.  It also includes the nearby
+trajectory terminology.  Entries give the place where a term is defined
+or its operational meaning is specified.  Some informal terms have no
+standalone definition; these are identified below.  Several geometric
+definitions are imported from the September 23 \(O(4)\) paper, reference
+[28] of the \(O(3)\) paper.  References to that construction concern its
+geometry and bookkeeping, not its quaternion-specific spin formulas.
+
+\section*{Source-file key}
+
+All paths are relative to the repository root.  A locator such as
+\src{S}{215} means line 215 of the file assigned key S.  Line numbers
+refer to the checked source snapshot; nearby section headings and
+formulas help locate the passage if the source changes.
+
+The \(O(3)\) source root, abbreviated \textsf{O3}, is
+\begin{quote}\small
+\path{preprints/The-canonical-massive-continuum-limit-of-the-two-dimensional-O3-model-October-4-2026/build/}
+\end{quote}
+The imported \(O(4)\) source root, abbreviated \textsf{O4}, is
+\begin{quote}\small
+\path{preprints/Sharp-mass-bounds-for-the-two-dimensional-O4-model-September-23-2026/build/}
+\end{quote}
+\begin{description}[itemsep=2pt,style=standard,leftmargin=16mm]
+\item[S] O3/\path{sections/setup.tex}: Section 3, retained densities and locality norms.
+\item[R] O3/\path{sections/rg.tex}: Section 5, exact renormalization step.
+\item[F] O3/\path{sections/free.tex}: Section 4, block observations and free kernels.
+\item[Sh] O3/\path{sections/shooting.tex}: initialization and shooting.
+\item[T] O3/\path{sections/trajectories.tex}: offsets, admission, and retuning.
+\item[G4] O4/\path{supplements/geometry-rg.tex}: Appendix C, local sector factors and complete supports.
+\item[R4] O4/\path{sections/renormalization.tex}: imported RG construction and connected reassembly.
+\end{description}
+
+\section*{Scales and geometric objects}
+\begin{description}
+\item[Layer; regular step; inclined step.]
+A layer is one lattice scale.  A step integrates from layer \(j\) to
+\(j-1\).  A regular step uses square blocks of side \(L\); an inclined
+first step uses rotated blocks of side \(L_*=5L\), followed by regular
+steps.  Inclined blockings are used to compare orientations.
+\where{\src{R}{14}; \src{F}{25} (cells and weighted means).}
+
+\item[Reference scales \(H_j,p_j,t_j,T_j,M\).]
+\(H_j=H+(\log L)/(2\pi)\,j\) is the reference coupling;
+\(p_j=(\log H_j)^{P_0}\) is the Gaussian cutoff size;
+\(t_j=H_j^{-1/2}p_j\) is the small-chord threshold;
+\(T_j=H_j^{-49/100}\) is a larger auxiliary chord threshold;
+\(M=\mathfrak m_j=\lceil(\log H_j)^2\rceil\) is the mesoscopic
+geometric scale.  The actual coupling \(b\) lies near \(H_j\), and
+\(g=b^{-1/2}\), so \(t\asymp gp\).
+\where{\src{S}{31}, equation with label \texttt{setup:scale-definitions}.}
+
+\item[Chord; true bad edge (bad bond).]
+The chord is the Euclidean spin difference
+\(r_e=|q_x-q_y|\) for \(e=\langle x,y\rangle\).  A true bad edge
+satisfies \(r_e>t_j\); the set of all such edges is \(D(q)\).
+This is distinct from the lower threshold at which a smooth seed
+profile can be nonzero.
+\where{\src{S}{178}; compare \src{R}{150}.}
+
+\item[Anchor; seed anchor; block anchor.]
+An anchor is a reference position used to locate a labeled term and
+its connecting paths.  A seed anchor is the position assigned to its
+edge, observation, or output-edge test; neighborhoods of seeds are
+neighborhoods of these positions.  A block anchor embeds a coarse site
+in the fine lattice.  The sources specify these roles and equivariant
+assignment rules, rather than a universal extra formula selecting an
+endpoint of every edge.  A seed anchor is a spatial position, not a
+spin value.
+\where{\src{S}{215} and \src{S}{578}; \src{R}{137};
+\src{G4}{31} (typed seed anchors).}
+
+\item[Neighborhood \(N_r(P)\).]
+The closed radius-\(r\) neighborhood of a set \(P\) of seed anchors.
+All distances in the sector construction use the same fine-lattice
+metric, with coarse positions embedded at their block anchors.
+\where{\src{G4}{16} and \src{G4}{31}; \src{R}{137}.}
+
+\item[Profile; default; failure.]
+A profile is a smooth cutoff \(G\) between zero and one.  An edge
+profile equals one for \(r_e\le t/4\) and zero for \(r_e\ge t/2\).
+An observation profile similarly tests block alignment.  In the exact
+identity \(1=G+(1-G)\), the retained good factor \(G\) is called a
+default; its complement is a failure.  Later expansions also use signed
+failures \(G-1\) when writing a default as \(1+(G-1)\).
+\where{\src{R}{150}; \src{G4}{67}; \src{R}{584}.}
+
+\item[Seed; primary.]
+A chosen complementary input-edge or observation profile is a seed,
+also called a selected primary in the imported construction.  Each
+true output bad edge is a mandatory seed as well.  An input seed can
+already occur at \(r_e\ge t/4\); it need not be a true bad edge
+\(r_e>t\).
+\where{\src{R}{150}; \src{G4}{77}.}
+
+\item[Sector; primary pattern; empty pattern.]
+A sector is one term in the product expansion of every profile plus
+its complement.  Its primary pattern records the selected seeds and
+their types, subject to the required output seeds.  The empty pattern
+has no seeds.  Geometry is held fixed throughout its Gaussian integral;
+the pattern is not recomputed from each Gaussian field value.
+\where{\src{R}{150}; \src{G4}{58} and \src{G4}{77}.}
+
+\item[Core.]
+Join seeds whenever their radius-\(50M\) neighborhoods intersect.
+A connected component, together with its assigned factors, is a core.
+A core packages a large-gradient region and the nearby terms that
+must be estimated together.  It is more than just the set of its seed
+sites.
+\where{\src{R}{155}; \src{G4}{31}.}
+
+\item[Footprint.]
+The radius-\(50M\) neighborhood \(N_{50M}(P_c)\) of a core's seed set
+\(P_c\).  Distinct cores have disjoint footprints.  Footprint
+compatibility implements maximality of seed components without adding
+a distant maximality test to an individual core factor.
+\where{\src{R}{164}; \src{G4}{31} and \src{G4}{58}.}
+
+\item[Owner; assigned factor or row.]
+The core to which an object is allocated for integration and energy
+accounting.  Different objects have different assignment radii:
+\(3M\) for frozen spins, \(5M\) for numerical energy rows,
+\(8M\) for stationary squares, and \(14M\) for defaults.
+The enlarged sets do not give extra copies of the same energy term.
+\where{\src{R}{159}; \src{G4}{36} (ownership table).}
+
+\item[Frozen spin; exterior or nonfrozen site.]
+Sites within \(3M\) of the seeds are frozen for the Gaussian
+completion.  Their spins are held fixed during that conditional
+calculation, then integrated with their original Haar measure.
+The other sites form the exterior \(E(P)\) and are Gaussianized.
+``Frozen'' does not mean deleted from the full integral.
+\where{\src{R}{159} and \src{R}{469}; \src{G4}{361}.}
+
+\item[Hole; hole-status test.]
+An informal name for the frozen region removed from the Gaussian
+index set: \(E(P)=\Lambda\setminus N_{3M}(P)\).  A hole-status test
+asks whether a site has been removed, so it determines which indices
+belong to a window matrix.  The source uses this terminology through
+its geometry and read rules rather than a separate definition.
+\where{\src{G4}{312}, \src{G4}{361}, and \src{G4}{396}.}
+
+\item[Halo.]
+An enlarged neighborhood attached to a factor's raw read positions
+to include all indirect dependencies.  In the imported connected
+construction each noncore read position receives a \(20M\) halo,
+large enough to contain its windows and hole-status queries.
+It is a support margin, not an additional interaction or field.
+\where{\src{R4}{892}; \src{G4}{350}.}
+
+\item[Inverse window \(\Omega_x\).]
+The radius-\(R\) neighborhood of a nonfrozen center \(x\), with
+frozen sites removed:
+\(\Omega_x=E(P)\cap B_R(x)\).  The radius \(R\) is a small
+fixed multiple of \(M\), chosen so that local compositions fit within
+the prescribed margins.  Matrix inversion takes place on this set.
+\where{\src{R}{347}; explicit definition in \src{G4}{369};
+radius convention in \src{G4}{16}.}
+\end{description}
+
+\section*{Supports, masks, and covering constraints}
+\begin{description}
+\item[Label.]
+A formula packaged with the data needed to use and sum it: an anchor
+when assigned, a complete support, and a connected record.  Covering
+labels carry an inventory as well.  Two copies of a similar formula
+can have different labels because their dependency records differ.
+\where{\src{S}{215}; covering labels in \src{S}{515}.}
+
+\item[Read; raw read; read set.]
+A spin, Gaussian coordinate, mask, status, or other datum queried in
+evaluating a factor.  Raw positions are the initial arguments before
+adding windows, tests, and protective margins.  A Gaussian read set
+\(I_c\) lists the Gaussian coordinates used by a core.  These are
+operational terms whose full dependency rules appear in the read table.
+\where{\src{R}{474}; \src{G4}{308} (complete-read table).}
+
+\item[Complete support.]
+Every position needed to determine a factor, including indirect
+dependencies: spin arguments, masks, eligibility and absence tests,
+statuses, inverse windows, and joining paths.  It can be much larger
+than the sites visibly occurring in the factor's displayed formula.
+Disjoint complete supports are what justify exact factorization.
+\where{\src{S}{215}; \src{R}{169}; \src{G4}{378}.}
+
+\item[Record; load.]
+A record is a connected collection of radius-\(M\) cubes and joining
+paths covering the complete support.  Its integer load \(s\ge1\)
+controls support size and path length:
+\(|\operatorname{supp}|\le CM^2s\) and
+\(\operatorname{length}\le CMs\).  Repeated paths are retained, and
+unused load may be kept under blocking.  Thus load is not simply the
+number of sites.  The core seed count \(s_c\) in the reserve estimate
+is specified separately as a number of seeds.
+\where{\src{S}{220}; projection convention in \src{S}{235};
+core seed count in \src{R}{474}.}
+
+\item[Bulk formula; lifted record.]
+A bulk formula is defined on the infinite lattice and folded onto a
+torus.  A lifted record retains displacements before they are reduced
+modulo periods, allowing a calculation to be compared with the infinite
+lattice even when its displayed arguments coincide on the torus.
+\where{\src{S}{17} and \src{S}{248}.}
+
+\item[Short; winding.]
+A record is short when \(s<c_*\mathcal L_j/M\), where
+\(\mathcal L_j\) is the shortest period.  It then has the required
+injective lift and agrees with its bulk construction.  Other records
+are winding.  A scalar term can still be winding if its construction
+used a long or period-dependent record.
+\where{\src{S}{248}.}
+
+\item[Kinetic mask.]
+The indicator \(m_e\) enabling a nonlocal kinetic row only if
+\(r_f\le t\exp(d(e,f)/R_*)\) for every edge \(f\).
+Since chords are at most two, this test queries only a finite
+neighborhood.  It can be discontinuous as the spins vary.
+\where{\src{S}{184}, label \texttt{eq:setup-kinetic-mask}.}
+
+\item[Witness; failed-mask witness.]
+An edge whose chord violates a kinetic mask's defining inequality.
+Such an edge explains why the row is switched off and supplies an
+energy reserve against which its loss is charged.  Every witness
+used by the argument is retained in the support record.
+\where{mask definition in \src{S}{194}; charging rule in \src{G4}{240};
+initialization in \src{Sh}{16}.}
+
+\item[Graph mask; open graph domain.]
+For a connected graph \(X\), the mask \(1_X\) requires
+\(r_e\le t_j\) on every edge of \(X\).  The larger open domain
+\(\mathcal U_{X,j}\) requires \(r_e<4t_j\) there and is where the
+regular function's derivatives are controlled.  The masked function
+is zero off its mask.
+\where{\src{S}{267}, label \texttt{eq:setup-graph-domain}.}
+
+\item[Mask strengthening.]
+Replace a graph mask by a stricter one, typically on a larger common
+graph needed for symmetry.  The difference is retained as a covering
+correction, so the density does not change.  A nonzero correction
+must have a bad-edge witness in the strengthened graph.
+\where{\src{S}{578}; reassembly in \src{R4}{928}.}
+
+\item[Inventory; mandatory covering sum (covering gas).]
+A covering label lists a nonempty inventory \(J_\ell\) of true bad
+edges, and its weight vanishes unless all those edges are bad.
+The covering sum \(\Xi\) runs over families with disjoint complete
+supports whose inventories partition \(D(q)\) exactly.  Every bad
+edge must be covered once.  Individual weights need not be positive.
+\where{\src{S}{513}, label \texttt{eq:setup-covering-sum}.}
+
+\item[Output flag; output inventory; no-flag extension.]
+A flag records a true bad edge in the output field that must be
+covered.  A factor with output inventory carries such required edges.
+For an empty-inventory regular calculation, output statuses are fixed
+to ``no flag,'' clipping is removed, and good masks are set to one
+to define a smooth extension.  Discontinuous statuses are not
+differentiated across their jumps.
+\where{\src{R}{155} and \src{R}{239}; \src{S}{515}.}
+
+\item[Compatibility; status query; eligibility test.]
+These specify whether a labeled object or a family of objects is
+allowed.  For covering families, compatibility includes disjoint
+complete supports and exact inventory coverage; for primary cores it
+includes footprint compatibility.  A status query may ask whether
+another object is present or absent.  Such decisions are part of the
+complete support, even if they do not appear as a spin argument.
+\where{\src{S}{215} and \src{S}{525}; \src{R}{167}; \src{G4}{58}.}
+\end{description}
+
+\section*{Gaussian completion and estimates}
+\begin{description}
+\item[Tag; fallback branch.]
+Independently in each block, a tag \(\tau_Y\) selects a constituent
+site with the block weights.  If the weighted spin mean has length
+at least \(1/2\), the observation uses its unit normalization;
+otherwise it uses the tagged spin.  This fallback defines a unit
+observation direction everywhere.
+\where{\src{S}{83}, labels \texttt{setup:unit-mean} and
+\texttt{setup:observation}.}
+
+\item[Energy row; stack; ledger.]
+A row is an individual component in the decomposition of the energy.
+A stack collects the direct gradient \(\sqrt{c_0}\,dq\) and the
+additional gradient \(\ell_s dq\).  ``Ledger'' names the exact
+identity expressing input energy plus observation energy minus output
+energy as the rows \(\mathcal F,\mathcal B,\mathcal C,\mathcal U,
+\mathcal N,\mathcal Z\).  These are accounting terms for that displayed
+identity, not additional probabilistic objects.
+\where{\src{R}{175}, especially the row identity beginning at line 198.}
+
+\item[Selected row; selected assigned row.]
+The \(\mathcal F,\mathcal B\) rows farther than \(2.5M\) from
+all seeds are selected for affine Gaussian completion.  Every row
+incident on a nonfrozen column is selected.  Selection and core
+assignment are different tests, so a row can be selected and also
+assigned to a core.
+\where{\src{R}{223}; assignment radii in \src{R}{159}.}
+
+\item[Principal logarithm; relative tangent coordinate.]
+The principal logarithm \(u_x=\operatorname{Log}_{T_x}q_x\) is the
+inverse spherical exponential with \(|u_x|<\pi\).  In contrast,
+\(y_o(x)=\operatorname{proj}_{q_o^\perp}q_x\) is a globally defined
+tangent projection used for polynomial slots.  They agree to first
+order at alignment but are different coordinates.
+\where{\src{S}{285}; \src{R}{252}.}
+
+\item[Protector; alignment profile; global chart profile.]
+Smooth cutoffs attached to factors to keep their coordinate evaluations
+inside valid charts.  Alignment profiles additionally enforce the
+small-angle region.  The global chart profile removes nonprincipal
+exponential preimages when the integral is extended to ambient space.
+For an optional exponential, the prescription is
+\(1+\chi_{\rm att}(e^V-1)\), with the protector attached to the
+selected correction.
+\where{\src{R}{230} and \src{R}{257}; detailed preparation in \src{G4}{116}.}
+
+\item[Ambient completion; color.]
+Adjoin a normalized scalar Gaussian \(v_x\) and combine it with
+the two-dimensional tangent coordinate:
+\(\xi_x=u_x+T_xv_x\in\R^3\).  A color means an internal component
+of this ambient vector, not a lattice direction.  There are three
+Gaussian colors but only two physical spin coordinates; the added
+scalar normalization cancels one color in the leading determinant.
+\where{\src{R}{266} (Lemma 5.2); \src{R}{386}.}
+
+\item[Affine row; precision \(A\); window matrix.]
+The affine reference row is \(D_i\xi+F_i\), with the frozen
+coordinates absorbed into its constant part.  The scalar precision
+is \(A=D^*D\), acting on every ambient component.  The window
+matrix \(A_{\Omega_x}\) is its principal submatrix, inverted after
+restriction to the window.
+\where{\src{R}{266}; \src{R}{347}; explicit principal restriction
+in \src{G4}{361}.}
+
+\item[Resolvent parameter \(a_0\).]
+The nonnegative scalar in \((A_{\Omega_x}+a_0I)^{-1}\).  It is
+integrated over to represent logarithmic determinants.  It is
+distinct from the observation precision \(a=1\), the coupling
+\(b\), and a lattice scale.
+\where{\src{R}{347} and \src{R}{394}.}
+
+\item[Short covariance \(C_s\); completed mean; stationary residual.]
+The local window inverses form \(\Pi_0\).  Set
+\(C_s=(\Pi_0+\Pi_0^*)/2\),
+\(\mu=-\Pi_0^*D^*F\), and \(r_s=D\mu+F\).
+Then \(\xi=\mu+gZ\) with \(Z\sim N(0,C_s\otimes I_3)\).
+\(C_s\) has finite range, but differs from the full inverse;
+the mean need not solve the full stationary equation exactly.
+The square of a residual row is called a stationary square.
+\where{\src{R}{360}; \src{R}{802} (canonical vertices).}
+
+\item[Prediction of a spin.]
+The spin obtained from the completed mean with the fluctuation set
+to zero:
+\[
+q_x^0=\operatorname{Exp}_{T_x}
+(\operatorname{proj}_{T_x^\perp}\mu_x).
+\]
+Prediction estimates control its gradient and its size relative to
+the block reference.
+\where{\src{R}{403}, Lemma 5.3.}
+
+\item[Residual chain; residual hop; ratio letter.]
+Terms in the inverse, determinant, and Gaussian-density-ratio
+corrections caused by window localization.  A hop is a successive
+kernel factor along their recorded paths.  Residual chains contain
+an exponentially small residual factor, but may be arbitrarily long.
+A ratio letter is a prepared factor from the density-ratio exponent;
+its Gaussian endpoints and every intermediate window are recorded.
+\where{\src{R}{373} and \src{R}{575}.}
+
+\item[Core factor \(B_c\).]
+The product belonging to one core after each selected assigned
+affine square has been subtracted exactly once.  It includes the
+assigned energies, stationary squares, profiles, inventories,
+protectors, and normalization compensations.
+\where{\src{R}{474}; explicit imported formula in \src{G4}{160},
+label \texttt{app:explicit-core}.}
+
+\item[Reserve; charging; normalization cost.]
+A reserve is an exponential suppression retained to pay later
+combinatorial or analytic losses.  A core starts with a reserve
+of order \(e^{-c_Lp^2s_c}\).  Charging assigns a loss to a specified
+positive energy contribution, without spending it twice.  Determinants
+and scalar normalizations also incur costs paid by this reserve.
+\where{\src{R}{486}; detailed charging argument in \src{G4}{230}.}
+
+\item[Prepared factor; letter; opening an exponential.]
+A factor after its cutoffs, supports, and majorants have been fixed.
+Opening \(e^V\) means the exact identity
+\(e^V=1+(e^V-1)\); the selected nontrivial term is a letter.
+The preparation specifies which protectors stay attached, so opening
+does not create an uncontrolled contribution outside a chart.
+\where{\src{R}{230}; eight classes of factors in \src{R}{553}.}
+
+\item[Ordinary letter; tail letter; exceptional factor.]
+An ordinary row letter is restricted to Gaussian reads of size at
+most \(2p\) and has a positive power of \(g\) in its majorant.
+A tail letter requires a read of size at least \(p\) and is paid
+by Gaussian rarity.  Exceptional factors also include sufficiently
+small truncation and residual corrections; they need not all be
+large-field events.
+\where{\src{R}{498}, \src{R}{534}, and \src{R}{553};
+summed bounds in \src{R}{599}.}
+
+\item[Remote term.]
+An old canonical polynomial or regular error whose whole projected
+graph is farther than \(14M\) from all seeds.  Its mask can be
+replaced by the specified smooth profile for the regular calculation.
+A nonremote term meets a core and retains its actual mask and protectors.
+\where{\src{R}{563}.}
+
+\item[Majorant; envelope; site-hit bound.]
+A majorant is a nonnegative quantity bounding a factor or its
+integrated products.  An envelope is often a pointwise bound that
+still depends on Gaussian variables.  A site-hit bound sums weighted
+majorants of all labels whose supports contain a specified site,
+uniformly in that site.  This pays for the number of possible supports.
+\where{\src{R}{486} and \src{R}{599}; explicit tree/site-hit
+condition in \src{R4}{869}; covering version in \src{S}{540}.}
+
+\item[Marked discrepancy.]
+A single chosen difference between two versions of a factor, coming
+from changed coupling, history, or retained data.  Joint estimates
+must preserve the small size of that difference while bounding all
+other factors.  ``Marked'' identifies where the comparison is inserted.
+\where{\src{R}{599} (Proposition 5.5); comparison variables in \src{R}{99}.}
+
+\item[Gaussian guard.]
+An even smooth cutoff on Gaussian coordinate reads, used in Taylor
+and contraction estimates.  Its complement is controlled by Gaussian
+tails.  Evenness allows odd fluctuation terms to integrate to zero.
+\where{\src{R}{983}.}
+\end{description}
+
+\section*{Reassembly, normalization, and trajectories}
+\begin{description}
+\item[Integrated polymer; connected reassembly.]
+Group a connected collection of selected prepared factors, using
+intersection of complete supports, and integrate it jointly.  The
+result is an integrated polymer retaining the original compatibility,
+coverage, and status checks.  Reassembly recovers the exact density
+from compatible families of these objects.
+\where{\src{R}{770}; explicit construction in \src{R4}{903}.}
+
+\item[Output-empty background; seeded polymer.]
+An output-empty polymer carries no mandatory output bad-edge inventory
+and belongs to the regular background.  A seeded polymer carries a
+nonempty output inventory.  The Mayer logarithm is applied to the
+background; seeded components keep their covering weights.
+\where{\src{R}{770}; \src{R4}{903}.}
+
+\item[Canonical slots; canonical extraction.]
+The designated low-degree polynomial coefficient lists
+\((bP_4,I_2,bP_5,I_3,bP_6,I_4,b^{-1}J_2)\), with
+\(P_5=I_3=0\) for \(O(3)\).  Subscripts denote tangent-field
+degree, not order in \(g\).  Extraction assigns the connected Wick
+Taylor coefficients to these slots, the kinetic coupling, and the
+bulk scalar, leaving a controlled remainder.
+\where{\src{S}{316}; \src{R}{786} (canonical extraction).}
+
+\item[Affine coefficient (affine Hessian); compensation; quadratic packet.]
+The affine coefficient measures the second variation on a slowly
+varying affine tangent field.  Compensation subtracts the corresponding
+nearest-neighbor quadratic term.  A quadratic packet contains both
+the original averaged monomial and this subtraction:
+\(Q_{r,s}=M_{r,s}-(r\cdot s)S_o\).
+The packet is retained as a unit so its cancellation is visible.
+\where{\src{S}{350} and \src{S}{475}.}
+
+\item[Regular error; normalization.]
+A regular-error label is \(f_X\in C^8(\mathcal U_{X,j})\) with its
+graph and record.  Bulk and short errors have zero value at aligned
+spins and zero affine Hessian there after the scalar and kinetic terms
+are extracted.  Winding errors have different allowances.
+\where{\src{S}{417} and \src{S}{493}.}
+
+\item[Retained density; cap; admitted representation.]
+The density class consists of a bulk scalar, masked kinetic energy,
+canonical polynomial slots, regular errors, and the covering sum
+\(\Xi\).  Caps are the prescribed bounds on these coefficient and
+function norms.  A representation is admitted when the support,
+symmetry, period, and norm conditions hold and
+\(b\in[H_j/2,2H_j]\).
+\where{\src{S}{162}; density formula in \src{S}{588};
+admission in \src{S}{602}.}
+
+\item[Free history.]
+The record of scalar block observations already performed, determining
+the free precision and interpolation kernels.  It is not the current
+layer index.  For regular observations it can be specified by length;
+an inclined first observation also requires its geometry to be recorded.
+\where{\src{S}{53} and \src{S}{117}.}
+
+\item[Endpoint density; terminal coupling; shooting.]
+An endpoint density is the layer-zero retained representation with
+its bulk scalar removed.  The terminal coupling is its \(b_0\).
+Shooting chooses a microscopic \(b_N=\beta_N\) so that all steps
+are admitted and reach a prescribed terminal value, for example
+\(b_0=H\).
+\where{\src{S}{644}; \src{Sh}{144}, Proposition with label
+\texttt{prop:shooting}.}
+
+\item[Bare offset.]
+The difference \(s=\beta-\vartheta_N\) between a depth-\(N\)
+microscopic coupling and its reference trajectory.  Here
+\(\vartheta_j=H_j-(\kappa_\infty/\gamma)\log(H_j/H)\).
+This \(s\) is unrelated to the load of a support record.
+\where{\src{T}{326}, especially the definition at line 336.}
+\end{description}
+
+\section*{A compact guide to the geometry}
+The nested neighborhoods have different purposes.  A seed set \(P_c\)
+generates frozen sites within \(3M\), ownership regions out to
+\(5M,8M,14M\), and a \(50M\) footprint for compatibility.
+A hole is the removed frozen part of the Gaussian index set; a halo
+is an enlargement of a factor's reads; a core is the whole connected
+seed component with its assigned factors.  None of these should be
+identified with the complete support of an arbitrary long residual chain.
+
+Two further distinctions matter when using the Gaussian formulas:
+the pattern is fixed during a Gaussian integration, although it is
+summed over in the full density; and disjoint \emph{complete} supports
+give marginal factorization, while arbitrary overlapping conditional
+Gaussian laws are not claimed to be independent
+(\src{R}{646}; \src{G4}{378}).
+
+\end{document}
