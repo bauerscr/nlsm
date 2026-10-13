@@ -51,7 +51,7 @@ $$H_j = H+\gamma j.$$
 - The true coupling constants are $b_j$ and definded in (3.29) and (6.1):
 $$b_{j-1}=b_j+\alpha_{N-j}+\kappa_{N-j}/b_j + \Delta_j, \qquad \alpha \approx \frac{\log L}{2\pi}$$
 - The symbol $h_j$ stands for history. It is the sequence of block spin transforms done up scale $j$. The Gaussian kinetic terms $K_h$ depend on the history $h$. They do not incorporate field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$.
-- The renormalized density at scale $j$ with respect to the product measure is represented in the stable form:
+- The renormalized density at scale $j$ with respect to the product measure is represented in the stable form (3.29):
 $$
 Z_j(q) = e^{v_j|\Lambda_j| - b_j E_j(q)} \exp\Big[-\sum_\alpha (...)\Big] \Xi_j(q)
 $$
