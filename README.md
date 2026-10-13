@@ -6,7 +6,8 @@ Author: the community
 
 ## Organization
 
-- Discord channel: https://discord.gg/bF8Hd2ahP
+- <del>Discord channel: https://discord.gg/bF8Hd2ahP</del>
+- Zulip channel: https://probabilistic-qft.zulipchat.com/#narrow/channel/644409-NLSM
 - Mailing list: nlsm@probabilistic-qft.org (not in place yet)
 - Catchup meetings: Mondays 4pm Amsterdam time
 
@@ -45,6 +46,7 @@ Author: the community
 - Uses $L$-adic scales with distances $L^{-j}$. Scales are indexed by $j = N, \dots, 0$ with $N$ the UV scale and $0$ the unit scale.
 - $\Lambda_j$ denotes the block lattice, i.e., $\Lambda_{j-1}$ are the centers of the $L$-blocks in $\Lambda_j$.
 - Microscopic spins are denoted $q_x\in S^2$.
+- Block spins are denoted by $V_{[x]} \in S^2$ where $[x]$ is (...).
 - $N_R(P)$ denotes radius $R$ neighborhood of $P \subset \mathbb{Z}^2$.
 - $H_j$ refers to the explicit solution of the second order truncation of the coupling constant recursion:
 $$H_j = H+\gamma j.$$
