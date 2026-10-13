@@ -31,7 +31,7 @@ Author: the community
    - No Lean
 
 
-## Most interesting ingredients of the contruction
+## Most interesting ingredients of the construction
 
 - **Mixing estimate:** obtained using noncommutative Mermin-Wagner idea, correlation inequalities, reflection positivity
 - **Block spin transformation** with intrinsic rather than extrinsic coordinates: spins remain on the sphere and potential does not become a double well.
@@ -52,7 +52,7 @@ $$b_{j-1}=b_j+\alpha_{N-j}+\kappa_{N-j}/b_j + \Delta_j, \qquad \alpha \approx \f
 - The symbol $h$ seems to stand for history. It seems to be something like the data along an RG flow.
 Thus $h_j$ contains in particular the information $(b_{N-1}, \dots, b_j)$ so has length $N-j$. How precisely is it defined?
 - Gaussian kinetic terms $K_h$ depend on the history $h$. They incorporate the infinite field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$ is the Laplacian and $K_{h_j}$
-should look approximately like $-Z_j \Delta$ with $Z_j$ the field strength?
+should look approximately like $-B_j \Delta$ where $B_j$ is the field strength.
 
 ## General terminology
 
@@ -64,20 +64,6 @@ should look approximately like $-Z_j \Delta$ with $Z_j$ the field strength?
 - inverse window $\Omega_x$: this seems to be the finite range of the Gaussian fluctuation field.
 - ...
 
-## TODO
-
-### Concrete exercises to work out
-
-- Create a simple explicit version of the intrinsic-coordinates block spin transform (Lemma 5.2).
-- Formulate polymer geometry is more standard framework.
-- 
-
-### Questions to clarify
-
-- How does the nonlinear block spin transform get connected to the Gaussian one?
-- How precisely does the finite-range truncation of the fluctuation covariance get handled?
-- Is Section 7 the first time that the mixing estimate from Section 2 gets used?
-
 ## Notes
 
 These notes focus on the fouth paper on the $O(3)$ continuum limit. It uses the other ones.
@@ -85,13 +71,17 @@ These notes focus on the fouth paper on the $O(3)$ continuum limit. It uses the 
 ### General remarks
 
 - Part I seems to concern the continuum limit for sufficiently large renormalized coupling $H$.
+  - The mixing estimate of Section 2 only gets used in Section 8.
+  - The small scale RG flow is self-contained in Sections 3-7. Better organization would be to have this first.
 - Part II seems to be the extension to all renormalized couplings $H$.
+  - Not sure yet if this requires an interesting idea.
 - It is **not** established that the limit is scale covariant (only depends on $H$ through rescaling).
 - It is **not** established that the field strength $B_N$ diverges like $N^{1/3}$ as expected from RG.
 
 ### Mixing estimate (Section 2)
 
 - This section establishes the local a priori mixing estimate. No RG is involved.
+- It does not seem to get used until Section 8. It would make sense to move it to after Section 7.
 
 ### Gaussian block spins, polymers, norms (Section 3)
 
@@ -106,9 +96,17 @@ It should be elementary.
 
 #### Large/small field decomposition (Section 3.3)
 
-### TBC (Section 4)
+- The form of the polymer decomposition / effective densitities seems to be defined here.
+
+### Estimates on Gaussian block spins (Section 4)
+
+- The first display in Section 4.1 seems to embedded the rotated lattice in the original one,
+preparting for Nelson's 3/5 argument for rotational invariance in Section 10.
 
 ### RG transformation (Section 5)
+
+- This is where the actual RG transformation is implemented.
+- Can one make the output of this section a "black box" theorem?
 
 #### Introduction of the fluctuation field (Section 5.3)
 
@@ -121,11 +119,14 @@ It should be elementary.
 - Thus not decoupling expansion (cluster expansion) is needed.
 - Mayer expansion for exponentiating the small field action still present.
 
-#### Mayer expansion (Section 5.4)
+#### Large field estimates (Section 5.4)
 
-- Anything special?
+- How does this compare to Balaban's R operation?
+- How exactly is it done?
 
 #### Extraction of marginal coupling constants (Section 5.5)
+
+- Is there anything else going on in this section?
 
 ### Tuning of the bare coupling constant (Section 6)
 
@@ -137,3 +138,21 @@ It should be elementary.
 - I think this will be used in Nelson's 3/5 estimate to prove rotational invariance
 
 ### Local observables and correlation functions (Section 9)
+
+
+## TODO
+
+### Concrete exercises to work out
+
+- Create a simple explicit version of the intrinsic-coordinates block spin transform (Lemma 5.2).
+- Formulate polymer geometry is more standard framework.
+- Can we formulate Section 5 as a "black box" theorem that takes an a configuration as defined
+in Section 3 to another such configuration at the next scale?
+-
+
+### Questions to clarify
+
+- How does the nonlinear block spin transform get connected to the Gaussian one?
+- How precisely does the finite-range truncation of the fluctuation covariance get handled?
+- 
+
