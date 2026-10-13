@@ -2,7 +2,7 @@
 
 ## Organization
 
-- Discord channel: https://discord.gg/mNK6VphJJp
+- Discord channel: https://discord.gg/bF8Hd2ahP
 - Mailing list: nlsm@probabilistic-qft.org
 - Catchup meetings: Mondays 4pm Amsterdam time
 
