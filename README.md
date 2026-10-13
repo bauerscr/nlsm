@@ -42,14 +42,24 @@ Author: the community
 ## General conventions and notation
 
 - The complete analysis is on the unit lattice until the very end.
+- Uses $L$-adic scales with distances $L^{-j}$. Scales are indexed by $j = N, \dots, 0$ with $N$ the UV scale and $0$ the unit scale.
+- $\Lambda_j$ denotes the block lattice, i.e., $\Lambda_{j-1}$ are the centers of the $L$-blocks in $\Lambda_j$.
 - Microscopic spins are denoted $q_x\in S^2$.
 - $N_R(P)$ denotes radius $R$ neighborhood of $P \subset \mathbb{Z}^2$.
-- Uses $L$-adic scales with distances $L^{-j}$. Scales are indexed by $j = N, \dots, 0$ with $N$ the UV scale and $0$ the unit scale.
 - $H_j$ refers to the explicit solution of the second order truncation of the coupling constant recursion:
 $$H_j = H+\gamma j.$$
 - The true coupling constants are $b_j$ and definded in (3.29) and (6.1):
 $$b_{j-1}=b_j+\alpha_{N-j}+\kappa_{N-j}/b_j + \Delta_j, \qquad \alpha \approx \frac{\log L}{2\pi}$$
-- The symbol $h_j$ stands for history. It is the sequence of block spin transforms done up scale $j$. The Gaussian kinetic terms $K_h$ depend on the history $h$. They do not incorporate the infinite field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$.
+- The symbol $h_j$ stands for history. It is the sequence of block spin transforms done up scale $j$. The Gaussian kinetic terms $K_h$ depend on the history $h$. They do not incorporate field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$.
+- The renormalized density at scale $j$ with respect to the product measure is represented in the stable form:
+$$
+Z_j(q) = e^{v_j|\Lambda_j| - b_j E_j(q)} \exp\Big[-\sum_\alpha (...)\Big] \Xi_j(q)
+$$
+- Here $v_j$ is the vacuum energy, $b_j$ the running coupling constant and the
+sum over $\alpha$ contains further irrelevant (in RG sense) but lower order terms.
+This is a familiar polymer representation in RG.
+I expect the lower order term compensate for the fact that rescaling of the
+kinetic term is only accurate to lowest order.
 
 ## General terminology
 
