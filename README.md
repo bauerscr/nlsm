@@ -1,5 +1,7 @@
 # Digesting the O(3) NLSM construction
 
+Author: the community
+
 ## Organization
 
 - Discord channel: https://discord.gg/bF8Hd2ahP
