@@ -47,12 +47,9 @@ Author: the community
 - Uses $L$-adic scales with distances $L^{-j}$. Scales are indexed by $j = N, \dots, 0$ with $N$ the UV scale and $0$ the unit scale.
 - $H_j$ refers to the explicit solution of the second order truncation of the coupling constant recursion:
 $$H_j = H+\gamma j.$$
-- The true coupling constants are $b_j$ and definded in (6.1):
+- The true coupling constants are $b_j$ and definded in (3.29) and (6.1):
 $$b_{j-1}=b_j+\alpha_{N-j}+\kappa_{N-j}/b_j + \Delta_j, \qquad \alpha \approx \frac{\log L}{2\pi}$$
-- The symbol $h$ seems to stand for history. It seems to be something like the data along an RG flow.
-Thus $h_j$ contains in particular the information $(b_{N-1}, \dots, b_j)$ so has length $N-j$. How precisely is it defined?
-- Gaussian kinetic terms $K_h$ depend on the history $h$. They incorporate the infinite field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$ is the Laplacian and $K_{h_j}$
-should look approximately like $-B_j \Delta$ where $B_j$ is the field strength.
+- The symbol $h_j$ stands for history. It is the sequence of block spin transforms done up scale $j$. The Gaussian kinetic terms $K_h$ depend on the history $h$. They do not incorporate the infinite field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$.
 
 ## General terminology
 
