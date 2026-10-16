@@ -65,6 +65,7 @@ kinetic term is only accurate to lowest order.
 
 ## General terminology
 
+- chord: Euclidean distance between spins. 
 - seed anchors:
 - seeds:
 - cores: union of seeds within radius $50M$ of each other
