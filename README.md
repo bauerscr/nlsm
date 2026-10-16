@@ -65,7 +65,8 @@ kinetic term is only accurate to lowest order.
 
 ## General terminology
 
-- chord: Euclidean distance between spins. 
+- chord: Euclidean distance between spins.
+- fallback: the second case of the piecewise definition of block spins 
 - seed anchors:
 - seeds:
 - cores: union of seeds within radius $50M$ of each other
