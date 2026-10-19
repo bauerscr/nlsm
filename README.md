@@ -54,9 +54,7 @@ $$H_j = H+\gamma j.$$
 $$b_{j-1}=b_j+\alpha_{N-j}+\kappa_{N-j}/b_j + \Delta_j, \qquad \alpha \approx \frac{\log L}{2\pi}$$
 - The symbol $h_j$ stands for history. It is the sequence of block spin transforms done up scale $j$. The Gaussian kinetic terms $K_h$ depend on the history $h$. They do not incorporate field strength renormalization. Initially $K_\varnothing=K_{h_N}=d^*d=-\Delta$.
 - The renormalized density at scale $j$ with respect to the product measure is represented in the stable form (3.29):
-$$
-Z_j(q) = e^{v_j|\Lambda_j| - b_j E_j(q)} \exp\Big[-\sum_\alpha (...)\Big] \Xi_j(q)
-$$
+$$Z_j(q) = e^{v_j|\Lambda_j| - b_j E_j(q)} \exp\Big[-\sum_\alpha (...)\Big] \Xi_j(q).$$
 - Here $v_j$ is the vacuum energy, $b_j$ the running coupling constant and the
 sum over $\alpha$ contains further irrelevant (in RG sense) but lower order terms.
 This is a familiar polymer representation in RG.
@@ -127,7 +125,7 @@ preparting for Nelson's 3/5 argument for rotational invariance in Section 10.
 #### Fluctuation integration (Section 5.3)
 
 - Fluctuation covariances have finite range $y \in \Omega_x$ with $\Omega_x  = E(P) \cap B_R(y)$ where $E(P)$ is the nonfrozen region.
-- Thus not decoupling expansion (cluster expansion) is needed.
+- Thus no decoupling expansion (cluster expansion) is needed.
 - Mayer expansion for exponentiating the small field action still present.
 
 #### Large field estimates (Section 5.4)
@@ -138,6 +136,8 @@ preparting for Nelson's 3/5 argument for rotational invariance in Section 10.
 #### Extraction of marginal coupling constants (Section 5.5)
 
 - Is there anything else going on in this section?
+
+### TBC (Section 7)
 
 ### Tuning of the bare coupling constant (Section 6)
 
