@@ -1,0 +1,395 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=18mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+
+\usepackage[hidelinks]{hyperref}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Id}{I}
+\newcommand{\tr}{\operatorname{Tr}}
+\newcommand{\Exp}{\operatorname{Exp}}
+\newcommand{\Log}{\operatorname{Log}}
+\newcommand{\proj}{\operatorname{proj}}
+
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{Block spins and fluctuation integral}
+\author{}
+\date{}
+
+
+\begin{document}
+\maketitle
+\abstract{The goal is to summarize the introduction of the block spin
+transform from Section~3 and the fluctuation integral from Section~5.}
+
+%\tableofcontents
+
+\section{Gaussian block spins}
+
+\subsection{Iterated Gaussian block spin transforms}
+
+The initial kinetic term is given by the Laplacian
+\begin{equation}
+  K_{\varnothing} = d^{\mathsf T} d.
+\end{equation}
+For a block $Y$, the linear block average is
+\begin{equation}
+ (Q\phi)_Y=\sum_{x\in Y}w_Y(x)\phi_x,
+ \qquad w_Y(x)\ge0,\qquad \sum_{x\in Y}w_Y(x)=1.
+\end{equation}
+For a precision $a>0$, the next-scale kinetic term is defined by
+\begin{equation}
+K_{h+1} = a\Id-a^2Q(K_h+aQ^*Q)^{-1}Q^*.
+\end{equation}
+For now, set $a=1$.
+
+\begin{proposition}
+For a given block spin field $V\in\R^B$, its quadratic form is the
+minimum of the fine kinetic energy plus a penalty for disagreement
+with the block average:
+\begin{equation} \label{eq:Gauss-var}
+ \frac12\langle V,K_{h+1}V\rangle
+ =\min_{\phi\in\R^{n_{\rm fine}}}
+ \left\{\frac12\langle\phi,K_h\phi\rangle
+              +\frac a2\|V-Q\phi\|^2\right\}.
+\end{equation}
+Here $n_{\rm fine}$ is the number of fine sites and $B$ the number
+of blocks.  The minimization is over unrestricted real fields,
+and the mismatch is penalized rather than constrained to vanish.
+\end{proposition}
+
+\begin{proof}
+Set $A=K_h+aQ^*Q$. For $a>0$, this matrix is positive definite whenever $\ker K_h\cap\ker Q=\{0\}$.
+The positive gradient term in $K_h$ makes its kernel consist of constants, while
+$Q$ preserves constants, so this condition holds.
+Expanding the energy gives
+\[
+ \mathcal E_V(\phi)
+ =\frac12\langle\phi,A\phi\rangle
+  -a\langle\phi,Q^*V\rangle+\frac a2\|V\|^2.
+\]
+Its unique minimizer therefore satisfies
+\[
+ A\phi_V=aQ^*V,\qquad
+ \phi_V=a(K_h+aQ^*Q)^{-1}Q^*V.
+\]
+Completing the square yields
+\[
+ \mathcal E_V(\phi)
+ =\frac12\langle\phi-\phi_V,A(\phi-\phi_V)\rangle
+  +\frac12\langle V,(a\Id-a^2QA^{-1}Q^*)V\rangle.
+\]
+The first term vanishes at $\phi=\phi_V$, giving the stated formula
+for $K_{h+1}$.
+\end{proof}
+
+
+Note that $K_h$ is not finite range when $h \neq \varnothing$.
+A sequence of block spin transformations is called \emph{history}
+and the corresponding kinetic term $K_h$.
+
+
+\subsection{Lifting the energy}
+
+The Gaussian construction can be written as 
+\begin{equation}
+ K_h=c_0d^{\mathsf T}d+d^{\mathsf T}\ell_h^{\mathsf T}\ell_hd,
+ \qquad
+ \frac12\langle q,K_hq\rangle
+ =\frac{c_0}{2}\|dq\|^2+\frac12\|\ell_hdq\|^2,
+\end{equation}
+where the matrix $\ell_h$ is indexed by edges:
+\begin{equation}
+  \ell_h : \R^E \to \R^E.
+\end{equation}
+There is redundancy between $c_0$ and $\ell_h$.
+Initially, for any $c_0$,
+\begin{equation}
+ K_{\varnothing}=d^{\mathsf T}d,
+ \qquad \ell_{\varnothing}=\sqrt{1-c_0}\,\Id,
+\end{equation}
+%
+The constant $c_0>0$ is fixed small, uniformly over
+histories to reserve an explicit positive nearest-neighbour term for local energy estimates.
+The operator $\ell_h$ has exponential tail.
+Later $\ell_s$ is a spatially truncated version of $\ell_h$ used in the finite range integration.
+
+Define
+\begin{equation}
+ D_0=\begin{pmatrix}
+       \sqrt{c_0}\,d\\ \ell_s d\\ -\sqrt a\,Q
+     \end{pmatrix},
+ \qquad
+ \mathsf A_s=\begin{pmatrix}\sqrt{c_0}\Id\\\ell_s\end{pmatrix}.
+\end{equation}
+If the full fine lattice has $n_{\rm fine}$
+sites, $E$ oriented edges, %(one chosen orientation per bond),
+and $B$ coarse blocks, then
+\begin{equation}
+ d,\ell_s d:\R^{n_{\rm fine}}\longrightarrow\R^E,
+ \qquad Q:\R^{n_{\rm fine}}\longrightarrow\R^B.
+\end{equation}
+Thus $D_0$ has size $(2E+B)\times n_{\rm fine}$: it maps a function on the lattice
+to a vector indexed by two edges and blocks.
+For a scalar fine field $\phi$, 
+the Hessian of the variational problem \eqref{eq:Gauss-var} can be written as
+\begin{equation}
+ \|D_0\phi\|^2
+ =c_0\sum_e|(d\phi)_e|^2
+  +\sum_e|(\ell_s d\phi)_e|^2
+  +a\sum_Y|(Q\phi)_Y|^2.
+\end{equation}
+The first two row blocks  of $D_0\phi$ are indexed by fine edges and the third by
+coarse blocks. 
+
+
+\newpage
+\section{Background field coordinates}
+
+\subsection{Fluctuation integral}
+
+Throughout this section, $S\subset \Lambda$ are the nonfrozen fine sites (small field region) with
+ one spin $q_x \in S^2$ integrated at each site $x\in S$. 
+Their number is $n=|S|$.
+For each site $x\in S$, there is a background field of reference spins $T_x\in  S^2$
+which are held fixed. We consider the integral
+\begin{equation}
+ \mathcal I=
+ \int_{(S^2)^S} H(q)
+    \exp\!\left\{-\frac{|R(q)|^2}{2g^2}\right\}
+    \prod_{x\in S}d\omega(q_x),
+ \label{eq:spin-integral}
+\end{equation}
+where $|R(q)|^2$ is a reference energy and $d\omega$ the normalized measure on $S^2$.
+The function $H(q)$ contains nonlocal contributions not explicitly tracked in $|R(q)|^2$.
+The reference energy
+\begin{equation}
+   R(q) =  ...
+\end{equation}
+should be thought of as a nonlinear version of the Gaussian variational formula and it involves $D$
+(which is a restriction of the $D_0$ from the previous section).
+
+
+\subsection{Intrinsic tangent coordinates}
+
+Consider a single site and reference spin $T \in S^2$.
+For $u\in T^\perp$,
+\begin{equation}
+ \Exp_T u=\cos|u|\,T+\frac{\sin|u|}{|u|}u,
+ \qquad \Exp_T0=T.
+\end{equation}
+The restriction $|u|<\pi$ parametrizes $S^2\setminus\{-T\}$ and the omitted point has area zero.
+Note
+\begin{equation}
+ d\omega(\Exp_Tu)=J(u)\,d^2u,
+ \qquad J(u)=\frac1{4\pi}\frac{\sin|u|}{|u|},
+ \qquad J(0)=\frac1{4\pi}.
+ \label{eq:area}
+\end{equation}
+In tangent coordinates, 
+$q(u)=(\Exp_{T_x}u_x)_{x\in S}$ and
+\begin{equation}
+ \mathcal U=\prod_{x\in S}
+       \{u_x\in T_x^\perp:|u_x|<\pi\}.
+\end{equation}
+The spherical area formula gives
+\begin{equation}
+ \mathcal I=
+ \int_{\mathcal U} H(q(u))
+ \exp\!\left\{-\frac{|R(q(u))|^2}{2g^2}\right\}
+ \prod_{x\in S}\bigl[J(u_x)\,d^2u_x\bigr].
+\end{equation}
+Here $d^2u_x$ is Euclidean area measure on $T_x^\perp$.
+This integral has $2n$ real coordinates.
+
+\subsection{Auxiliary normal coordinate}
+
+Introduce one real variable $v_x\in\R$ at each nonfrozen site.
+Since $A=D^{\mathsf T}D$ is positive definite, the elementary
+Gaussian integral gives
+\begin{equation}
+ 1=\frac{(\det A)^{1/2}}{(2\pi g^2)^{n/2}}
+       \int_{\R^n}\exp\!\left\{-\frac{v^{\mathsf T}Av}{2g^2}\right\}d^nv.
+ \label{eq:scalar-one}
+\end{equation}
+Equivalently, the inserted probability law is a centered scalar
+Gaussian with covariance $g^2A^{-1}$.  Its energy is
+$v^{\mathsf T}Av=|Dv|^2$.  No cutoff is imposed on $v$, and
+the inserted variables are initially independent of the spin variables.
+Thus
+\begin{equation}
+ \begin{aligned}
+ \mathcal I={}&\frac{(\det A)^{1/2}}{(2\pi g^2)^{n/2}}
+ \int_{\R^n}\int_{\mathcal U} H(q(u))\\
+ &\quad\times
+ \exp\!\left\{-\frac{|R(q(u))|^2+|Dv|^2}{2g^2}\right\}
+ \prod_{x\in S}\bigl[J(u_x)\,d^2u_x\, dv_x\bigr].
+ \label{eq:uv-integral}
+ \end{aligned}
+\end{equation}
+There are now $2n+n=3n$ real integration coordinates.
+The purpose of the extra coordinate is
+to complete each tangent plane to the ambient space via
+\begin{equation}
+\xi_x=u_x+T_xv_x
+.
+\end{equation}
+Thus the scalar $v_x$ is an auxiliary normal coordinate, not a new physical spin component.
+
+\subsection{Combining the coordinates into an ambient field}
+
+For $\xi=(\xi_x)_{x\in S}\in(\R^3)^S$, define
+\begin{equation}
+\begin{aligned}
+ u_x(\xi)&=\xi_x-(T_x\cdot\xi_x)T_x,&
+ v_x(\xi)&=T_x\cdot\xi_x,\\
+ q_x(\xi)&=\Exp_{T_x}u_x(\xi),&
+ \mathcal J(\xi)&=\prod_{x\in S}j(u_x(\xi)),
+\end{aligned}
+\end{equation}
+where the chart factor is
+\begin{equation}
+ j(u)=
+ \begin{cases}
+   \sin|u|/|u|,& |u|<\pi,\\
+   0,& |u|\ge\pi,
+ \end{cases}
+ \qquad j(0)=1.
+\end{equation}
+The change of variables $(u_x,v_x) \mapsto \xi_x=u_x+T_xv_x$ has Jacobian one.
+Thus
+\begin{equation}
+ \mathcal I=
+ \frac{(\det A)^{1/2}J(0)^n}{(2\pi g^2)^{n/2}}
+ \int_{\R^{3n}} H(q(\xi))\,\mathcal J(\xi)
+ \exp\!\left\{-\frac{|R(q(\xi))|^2+|Dv(\xi)|^2}{2g^2}\right\}
+ \,d^{3n}\xi .
+\end{equation}
+ The factor $J(0)^n\mathcal J(\xi) = (4\pi)^{-n} \mathcal J(\xi)$ supplies the spherical
+Jacobian and the principal-chart restriction, while
+$(\det A)^{1/2}/(2\pi g^2)^{n/2}$ normalizes the auxiliary normal Gaussian.
+
+\subsection{Gaussian coordinates}
+
+Recall that $D: (\R^{3})^n \to (\R^3)^m$ acts on the nonfrozen ambient coordinates.
+Let $F=(F_i)_{i=1}^m\in(\R^3)^m$ be the fixed vector of
+affine constants, so the affine expression in row $i$ is
+\begin{equation}
+ (D\xi+F)_i=\sum_{x\in S}D_{ix}\xi_x+F_i.
+\end{equation}
+%
+Define the exact square-subtraction correction
+\begin{equation}
+ \Delta(\xi)=|R(q(\xi))|^2+|Dv(\xi)|^2-|D\xi+F|^2.
+ \label{eq:delta}
+\end{equation}
+Note that $R(q(\xi))$ is defined in terms of the physical sphere valued coordinates
+whereas $D\xi+F$ is the affine ambient expression chosen for the Gaussian computation.
+%
+Clearly,
+\begin{equation}
+ e^{-(|R(q(\xi))|^2+|Dv|^2)/(2g^2)}
+ =e^{-|D\xi+F|^2/(2g^2)}e^{-\Delta(\xi)/(2g^2)}.
+\end{equation}
+
+\subsection{The Gaussian expectation identity}
+
+Choose any symmetric positive definite $n\times n$ matrix $C$
+and any $\mu\in(\R^3)^S$.
+Let $Z\in(\R^3)^S$ have the normalized Gaussian density with
+\begin{equation}
+\E[Z_x^\alpha Z_y^\beta]=C_{xy}\delta_{\alpha\beta}.
+\end{equation}
+%
+The vector $\mu\in(\R^3)^S$ is an arbitrary fixed shift in
+the Gaussian coordinates
+\begin{equation}
+ \xi=\mu+gZ,\qquad Z\sim N(0,C\otimes I_3).
+\end{equation}
+The covariance $C$ has not been determined yet, but it will have finite range.
+
+\begin{remark}[Choice of the Gaussian mean]
+The unique minimizer of the Gaussian action
+\begin{equation}
+\mathcal E_F(\xi)=
+\frac12|D\xi+F|^2
+\end{equation}
+is $\xi=\mu_*$ where
+\begin{equation}
+ \mu_*=-A^{-1}D^{\mathsf T}F.
+\end{equation}
+
+\begin{proof}
+\begin{equation}
+ \nabla_\xi\frac12|D\xi+F|^2=A\xi+D^{\mathsf T}F,
+\end{equation}
+so positive definiteness of $A$ makes $\mu_*$ the unique minimizer. 
+\end{proof}
+
+This choice $\mu=\mu_*$ gives $h=0$ below, eliminating the term linear in $Z$ in the exponent in the following proposition.
+The general identity permits other choices. The preprint uses a finite range approximation
+\begin{equation}
+ \mu_s=-\Pi_0^{\mathsf T}D^{\mathsf T}F,
+\end{equation}
+related to the choice $C=C_s$ where
+\begin{equation}
+  C_s = \frac12 (\Pi_0+\Pi_0^{\mathsf T}),
+\end{equation}
+where the finite range condition is enforced by
+\begin{equation}
+  (\Pi_0)_{xy} = 1_{y\in\Omega_x} (A_{\Omega_x} +a_0)^{-1}_{xy}.
+\end{equation}
+For this choice, $h=A\mu_s+D^{\mathsf T}F$ need not vanish;
+its contribution is retained explicitly in the Gaussian expectation.
+\end{remark}
+
+\begin{proposition}
+For any $F$ and any $\mu$,
+\begin{align}
+ \mathcal I={}&
+ \kappa_g^n(\det A)^{1/2}(\det C)^{3/2}
+ \exp\!\left\{-\frac{|r|^2}{2g^2}\right\}
+ \nonumber\\
+ &\E_{\gamma_C}\left[
+ H(q(\mu+gZ))\,\mathcal J(\mu+gZ)
+ \exp\!\left\{
+ -\frac{\Delta(\mu+gZ)}{2g^2}
+ +\frac12 Z^{\mathsf T}(C^{-1}-A)Z
+ -g^{-1}(h,Z)
+ \right\}\right],
+ \label{eq:main}
+\end{align}
+where %$h^{\mathsf T}Z=\sum_xh_x\cdot Z_x$ and
+\begin{equation}
+ r=D\mu+F,\qquad h=A\mu+D^{\mathsf T}F,
+ \qquad \kappa_g=(2\pi g^2)J(0)=\frac{g^2}{2}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By the above,
+\begin{align}
+ \mathcal I={}&
+ \frac{(\det A)^{1/2}J(0)^n}{(2\pi g^2)^{n/2}}
+ \int_{\R^{3n}}H(q(\xi))\,\mathcal J(\xi)
+ \exp\!\left\{-\frac{|D\xi+F|^2+\Delta(\xi)}{2g^2}\right\}d^{3n}\xi.
+ \label{eq:lebesgue}
+\end{align}
+Now set $\xi=\mu+gZ$, whose Jacobian is $g^{3n}$.
+Ordinary multiplication of squares gives
+\begin{equation}
+ |D(\mu+gZ)+F|^2
+ =|r|^2+2g\,h^{\mathsf T}Z+g^2Z^{\mathsf T}AZ.
+\end{equation}
+The constant is
+\begin{equation}
+ \frac{(\det A)^{1/2}J(0)^n}{(2\pi g^2)^{n/2}}
+ g^{3n}(2\pi)^{3n/2}(\det C)^{3/2}
+ =\kappa_g^n(\det A)^{1/2}(\det C)^{3/2}.
+\end{equation}
+\end{proof}
+
+\end{document}
