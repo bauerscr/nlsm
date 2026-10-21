@@ -29,13 +29,14 @@ transform from Section~3 and the fluctuation integral from Section~5.}
 
 \section{Gaussian block spins}
 
-This explains Section~3.2.
+This explains roughly Section~3.2.
 %
-The fine lattice $\Lambda$ has $n_{\rm fine}=|\Lambda|$ sites, $E$ oriented edges, and $B$ blocks.
+The lattice $\Lambda$ has $n_{\rm fine}=|\Lambda|$ sites, $E$ oriented edges, and $B$ blocks.
+Fields on the lattice are denoted $\phi$ and block spin fields $V$.
 
 \subsection{Iterated Gaussian block spin transforms}
 
-The initial kinetic term is given by the Laplacian
+The initial kinetic term is given by the Laplacian on the lattice $\Lambda$:
 \begin{equation}
   K_{\varnothing} = d^{\mathsf T} d.
 \end{equation}
@@ -148,9 +149,8 @@ and
 \begin{equation}
   \mathcal E_V(\phi)- \mathcal E_V(\phi_V)
   = \frac12 \|D_0\phi +c_V - s_V\|^2,
-  \qquad \phi_V = \operatorname{argmin} \mathcal E_V,
 \end{equation}
-and, for some $\nu_1,\nu_2,w$,
+where $\phi_V$ is the minimizer of $\mathcal E_V$ and, for some $\nu_1,\nu_2,w$,
 \begin{equation}
   c_V = \begin{pmatrix}
   0 \\ 0 \\ \sqrt{a}V
@@ -234,10 +234,10 @@ More precisely, first restrict $D_0: \R^{n} \to \R^{E \times E \times B}$
 to nonfrozen sites $S \subset \Lambda$ and `selected' components of the range $R\subset E\times E \times B$
 (selecting small gradients or so):
 \begin{equation}
-D = D_0|_{S\times R},
+D = D_0|_{S\times R}.
 \end{equation}
 %
-Up to dropping rows and columns, from the last section:
+Up to dropping rows and columns, in the last section it was shown that
 \begin{equation}
 D\phi +c_V -s_V = \begin{pmatrix}
   \sqrt{c_0} d\phi\\
@@ -272,7 +272,7 @@ where
       \dots
   \end{cases}
 \end{equation}
-is the nonlinear block spin average.
+is a nonlinear block spin average.
 
 \subsection{Intrinsic tangent coordinates}
 
