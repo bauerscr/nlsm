@@ -12,7 +12,7 @@
 \newcommand{\proj}{\operatorname{proj}}
 
 \newtheorem{proposition}{Proposition}
-\theoremstyle{remark}
+%\theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
 \title{Block spins and fluctuation integral}
@@ -344,47 +344,48 @@ Thus the scalar $v_x$ is an auxiliary normal coordinate, not a new physical spin
 
 \subsection{Combining the coordinates into an ambient field}
 
-For $\xi=(\xi_x)_{x\in S}\in(\R^3)^S$, define
+Conversely, for $\xi=(\xi_x)_{x\in S}\in(\R^3)^S$, define the tangential and normal directions
 \begin{equation}
-\begin{aligned}
- u_x(\xi)&=\xi_x-(T_x\cdot\xi_x)T_x,&
- v_x(\xi)&=T_x\cdot\xi_x,\\
- q_x(\xi)&=\Exp_{T_x}u_x(\xi),&
- \mathcal J(\xi)&=\prod_{x\in S}j(u_x(\xi)),
-\end{aligned}
+ u_x(\xi)=\xi_x-(T_x\cdot\xi_x)T_x,
+ \qquad
+ v_x(\xi)=T_x\cdot\xi_x
 \end{equation}
-where the chart factor is
+so that
 \begin{equation}
- j(u)=
- \begin{cases}
-   \sin|u|/|u|,& |u|<\pi,\\
-   0,& |u|\ge\pi,
- \end{cases}
- \qquad j(0)=1.
+ q_x(\xi)=\Exp_{T_x}u_x(\xi).
 \end{equation}
 The change of variables $(u_x,v_x) \mapsto \xi_x=u_x+T_xv_x$ has Jacobian one.
 Thus
 \begin{equation}
  \mathcal I=
- \frac{(\det A)^{1/2}J(0)^n}{(2\pi g^2)^{n/2}}
+ \frac{(\det A)^{1/2}}{(2\pi g^2)^{n/2}}
  \int_{\R^{3n}} H(q(\xi))\,\mathcal J(\xi)
  \exp\!\left\{-\frac{|R(q(\xi))|^2+|Dv(\xi)|^2}{2g^2}\right\}
- \,d^{3n}\xi .
+ \,d^{3n}\xi ,
 \end{equation}
- The factor $J(0)^n\mathcal J(\xi) = (4\pi)^{-n} \mathcal J(\xi)$ supplies the spherical
-Jacobian and the principal-chart restriction, while
-$(\det A)^{1/2}/(2\pi g^2)^{n/2}$ normalizes the auxiliary normal Gaussian.
+where the chart factor is
+\begin{equation}
+ \mathcal J(\xi)=\prod_{x\in S} J(u_x(\xi)) 1_{|u_x(\xi)| < \pi}.
+ %j(u)=
+ %\begin{cases}
+ %  \sin|u|/|u|,& |u|<\pi,\\
+ %  0,& |u|\ge\pi,
+ %\end{cases}
+ %\qquad j(0)=1.
+\end{equation}
+%The factor $J(0)^n\mathcal J(\xi) = (4\pi)^{-n} \mathcal J(\xi)$ supplies the spherical
+%Jacobian and the principal-chart restriction, while
+%$(\det A)^{1/2}/(2\pi g^2)^{n/2}$ normalizes the auxiliary normal Gaussian.
 
 \subsection{Gaussian coordinates}
 
-Recall that $D: (\R^{3})^n \to (\R^3)^m$ acts on the nonfrozen ambient coordinates.
-Let $F=(F_i)_{i=1}^m\in(\R^3)^m$ be the fixed vector of
-affine constants, so the affine expression in row $i$ is
+Recall that $D: (\R^{3})^n \to (\R^3)^m$ acts on the nonfrozen coordinates.
+Let $F=(F_i)_{i=1}^m\in(\R^3)^m$ be a fixed vector in the range so that
 \begin{equation}
  (D\xi+F)_i=\sum_{x\in S}D_{ix}\xi_x+F_i.
 \end{equation}
 %
-Define the exact square-subtraction correction
+Define 
 \begin{equation}
  \Delta(\xi)=|R(q(\xi))|^2+|Dv(\xi)|^2-|D\xi+F|^2.
  \label{eq:delta}
@@ -397,9 +398,13 @@ Clearly,
  e^{-(|R(q(\xi))|^2+|Dv|^2)/(2g^2)}
  =e^{-|D\xi+F|^2/(2g^2)}e^{-\Delta(\xi)/(2g^2)}.
 \end{equation}
+The first term on the right-hand side is a Gaussian density with
+covariance $g^2A^{-1}$ where $A=D^{\mathsf T} D$.
 
-\subsection{The Gaussian expectation identity}
 
+\subsection{Gaussian expectation identity}
+
+It will be useful to choose a Gaussian reference measure with more general covariance $g^2C$ than $g^2 A^{-1}$.
 Choose any symmetric positive definite $n\times n$ matrix $C$
 and any $\mu\in(\R^3)^S$.
 Let $Z\in(\R^3)^S$ have the normalized Gaussian density with
@@ -414,16 +419,17 @@ the Gaussian coordinates
 \end{equation}
 The covariance $C$ has not been determined yet, but it will have finite range.
 
-\begin{remark}[Choice of the Gaussian mean]
+\begin{remark}
 The unique minimizer of the Gaussian action
 \begin{equation}
 \mathcal E_F(\xi)=
 \frac12|D\xi+F|^2
 \end{equation}
-is $\xi=\mu_*$ where
+is 
 \begin{equation}
- \mu_*=-A^{-1}D^{\mathsf T}F.
+\xi = \mu_*=-A^{-1}D^{\mathsf T}F.
 \end{equation}
+\end{remark}
 
 \begin{proof}
 \begin{equation}
@@ -432,8 +438,8 @@ is $\xi=\mu_*$ where
 so positive definiteness of $A$ makes $\mu_*$ the unique minimizer. 
 \end{proof}
 
-This choice $\mu=\mu_*$ gives $h=0$ below, eliminating the term linear in $Z$ in the exponent in the following proposition.
-The general identity permits other choices. The preprint uses a finite range approximation
+This above choice $\mu=\mu_*$ gives $h=0$ in the identity below, eliminating the term linear in $Z$ in the exponent in the following proposition.
+The general identity below permits other choices. The preprint uses a finite range approximation
 \begin{equation}
  \mu_s=-\Pi_0^{\mathsf T}D^{\mathsf T}F,
 \end{equation}
@@ -446,11 +452,10 @@ where the finite range condition is enforced by
   (\Pi_0)_{xy} = 1_{y\in\Omega_x} (A_{\Omega_x} +a_0)^{-1}_{xy}.
 \end{equation}
 For this choice, $h=A\mu_s+D^{\mathsf T}F$ need not vanish;
-its contribution is retained explicitly in the Gaussian expectation.
-\end{remark}
+its contribution is retained explicitly.
 
 \begin{proposition}
-For any $F$ and any $\mu$,
+Given arbirary $F$, for any $C$ and $\mu$,
 \begin{align}
  \mathcal I={}&
  \kappa_g^n(\det A)^{1/2}(\det C)^{3/2}
@@ -476,7 +481,7 @@ where %$h^{\mathsf T}Z=\sum_xh_x\cdot Z_x$ and
 By the above,
 \begin{align}
  \mathcal I={}&
- \frac{(\det A)^{1/2}J(0)^n}{(2\pi g^2)^{n/2}}
+ \frac{(\det A)^{1/2}}{(2\pi g^2)^{n/2}}
  \int_{\R^{3n}}H(q(\xi))\,\mathcal J(\xi)
  \exp\!\left\{-\frac{|D\xi+F|^2+\Delta(\xi)}{2g^2}\right\}d^{3n}\xi.
  \label{eq:lebesgue}
@@ -489,7 +494,7 @@ Ordinary multiplication of squares gives
 \end{equation}
 The constant is
 \begin{equation}
- \frac{(\det A)^{1/2}J(0)^n}{(2\pi g^2)^{n/2}}
+ \frac{(\det A)^{1/2}}{(2\pi g^2)^{n/2}}
  g^{3n}(2\pi)^{3n/2}(\det C)^{3/2}
  =\kappa_g^n(\det A)^{1/2}(\det C)^{3/2}.
 \end{equation}
@@ -505,6 +510,18 @@ The constant is
 \section{Finite range fluctuation integrals}
 
 One of the next steps to understand seems to be Section 5.4 of the first O4 paper.
+
+\subsection{Truncation of the Gaussian covariance}
+
+The finite range is enforced by the condition $y \in \Omega_x$. The set $\Omega_x$ is referred to as \emph{inverse window}.
+It is defined by
+\begin{equation}
+ .... 
+\end{equation}
+Therefore
+\begin{equation}
+C^{-1}-A = ...
+\end{equation}
 
 
 \end{document}
