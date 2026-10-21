@@ -29,18 +29,22 @@ transform from Section~3 and the fluctuation integral from Section~5.}
 
 \section{Gaussian block spins}
 
+This explains Section~3.2.
+%
+The fine lattice $\Lambda$ has $n_{\rm fine}=|\Lambda|$ sites, $E$ oriented edges, and $B$ blocks.
+
 \subsection{Iterated Gaussian block spin transforms}
 
 The initial kinetic term is given by the Laplacian
 \begin{equation}
   K_{\varnothing} = d^{\mathsf T} d.
 \end{equation}
-For a block $Y$, the linear block average is
+For a block $Y$, the linear block average defined by
 \begin{equation}
  (Q\phi)_Y=\sum_{x\in Y}w_Y(x)\phi_x,
  \qquad w_Y(x)\ge0,\qquad \sum_{x\in Y}w_Y(x)=1.
 \end{equation}
-For a precision $a>0$, the next-scale kinetic term is defined by
+For a precision parameter $a>0$, the next-scale kinetic term is defined by
 \begin{equation}
 K_{h+1} = a\Id-a^2Q(K_h+aQ^*Q)^{-1}Q^*.
 \end{equation}
@@ -52,6 +56,7 @@ minimum of the fine kinetic energy plus a penalty for disagreement
 with the block average:
 \begin{equation} \label{eq:Gauss-var}
  \frac12\langle V,K_{h+1}V\rangle
+ =\min_{\phi\in\R^{n_{\rm fine}}} \mathcal E_V(\phi)
  =\min_{\phi\in\R^{n_{\rm fine}}}
  \left\{\frac12\langle\phi,K_h\phi\rangle
               +\frac a2\|V-Q\phi\|^2\right\}.
@@ -94,7 +99,7 @@ and the corresponding kinetic term $K_h$.
 
 \subsection{Lifting the energy}
 
-The Gaussian construction can be written as 
+The renormalized kinetic term can be written as 
 \begin{equation}
  K_h=c_0d^{\mathsf T}d+d^{\mathsf T}\ell_h^{\mathsf T}\ell_hd,
  \qquad
@@ -109,45 +114,95 @@ There is redundancy between $c_0$ and $\ell_h$.
 Initially, for any $c_0$,
 \begin{equation}
  K_{\varnothing}=d^{\mathsf T}d,
- \qquad \ell_{\varnothing}=\sqrt{1-c_0}\,\Id,
+ \qquad \ell_{\varnothing}=\sqrt{1-c_0}\,\Id.
 \end{equation}
 %
-The constant $c_0>0$ is fixed small, uniformly over
-histories to reserve an explicit positive nearest-neighbour term for local energy estimates.
+The constant $c_0>0$ is fixed (uniformly over histories) to reserve an explicit positive nearest-neighbour term for local energy estimates.
 The operator $\ell_h$ has exponential tail.
 Later $\ell_s$ is a spatially truncated version of $\ell_h$ used in the finite range integration.
 
-Define
+\begin{proposition}
+Define $D_0: \R^{n_{\rm fine}} \to \R^{E \times E \times B}$ by
 \begin{equation}
- D_0=\begin{pmatrix}
+  D_0
+  =\begin{pmatrix}
        \sqrt{c_0}\,d\\ \ell_s d\\ -\sqrt a\,Q
-     \end{pmatrix},
+  \end{pmatrix}
+  =\begin{pmatrix}
+       \mathsf A_s d\\ -\sqrt a\,Q
+  \end{pmatrix},
  \qquad
  \mathsf A_s=\begin{pmatrix}\sqrt{c_0}\Id\\\ell_s\end{pmatrix}.
 \end{equation}
-If the full fine lattice has $n_{\rm fine}$
-sites, $E$ oriented edges, %(one chosen orientation per bond),
-and $B$ coarse blocks, then
-\begin{equation}
- d,\ell_s d:\R^{n_{\rm fine}}\longrightarrow\R^E,
- \qquad Q:\R^{n_{\rm fine}}\longrightarrow\R^B.
-\end{equation}
-Thus $D_0$ has size $(2E+B)\times n_{\rm fine}$: it maps a function on the lattice
-to a vector indexed by two edges and blocks.
-For a scalar fine field $\phi$, 
-the Hessian of the variational problem \eqref{eq:Gauss-var} can be written as
+%where
+%\begin{equation}
+% d,\ell_s d:\R^{n_{\rm fine}}\longrightarrow\R^E,
+% \qquad Q:\R^{n_{\rm fine}}\longrightarrow\R^B.
+%\end{equation}
+Then the Hessian of the variational functional $\mathcal E_V(\phi)$ in \eqref{eq:Gauss-var} can be written as
 \begin{equation}
  \|D_0\phi\|^2
+ = \langle \phi, D_0^{\mathsf T} D_0 \phi \rangle
+\end{equation}
+and
+\begin{equation}
+  \mathcal E_V(\phi)- \mathcal E_V(\phi_V)
+  = \frac12 \|D_0\phi +c_V - s_V\|^2,
+  \qquad \phi_V = \operatorname{argmin} \mathcal E_V,
+\end{equation}
+and, for some $\nu_1,\nu_2,w$,
+\begin{equation}
+  c_V = \begin{pmatrix}
+  0 \\ 0 \\ \sqrt{a}V
+  \end{pmatrix},
+  \qquad
+  s_V
+  = \begin{pmatrix}
+    \nu_1 \\ \nu_2 \\ w
+  \end{pmatrix}
+  .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The Hessian of the variational functional $\mathcal E_V(\phi)$ in \eqref{eq:Gauss-var} can be written as
+\begin{equation}
+ \|D_0\phi\|^2
+ = \langle \phi, D_0^{\mathsf T} D_0 \phi \rangle
  =c_0\sum_e|(d\phi)_e|^2
   +\sum_e|(\ell_s d\phi)_e|^2
-  +a\sum_Y|(Q\phi)_Y|^2.
+  +a\sum_Y|(Q\phi)_Y|^2
 \end{equation}
-The first two row blocks  of $D_0\phi$ are indexed by fine edges and the third by
-coarse blocks. 
-
+and the full Gaussian energy is
+\begin{equation}
+  \mathcal E_V(\phi) = \frac12 \|D_0\phi + c_V\|^2 ,
+  \qquad
+  c_V = \begin{pmatrix}
+    0 \\ 0 \\ \sqrt{a} V 
+  \end{pmatrix}.
+\end{equation}
+Let $\phi_V = \operatorname{argmin} \mathcal E_V(\phi)$. Then 
+\begin{equation}
+  \mathcal E_V(\phi_V + \eta) = \frac12 \|D_0\eta + s_V\|^2  = \frac12 \|D_0\eta\|^2 + \frac12 \|s_V\|^2,
+  \qquad
+  s_V
+  = D_0\phi_V + c_V
+  = \begin{pmatrix}
+    \nu_1 \\ \nu_2 \\ w
+  \end{pmatrix}
+\end{equation}
+since $D^*s_V=0$. In other words,
+\begin{equation}
+  \mathcal E_V(\phi)- \mathcal E_V(\phi_V)
+  = \frac12 \|D_0\phi - D_0\phi_V\|^2
+  = \frac12 \|D_0\phi +c_V - s_V\|^2
+\end{equation}
+\end{proof}
 
 \newpage
 \section{Background field coordinates}
+
+This explains Section~5.2.
 
 \subsection{Fluctuation integral}
 
@@ -165,13 +220,59 @@ which are held fixed. We consider the integral
 \end{equation}
 where $|R(q)|^2$ is a reference energy and $d\omega$ the normalized measure on $S^2$.
 The function $H(q)$ contains nonlocal contributions not explicitly tracked in $|R(q)|^2$.
-The reference energy
-\begin{equation}
-   R(q) =  ...
-\end{equation}
-should be thought of as a nonlinear version of the Gaussian variational formula and it involves $D$
-(which is a restriction of the $D_0$ from the previous section).
 
+
+\subsection{Reference energy}
+
+The precise form of the reference energy is unimportant for the algebraic manipulations
+in the subsequent subsections. It is a nonlinear version of the Gaussian energy with soft block spin condition,
+defined in the last section:
+\begin{equation}
+  \mathcal E_V(\phi) - \mathcal E_V(\phi_V) = \frac12 \|D_0\phi+c_V-s_V\|^2.
+\end{equation}
+More precisely, first restrict $D_0: \R^{n} \to \R^{E \times E \times B}$ 
+to nonfrozen sites $S \subset \Lambda$ and `selected' components of the range $R\subset E\times E \times B$
+(selecting small gradients or so):
+\begin{equation}
+D = D_0|_{S\times R},
+\end{equation}
+%
+Up to dropping rows and columns, from the last section:
+\begin{equation}
+D\phi +c_V -s_V = \begin{pmatrix}
+  \sqrt{c_0} d\phi\\
+  \ell_s d\phi\\
+  \sqrt{a}V -\sqrt{a}Q\phi
+\end{pmatrix}
+-s_V,
+  \qquad
+  s_V = \begin{pmatrix}
+    \nu_1 \\ \nu_2 \\ w
+  \end{pmatrix}
+.
+\end{equation}
+%
+For $q: \R^n  \to S^2$, define $R(q)$ as a nonlinear version of this:
+\begin{equation}
+  R(q) = \begin{pmatrix}
+  \sqrt{c_0} dq\\
+  \ell_s dq\\
+  \sqrt{a}(V-\widehat m(q))
+  \end{pmatrix}
+  - \begin{pmatrix}
+    \nu_1 \\ \nu_2 \\ w
+  \end{pmatrix}
+\end{equation}
+where 
+\begin{equation}
+  m_Y(q) = (Qq)_Y, \qquad \widehat m_Y(q) =
+  \begin{cases}
+      \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
+      \\
+      \dots
+  \end{cases}
+\end{equation}
+is the nonlinear block spin average.
 
 \subsection{Intrinsic tangent coordinates}
 
