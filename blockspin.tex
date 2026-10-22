@@ -501,10 +501,44 @@ The constant is
 \end{proof}
 
 
-%\newpage
-%\section{Parametrization of the renormalized action}
+\newpage
+\section{Parametrization of the renormalized action}
 
-%The renormalized action or rather its exponential (called `retained density') is parametrized in (3.29).
+The renormalized action or rather its exponential (called `retained density') is parametrized in (3.29).
+The density is relative to product normalized spherical area measure $\prod_xd\omega(q_x)$.
+Its representation is
+\begin{equation}
+\begin{aligned}
+ \rho_j(q)={}&
+ e^{\mathfrak v|\Lambda_j|-b\mathcal E_{h,t_j}(q)}\,
+ \exp\!\left\{
+ -\sum_{\alpha}
+       1_{X_\alpha}(q)\,\mathcal P_\alpha(q)
+ -\sum_X1_X(q)f_X(q)\right\}\,\Xi(q).
+ \end{aligned}
+ \label{eq:density}
+\end{equation}
+The different terms describe:
+\begin{itemize}
+\item $\mathfrak v$ is the partition function renormalization (a constant);
+\item $b \mathcal E_{h,t}$ is a regularized version of the kinetic energy. If all gradients of $q$
+are small then
+\begin{equation}
+\mathcal E_{h,t} = \frac12 \langle q, K_h q\rangle
+\end{equation}
+and $t$ parametrizes a cutoff scale for the size of gradients. It is \textbf{marginal} and has size $g^0$.
+Indeed, its prefactor is $b\approx 1/g^2$ and fluctuations fields are of size $dq \approx g$.
+
+\item $\mathcal P_\alpha$ are finitely many irrelevant terms of size at most $\approx g^2$ (first order in $g^2$).
+\item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
+\item $\Xi$ are nonperturbative large field terms (smaller than $e^{-1/g^\epsilon}$).
+\end{itemize}
+
+\subsection{Renormalized kinetic energy $\mathcal E$}
+\subsection{Low order irrelevant terms $\mathcal P$}
+\subsection{High order irrelevant terms $f$}
+\subsection{Nonperturbative terms $\Xi$}
+
 
 \newpage
 \section{Finite range fluctuation integrals}
