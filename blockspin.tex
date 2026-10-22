@@ -278,6 +278,34 @@ where
 \end{equation}
 is a nonlinear block spin average.
 
+Concretely, the quantity $\tfrac12|R(q)|^2$ arises as follows.
+The renormalized density representation \eqref{eq:density} describes the full density before or after that
+step.  The connection is obtained by extracting the coarse kinetic
+energy from the fine kinetic energy plus the block-spin observation
+term.  Write \eqref{eq:density} as
+\begin{equation}
+ \rho_j(q)=e^{\mathfrak v_j|\Lambda_j|}
+          e^{-b\mathcal E_{h,t}(q)}G_j(q).
+\end{equation}
+The block transformation integrates this against the block spin
+kernel whose exponential part is
+\begin{equation}
+ e^{-\frac{ba}{2}\|V-\widehat m(q)\|^2},
+ \qquad b=g^{-2}.
+\end{equation}
+Then the energy decomposition has the following form.
+Here $h',t'$ are the output history and large field scale, $R(q;V)$
+denotes the selected residual rows defined above and $\mathcal L(q,V)$ collects the remainder:
+%remaining energy terms
+%, including unselected rows, clipping and mask corrections,
+%nonlinear mean-normalization defects, and kernel-truncation defects:
+\begin{equation}
+ \mathcal E_{h,t}(q)
+ +\frac a2\|V-\widehat m(q)\|^2
+ =\mathcal E_{h',t'}(V)
+  +\frac12|R(q;V)|^2+\mathcal L(q,V).
+\end{equation}
+
 \subsection{Intrinsic tangent coordinates}
 
 Consider a single site and reference spin $T \in S^2$.
@@ -451,7 +479,7 @@ related to the choice $C=C_s$ where
 \end{equation}
 where the finite range condition is enforced by
 \begin{equation}
-  (\Pi_0)_{xy} = 1_{y\in\Omega_x} (A_{\Omega_x} +a_0)^{-1}_{xy}.
+  (\Pi_{a_0})_{yx} = 1_{y\in\Omega_x} (A_{\Omega_x} +a_0)^{-1}_{yx}.
 \end{equation}
 For this choice, $h=A\mu_s+D^{\mathsf T}F$ need not vanish;
 its contribution is retained explicitly.
@@ -512,7 +540,7 @@ Its representation is
 \begin{equation}
 \begin{aligned}
  \rho_j(q)={}&
- e^{\mathfrak v|\Lambda_j|-b\mathcal E_{h_j,t_j}(q)}\,
+ e^{\mathfrak v|\Lambda_j|-b\mathcal E_{h,t}(q)}\,
  \exp\!\left\{
  -\sum_{\alpha}
        1_{X_\alpha}(q)\,\mathcal P_\alpha(q)
@@ -528,15 +556,16 @@ are small then
 \begin{equation}
 \mathcal E_{h,t} = \frac12 \langle q, K_h q\rangle
 \end{equation}
-and $t$ parametrizes a cutoff scale for the size of gradients. It is marginal and has size $g^0$.
-Indeed, its prefactor is $b\approx 1/g^2$ and fluctuations fields are of size $dq \approx g$.
+and $t$ parametrizes a cutoff scale for the size of gradients.
+
+This term is marginal and has size $g^0$. Indeed, its prefactor $b\approx 1/g^2$ and fluctuations are of size $dq^2 \approx g^2$.
 
 \item $\mathcal P_\alpha$ are finitely many irrelevant terms of size at most $\approx g^2$ (first order in $g^2$).
 \item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
 \item $\Xi$ are nonperturbative large field terms (smaller than $e^{-1/g^\epsilon}$).
 \end{itemize}
 %
-Given a scale parameter $t>0$:
+Given a field scale parameter $t>0$:
 \begin{itemize}
 \item 
 The large field region (set of bad edges) is defined by
@@ -551,6 +580,7 @@ The indicator function that $X$ is in the small field region (only has good edge
  \label{eq:mask}
 \end{equation}
 \end{itemize}
+ The parameter is chosen as $g_j \ll t \ll g_t^{1+\epsilon}$. Typical fluctuations should be of order $g_j$.
 
 \subsection{Renormalized kinetic energy $\mathcal E$}
 
@@ -558,7 +588,7 @@ The renormalized kinetic term is defined by
 \begin{equation}
 \exp\big\{-b\mathcal E_{h,t}(q) \big\}.
 \end{equation}
-Given $0<d_0<c_0/16$ and cutoff scale $t>0$, define
+Given fixed $0<d_0<c_0/16$ and $R_* \gg 1$, for any large field scale $t>0$, define
 \begin{align}
  S_t(r)&=\begin{cases}
  c_0r^2/2,&r\le t,\\
@@ -671,14 +701,16 @@ One of the next steps to understand seems to be Section 5.4 of the first O4 pape
 
 \subsection{Truncation of the Gaussian covariance}
 
-The finite range is enforced by the condition $y \in \Omega_x$. The set $\Omega_x$ is referred to as \emph{inverse window}.
+The finite range of the covariance $C_s$ is enforced by the condition $y \in \Omega_x$. The set $\Omega_x$ is referred to as \emph{inverse window}.
 It is defined by
 \begin{equation}
- .... 
+  \Omega_x = S \cap B(x,r_*), \qquad r_* \approx \mathfrak m_j \approx (\log g_j)^2.
 \end{equation}
-Therefore
+Let $E_{s} = AC_s-1$ so that
 \begin{equation}
-C^{-1}-A = ...
+  C_s^{-1}-A = \sum_{k=1}^\infty (-E_s)^{k}A,
+  \qquad
+  \|E_s\| \lesssim e^{-c(\log g_j)^2}.
 \end{equation}
 
 
