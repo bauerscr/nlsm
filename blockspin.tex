@@ -30,6 +30,7 @@ transform from Section~3 and the fluctuation integral from Section~5.}
 
 \newpage
 \section{Gaussian block spin transforms}
+\label{sec:block-gauss}
 
 This explains roughly Section~3.2.
 %
@@ -203,6 +204,7 @@ since $D^*s_V=0$. In other words,
 
 \newpage
 \section{Nonlinear background field coordinates}
+\label{sec:background-field}
 
 This explains Section~5.2.
 
@@ -510,7 +512,7 @@ Its representation is
 \begin{equation}
 \begin{aligned}
  \rho_j(q)={}&
- e^{\mathfrak v|\Lambda_j|-b\mathcal E_{h,t_j}(q)}\,
+ e^{\mathfrak v|\Lambda_j|-b\mathcal E_{h_j,t_j}(q)}\,
  \exp\!\left\{
  -\sum_{\alpha}
        1_{X_\alpha}(q)\,\mathcal P_\alpha(q)
@@ -526,19 +528,141 @@ are small then
 \begin{equation}
 \mathcal E_{h,t} = \frac12 \langle q, K_h q\rangle
 \end{equation}
-and $t$ parametrizes a cutoff scale for the size of gradients. It is \textbf{marginal} and has size $g^0$.
+and $t$ parametrizes a cutoff scale for the size of gradients. It is marginal and has size $g^0$.
 Indeed, its prefactor is $b\approx 1/g^2$ and fluctuations fields are of size $dq \approx g$.
 
 \item $\mathcal P_\alpha$ are finitely many irrelevant terms of size at most $\approx g^2$ (first order in $g^2$).
 \item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
 \item $\Xi$ are nonperturbative large field terms (smaller than $e^{-1/g^\epsilon}$).
 \end{itemize}
+%
+Given a scale parameter $t>0$:
+\begin{itemize}
+\item 
+The large field region (set of bad edges) is defined by
+\begin{equation}
+ D(q)=\{e: |d_e q|>t\}.
+ \label{eq:bad-edges}
+\end{equation}
+\item
+The indicator function that $X$ is in the small field region (only has good edges) is
+\begin{equation}
+ 1_X(q)=\mathbf1\{|d_eq| \le  t\text{ for every }e\in X\}.
+ \label{eq:mask}
+\end{equation}
+\end{itemize}
 
 \subsection{Renormalized kinetic energy $\mathcal E$}
-\subsection{Low order irrelevant terms $\mathcal P$}
+
+The renormalized kinetic term is defined by
+\begin{equation}
+\exp\big\{-b\mathcal E_{h,t}(q) \big\}.
+\end{equation}
+Given $0<d_0<c_0/16$ and cutoff scale $t>0$, define
+\begin{align}
+ S_t(r)&=\begin{cases}
+ c_0r^2/2,&r\le t,\\
+ d_0tr,&r>t,
+ \end{cases}\\
+ m_{e,t}(q)&=\mathbf1\!\left\{
+ |dq_f|\le t\,e^{\operatorname{dist}(e,f)/R_*}
+                       \text{ for every edge }f\right\},
+\end{align}
+and the regularized kinetic energy
+\begin{equation}
+ \mathcal E_{h,t}(q)
+ =
+ \sum_e S_t(|d_e(q)|)+
+ \frac12\sum_em_e(q)|(\ell_hdq)_e|^2.
+ \label{eq:energy}
+\end{equation}
+The constant $c_0$ and the edge operator $\ell_h$ are those from the Gaussian decomposition in Section~\ref{sec:block-gauss}:
+\begin{equation}
+ K_h=c_0d^*d+d^*\ell_h^*\ell_hd.
+\end{equation}
+If every edge is good, then $m_e=1$ for every $e$ and
+\begin{equation}
+ \mathcal E_{h,t}(q)=\frac12\langle q,K_hq\rangle.
+\end{equation}
+Thus this is a nonlinear version of the Gaussian reference measure that we typically use in RG.
+
 \subsection{High order irrelevant terms $f$}
+
+The contribution is
+\begin{equation}
+  \exp\left\{-\sum_X 1_X(q) f_X(q) \right\}.
+\end{equation}
+The actitivies $f_X$ are defined for connected $X$ with support and have norms
+\begin{equation}
+  \|f\| = \sup_o \sum_{X \ni o} [f_X].
+\end{equation}
+The brackets denote the scaled local $C^k$ norm
+\begin{equation}
+ [f_X]_{k,j}
+ =\sum_{r=0}^{k}
+   \sup_{q\in\mathcal U_{X}}
+   \sup_{v_1,\ldots,v_r}
+   |D_{v_1,\ldots,v_r}f_X(q)|,
+ \qquad 0\le k\le8.
+ \label{eq:error-seminorm}
+\end{equation}
+where $\mathcal U_X$ is a set of spins containing the support of $1_X$.
+Writing $v\times$ for the skew-symmetric linear map
+$w\mapsto v\times w$ on $\R^3$, the rotation derivatives are
+\begin{equation}
+ D_{v_1,\ldots,v_r}f_X(q)
+ =\left.
+   \partial_{\theta_1}\cdots\partial_{\theta_r}
+   f_X\!\left(\left(
+     \exp\!\left[\left(\sum_{a=1}^{r}\theta_av_{a,x}\right)
+                      \times\right]q_x
+   \right)_x\right)
+   \right|_{\theta=0}.
+ \label{eq:error-rotation-jets}
+\end{equation}
+The supremum runs over vector fields satisfying
+\begin{equation}
+ |v_{a,x}|\le t(1+\operatorname{dist}(x,o))^8.
+ \label{eq:error-directions}
+\end{equation}
+The rotations keep the spins on $S^2$.  Near the anchor, each
+derivative is scaled by $t$, so schematically this norm resembles
+$\sum_{r=0}^k t^r\|\nabla^r f_X\|_\infty$, with spatial weights
+and derivatives adapted to the sphere.  The exact definition is
+(3.20)--(3.22) in the preprint.
+
 \subsection{Nonperturbative terms $\Xi$}
 
+The exact sum is
+\begin{equation}
+ \Xi(q)=\sum_{\substack{\Gamma\text{ a finite family of labels}\\
+       P_\ell\cap P_{\ell'}=\varnothing\ (\ell\ne\ell')\\
+       \bigsqcup_{\ell\in\Gamma}J_\ell=D(q)}}
+                    \prod_{\ell\in\Gamma}k_\ell(q).
+ \label{eq:covering}
+\end{equation}
+The polymer activities satisfy:
+\begin{itemize}
+  \item 
+Each $k_\ell(q)$ is supported in the large field region:
+\begin{equation}
+ k_\ell(q)=0\quad\text{unless}\quad J_\ell\subset D(q).
+\end{equation}
+In particular, if $D(q)=\varnothing$ (there are no large fields), then $\Xi(q)=1$.
+\item
+The size of the $k_\ell$ is measured in $L^\infty$ rather than $C^8$:
+\begin{equation}
+ \|k\|
+ = \sup_x\sum_{\ell:x\in P_\ell}
+ e^{64s_\ell}\|k_\ell\|_\infty
+ \label{eq:cover-bound}
+\end{equation}
+and eventually $\|k\| \le w=e^{-p^{1/4}}$.
+\end{itemize} 
+
+\subsection{Low order irrelevant terms $\mathcal P$}
+
+TBC
 
 \newpage
 \section{Finite range fluctuation integrals}
