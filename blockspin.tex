@@ -202,6 +202,25 @@ since $D^*s_V=0$. In other words,
 \end{equation}
 \end{proof}
 
+\subsection{Block spin transforms}
+
+For $Y$ a block, define the nonlinear block spin average $\widehat m_Y(q)$ for spins $q$ with values in the sphere:
+\begin{equation}
+  m_Y(q) = (Qq)_Y, \qquad \widehat m_Y(q) =
+  \begin{cases}
+      \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
+      \\
+      \dots
+  \end{cases}
+\end{equation}
+The general block spin transform is done by inserting
+\begin{equation}
+\propto \prod_Y e^{-\frac{a}{2}|V_Y-\hat m_Y(q)|^2} \, d\omega(V_Y)
+\end{equation}
+and integrating over $q$. This defines a new measure on $(V_Y)$ where $Y$ are the blocks of the old lattice.
+
+
+
 \newpage
 \section{Nonlinear background field coordinates}
 \label{sec:background-field}
@@ -267,16 +286,7 @@ For $q: \R^n  \to S^2$, define $R(q)$ as a nonlinear version of this:
     \nu_1 \\ \nu_2 \\ w
   \end{pmatrix}
 \end{equation}
-where 
-\begin{equation}
-  m_Y(q) = (Qq)_Y, \qquad \widehat m_Y(q) =
-  \begin{cases}
-      \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
-      \\
-      \dots
-  \end{cases}
-\end{equation}
-is a nonlinear block spin average.
+where we recall that $\widehat m_Y(q)$ is the nonlinear block average \eqref{eq:hatm}.
 
 Concretely, the quantity $\tfrac12|R(q)|^2$ arises as follows.
 The renormalized density representation \eqref{eq:density} describes the full density before or after that
@@ -484,7 +494,7 @@ where the finite range condition is enforced by
 For this choice, $h=A\mu_s+D^{\mathsf T}F$ need not vanish;
 its contribution is retained explicitly.
 
-\begin{proposition}
+\begin{proposition} \label{prop:background-expect}
 Given arbirary $F$, for any $C$ and $\mu$,
 \begin{align}
  \mathcal I={}&
@@ -701,17 +711,47 @@ One of the next steps to understand seems to be Section 5.4 of the first O4 pape
 
 \subsection{Truncation of the Gaussian covariance}
 
-The finite range of the covariance $C_s$ is enforced by the condition $y \in \Omega_x$. The set $\Omega_x$ is referred to as \emph{inverse window}.
-It is defined by
+The untruncated covariance is $A^{-1}$. The truncated finite range covariance is defined by
+\begin{equation}
+  C_s = \frac12 (\Pi_0+\Pi_0^*), \qquad (\Pi_0)_{yx} = 1_{y\in\Omega_x} (A_{\Omega_x}^{-1})_{yx}
+  .
+\end{equation}
+The set $\Omega_x$ is referred to as \emph{inverse window}. It is defined by
 \begin{equation}
   \Omega_x = S \cap B(x,r_*), \qquad r_* \approx \mathfrak m_j \approx (\log g_j)^2.
 \end{equation}
-Let $E_{s} = AC_s-1$ so that
+Let $E_{s} = AC_s-1$. Then
 \begin{equation}
   C_s^{-1}-A = \sum_{k=1}^\infty (-E_s)^{k}A,
   \qquad
   \|E_s\| \lesssim e^{-c(\log g_j)^2}.
 \end{equation}
+In the Gaussian expectation formula (Proposition~\ref{prop:background-expect}),
+the error resulting from the truncation is
+\begin{equation}
+ \frac12Z^*(C_s^{-1}-A)Z-g^{-1}h_s^*Z=\sum_\alpha Q_\alpha(Z).
+\end{equation}
+This is written as
+\begin{equation}
+ e^{\sum_\alpha Q_\alpha}
+ =\prod_\alpha(1+R_\alpha),\qquad
+ R_\alpha=e^{Q_\alpha}-1
+ \label{eq:ratio-factors}
+\end{equation}
+with
+\begin{equation}
+ |Q_\alpha(Z)|\le e_\alpha
+ \left(1+\sum_{x\in I_\alpha}|Z_x|^2\right),
+ \label{eq:envelope}
+\end{equation}
+where $e_\alpha$ and $I_\alpha$ satisfy (...)
 
+\subsection{Fluctuation integral}
+
+The finite range principle property is:
+\begin{equation}
+\E_{\gamma_C}[FG] = \E_{\gamma_C}[F]\E_{\gamma_C}[G]
+\end{equation}
+when the supports of $F$ and $G$ are separated by distance greater than $r_*$.
 
 \end{document}
