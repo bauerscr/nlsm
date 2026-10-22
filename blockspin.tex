@@ -29,7 +29,7 @@ transform from Section~3 and the fluctuation integral from Section~5.}
 \tableofcontents
 
 \newpage
-\section{Gaussian block spin transforms}
+\section{Block spin transforms}
 \label{sec:block-gauss}
 
 This explains roughly Section~3.2.
@@ -37,16 +37,38 @@ This explains roughly Section~3.2.
 The lattice $\Lambda$ has $n_{\rm fine}=|\Lambda|$ sites, $E$ oriented edges, and $B$ blocks.
 Fields on the lattice are denoted $\phi$ and block spin fields $V$.
 
-\subsection{Iterated Gaussian block spin transforms}
+\subsection{Nonlinear block spin transforms}
 
-The initial kinetic term is given by the Laplacian on the lattice $\Lambda$:
-\begin{equation}
-  K_{\varnothing} = d^{\mathsf T} d.
-\end{equation}
-For a block $Y$, the linear block average defined by
+The preprints use `soft' block spin transforms defined in terms of a penalization parameter $a>0$.
+For a block $Y \subset \Lambda$, the linear block average of $\phi: \Lambda \to \R$ is defined by
 \begin{equation}
  (Q\phi)_Y=\sum_{x\in Y}w_Y(x)\phi_x,
  \qquad w_Y(x)\ge0,\qquad \sum_{x\in Y}w_Y(x)=1.
+\end{equation}
+The nonlinear block spin average $\widehat m_Y(q)$ of a spin configuration $q: \Lambda \to S^2$ is then defined by
+\begin{equation}
+  m_Y(q) = (Qq)_Y, \qquad \widehat m_Y(q) =
+  \begin{cases}
+      \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
+      \\
+      \dots
+  \end{cases}
+\end{equation}
+The block spin transform of a measure on configurations $q: \Lambda \to S^2$ is done by inserting the following factor into the measure for $q$:
+\begin{equation}
+\propto \prod_{Y \in \Lambda'} e^{-\frac{a}{2}|V_Y-\widehat m_Y(q)|^2} \, d\omega(V_Y)
+\end{equation}
+and integrating over $q$. This defines a new measure on block configurations $V :\Lambda' \to S^2$ where $Y\in\Lambda'$ are the blocks of the original lattice $\Lambda$.
+
+
+\subsection{Gaussian block spin transforms}
+
+For Gaussian measures, the block spin transform is an explicit recursion for the Gaussian functional,
+when the linear block average $Q\phi$ is used instead of $\widehat m$.
+
+The kinetic term of the initial Gaussian measure is given by the Laplacian on the lattice $\Lambda$:
+\begin{equation}
+  K_{\varnothing} = d^{\mathsf T} d.
 \end{equation}
 For a precision parameter $a>0$, the next-scale kinetic term is defined by
 \begin{equation}
@@ -55,9 +77,7 @@ K_{h+1} = a\Id-a^2Q(K_h+aQ^*Q)^{-1}Q^*.
 For now, set $a=1$.
 
 \begin{proposition}
-For a given block spin field $V\in\R^B$, its quadratic form is the
-minimum of the fine kinetic energy plus a penalty for disagreement
-with the block average:
+For a given block spin field $V\in\R^B$, 
 \begin{equation} \label{eq:Gauss-var}
  \frac12\langle V,K_{h+1}V\rangle
  =\min_{\phi\in\R^{n_{\rm fine}}} \mathcal E_V(\phi)
@@ -66,8 +86,14 @@ with the block average:
               +\frac a2\|V-Q\phi\|^2\right\}.
 \end{equation}
 Here $n_{\rm fine}$ is the number of fine sites and $B$ the number
-of blocks.  The minimization is over unrestricted real fields,
-and the mismatch is penalized rather than constrained to vanish.
+of blocks.  The minimization is over unrestricted real fields. In particular,
+for any $V \in \R^B$ with $\phi_V$ the minimizer of $\mathcal E_V$,
+\begin{equation}
+  \mathcal E_V(\phi)
+  = \min \mathcal E_V + \frac12 \langle \phi, \operatorname{Hess} \mathcal E_V(0)\phi\rangle 
+  = \frac12 \langle V, K_{h+1} V\rangle + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
+  .
+\end{equation}
 \end{proposition}
 
 \begin{proof}
@@ -201,23 +227,6 @@ since $D^*s_V=0$. In other words,
   = \frac12 \|D_0\phi +c_V - s_V\|^2
 \end{equation}
 \end{proof}
-
-\subsection{Block spin transforms}
-
-For $Y$ a block, define the nonlinear block spin average $\widehat m_Y(q)$ for spins $q$ with values in the sphere:
-\begin{equation}
-  m_Y(q) = (Qq)_Y, \qquad \widehat m_Y(q) =
-  \begin{cases}
-      \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
-      \\
-      \dots
-  \end{cases}
-\end{equation}
-The general block spin transform is done by inserting
-\begin{equation}
-\propto \prod_Y e^{-\frac{a}{2}|V_Y-\hat m_Y(q)|^2} \, d\omega(V_Y)
-\end{equation}
-and integrating over $q$. This defines a new measure on $(V_Y)$ where $Y$ are the blocks of the old lattice.
 
 
 
