@@ -90,7 +90,7 @@ of blocks.  The minimization is over unrestricted real fields. In particular,
 for any $V \in \R^B$ with $\phi_V$ the minimizer of $\mathcal E_V$,
 \begin{equation}
   \mathcal E_V(\phi)
-  = \min \mathcal E_V + \frac12 \langle \phi, \operatorname{Hess} \mathcal E_V(0)\phi\rangle 
+  = \min \mathcal E_V + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
   = \frac12 \langle V, K_{h+1} V\rangle + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
   .
 \end{equation}
@@ -520,7 +520,7 @@ Given arbirary $F$, for any $C$ and $\mu$,
 where %$h^*Z=\sum_xh_x\cdot Z_x$ and
 \begin{equation}
  r=D\mu+F,\qquad h=A\mu+D^*F,
- \qquad \kappa_g=(2\pi g^2)J(0)=\frac{g^2}{2}.
+ \qquad \kappa_g=(2\pi g^2)=\frac{g^2}{2}.
 \end{equation}
 \end{proposition}
 
@@ -579,7 +579,7 @@ This term is marginal and has size $g^0$. Indeed, its prefactor $b\approx 1/g^2$
 
 \item $\mathcal P_\alpha$ are irrelevant second- to sixth-order monomials, of formal orders $g^2$ and $g^4$.
 \item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
-\item $\Xi$ are nonperturbative large field terms (smaller than $e^{-1/g^\epsilon}$).
+\item $\Xi$ are nonperturbative large field terms (smaller than $e^{-(log g)^\epsilon}$).
 \end{itemize}
 %
 Given a field scale parameter $t>0$:
@@ -597,7 +597,7 @@ The indicator function that $X$ is in the small field region (only has good edge
  \label{eq:mask}
 \end{equation}
 \end{itemize}
- The parameter is chosen as $g_j \ll t \ll g_t^{1+\epsilon}$. Typical fluctuations should be of order $g_j$.
+ The parameter is chosen as $g_j \ll t \ll g_t^{1-epsilon}$. Typical fluctuations should be of order $g_j$.
 
 \subsection{Renormalized kinetic energy $\mathcal E$}
 
