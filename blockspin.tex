@@ -46,7 +46,7 @@ For a block $Y \subset \Lambda$, the linear block average of $\phi: \Lambda \to 
  \qquad w_Y(x)\ge0,\qquad \sum_{x\in Y}w_Y(x)=1.
 \end{equation}
 The nonlinear block spin average $\widehat m_Y(q)$ of a spin configuration $q: \Lambda \to S^2$ is then defined by
-\begin{equation}
+\begin{equation} \label{eq:hatm}
   m_Y(q) = (Qq)_Y, \qquad \widehat m_Y(q) =
   \begin{cases}
       \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
@@ -63,18 +63,18 @@ and integrating over $q$. This defines a new measure on block configurations $V 
 
 \subsection{Gaussian block spin transforms}
 
-For Gaussian measures, the block spin transform is an explicit recursion for the Gaussian functional,
+For Gaussian measures, the block spin transform is an explicit recursion for the Gaussian functional (called `precision' in the preprints),
 when the linear block average $Q\phi$ is used instead of $\widehat m$.
 
-The kinetic term of the initial Gaussian measure is given by the Laplacian on the lattice $\Lambda$:
+The kinetic term (or precision matrix) of the initial Gaussian measure is given by the Laplacian on the lattice $\Lambda$ [O3, above (3.4)]:
 \begin{equation}
-  K_{\varnothing} = d^{\mathsf T} d.
+  K_{\varnothing} = d^* d.
 \end{equation}
-For a precision parameter $a>0$, the next-scale kinetic term is defined by
+For a precision parameter $a>0$, the next-scale kinetic term is defined by [O3, (3.4)]
 \begin{equation}
 K_{h+1} = a\Id-a^2Q(K_h+aQ^*Q)^{-1}Q^*.
 \end{equation}
-For now, set $a=1$.
+This choice is explained by the following well-known fact.
 
 \begin{proposition}
 For a given block spin field $V\in\R^B$, 
@@ -131,7 +131,7 @@ and the corresponding kinetic term $K_h$.
 
 The renormalized kinetic term can be written as 
 \begin{equation}
- K_h=c_0d^{\mathsf T}d+d^{\mathsf T}\ell_h^{\mathsf T}\ell_hd,
+ K_h=c_0d^*d+d^*\ell_h^*\ell_hd,
  \qquad
  \frac12\langle q,K_hq\rangle
  =\frac{c_0}{2}\|dq\|^2+\frac12\|\ell_hdq\|^2,
@@ -143,7 +143,7 @@ where the matrix $\ell_h$ is indexed by edges:
 There is redundancy between $c_0$ and $\ell_h$.
 Initially, for any $c_0$,
 \begin{equation}
- K_{\varnothing}=d^{\mathsf T}d,
+ K_{\varnothing}=d^*d,
  \qquad \ell_{\varnothing}=\sqrt{1-c_0}\,\Id.
 \end{equation}
 %
@@ -151,7 +151,7 @@ The constant $c_0>0$ is fixed (uniformly over histories) to reserve an explicit 
 The operator $\ell_h$ has exponential tail.
 Later $\ell_s$ is a spatially truncated version of $\ell_h$ used in the finite range integration.
 
-\begin{proposition}
+\begin{proposition} \label{prop:D0}
 Define $D_0: \R^{n_{\rm fine}} \to \R^{E \times E \times B}$ by
 \begin{equation}
   D_0
@@ -172,7 +172,7 @@ Define $D_0: \R^{n_{\rm fine}} \to \R^{E \times E \times B}$ by
 Then the Hessian of the variational functional $\mathcal E_V(\phi)$ in \eqref{eq:Gauss-var} can be written as
 \begin{equation}
  \|D_0\phi\|^2
- = \langle \phi, D_0^{\mathsf T} D_0 \phi \rangle
+ = \langle \phi, D_0^* D_0 \phi \rangle
 \end{equation}
 and
 \begin{equation}
@@ -197,7 +197,7 @@ where $\phi_V$ is the minimizer of $\mathcal E_V$ and, for some $\nu_1,\nu_2,w$,
 The Hessian of the variational functional $\mathcal E_V(\phi)$ in \eqref{eq:Gauss-var} can be written as
 \begin{equation}
  \|D_0\phi\|^2
- = \langle \phi, D_0^{\mathsf T} D_0 \phi \rangle
+ = \langle \phi, D_0^* D_0 \phi \rangle
  =c_0\sum_e|(d\phi)_e|^2
   +\sum_e|(\ell_s d\phi)_e|^2
   +a\sum_Y|(Q\phi)_Y|^2
@@ -256,8 +256,9 @@ The function $H(q)$ contains nonlocal contributions not explicitly tracked in $|
 
 \subsection{Reference energy}
 
-The precise form of the reference energy is unimportant for the algebraic manipulations
-in the subsequent subsections. It is a nonlinear version of the Gaussian energy with soft block spin condition,
+The precise form of the reference energy $|R(q)|^2$ is unimportant for the algebraic manipulations
+in the subsequent subsections, but it motivated their choice.
+$|R(q)|^2$ is a nonlinear version of the Gaussian energy with soft block spin condition,
 defined in the last section:
 \begin{equation}
   \mathcal E_V(\phi) - \mathcal E_V(\phi_V) = \frac12 \|D_0\phi+c_V-s_V\|^2.
@@ -269,7 +270,8 @@ to nonfrozen sites $S \subset \Lambda$ and `selected' components of the range $R
 D = D_0|_{S\times R}.
 \end{equation}
 %
-Up to dropping rows and columns, in the last section it was shown that
+For the purpose of the discussion, we ignore this restriction; it does not change much.
+Thus, up to dropping rows and columns, in Proposition~\ref{prop:D0}, it was shown that
 \begin{equation}
 D\phi +c_V -s_V = \begin{pmatrix}
   \sqrt{c_0} d\phi\\
@@ -309,21 +311,17 @@ term.  Write \eqref{eq:density} as
 The block transformation integrates this against the block spin
 kernel whose exponential part is
 \begin{equation}
- e^{-\frac{ba}{2}\|V-\widehat m(q)\|^2},
- \qquad b=g^{-2}.
+ e^{-\frac{ba}{2}\|V-\widehat m(q)\|^2}.
 \end{equation}
-Then the energy decomposition has the following form.
-Here $h',t'$ are the output history and large field scale, $R(q;V)$
-denotes the selected residual rows defined above and $\mathcal L(q,V)$ collects the remainder:
-%remaining energy terms
-%, including unselected rows, clipping and mask corrections,
-%nonlinear mean-normalization defects, and kernel-truncation defects:
+Then the leading part of the energy decomposition has the following form:
 \begin{equation}
  \mathcal E_{h,t}(q)
  +\frac a2\|V-\widehat m(q)\|^2
  =\mathcal E_{h',t'}(V)
   +\frac12|R(q;V)|^2+\mathcal L(q,V).
 \end{equation}
+Here $h',t'$ are the next-scale history and large field scale, $R(q;V)$
+denotes the selected residual rows defined above and $\mathcal L(q,V)$ collects the remainder.
 
 \subsection{Intrinsic tangent coordinates}
 
@@ -360,16 +358,16 @@ This integral has $2n$ real coordinates.
 \subsection{Auxiliary normal coordinate}
 
 Introduce one real variable $v_x\in\R$ at each nonfrozen site.
-Since $A=D^{\mathsf T}D$ is positive definite, the elementary
+Since $A=D^*D$ is positive definite, the elementary
 Gaussian integral gives
 \begin{equation}
  1=\frac{(\det A)^{1/2}}{(2\pi g^2)^{n/2}}
-       \int_{\R^n}\exp\!\left\{-\frac{v^{\mathsf T}Av}{2g^2}\right\}d^nv.
+       \int_{\R^n}\exp\!\left\{-\frac{v^*Av}{2g^2}\right\}d^nv.
  \label{eq:scalar-one}
 \end{equation}
 Equivalently, the inserted probability law is a centered scalar
 Gaussian with covariance $g^2A^{-1}$.  Its energy is
-$v^{\mathsf T}Av=|Dv|^2$.  No cutoff is imposed on $v$, and
+$v^*Av=|Dv|^2$.  No cutoff is imposed on $v$, and
 the inserted variables are initially independent of the spin variables.
 Thus
 \begin{equation}
@@ -448,7 +446,7 @@ Clearly,
  =e^{-|D\xi+F|^2/(2g^2)}e^{-\Delta(\xi)/(2g^2)}.
 \end{equation}
 The first term on the right-hand side is a Gaussian density with
-covariance $g^2A^{-1}$ where $A=D^{\mathsf T} D$.
+covariance $g^2A^{-1}$ where $A=D^* D$.
 
 
 \subsection{Gaussian expectation identity}
@@ -476,13 +474,13 @@ The unique minimizer of the Gaussian action
 \end{equation}
 is 
 \begin{equation}
-\xi = \mu_*=-A^{-1}D^{\mathsf T}F.
+\xi = \mu_*=-A^{-1}D^*F.
 \end{equation}
 \end{remark}
 
 \begin{proof}
 \begin{equation}
- \nabla_\xi\frac12|D\xi+F|^2=A\xi+D^{\mathsf T}F,
+ \nabla_\xi\frac12|D\xi+F|^2=A\xi+D^*F,
 \end{equation}
 so positive definiteness of $A$ makes $\mu_*$ the unique minimizer. 
 \end{proof}
@@ -490,17 +488,17 @@ so positive definiteness of $A$ makes $\mu_*$ the unique minimizer.
 This above choice $\mu=\mu_*$ gives $h=0$ in the identity below, eliminating the term linear in $Z$ in the exponent in the following proposition.
 The general identity below permits other choices. The preprint uses a finite range approximation
 \begin{equation}
- \mu_s=-\Pi_0^{\mathsf T}D^{\mathsf T}F,
+ \mu_s=-\Pi_0^*D^*F,
 \end{equation}
 related to the choice $C=C_s$ where
 \begin{equation}
-  C_s = \frac12 (\Pi_0+\Pi_0^{\mathsf T}),
+  C_s = \frac12 (\Pi_0+\Pi_0^*),
 \end{equation}
 where the finite range condition is enforced by
 \begin{equation}
   (\Pi_{a_0})_{yx} = 1_{y\in\Omega_x} (A_{\Omega_x} +a_0)^{-1}_{yx}.
 \end{equation}
-For this choice, $h=A\mu_s+D^{\mathsf T}F$ need not vanish;
+For this choice, $h=A\mu_s+D^*F$ need not vanish;
 its contribution is retained explicitly.
 
 \begin{proposition} \label{prop:background-expect}
@@ -514,14 +512,14 @@ Given arbirary $F$, for any $C$ and $\mu$,
  H(q(\mu+gZ))\,\mathcal J(\mu+gZ)
  \exp\!\left\{
  -\frac{\Delta(\mu+gZ)}{2g^2}
- +\frac12 Z^{\mathsf T}(C^{-1}-A)Z
+ +\frac12 Z^*(C^{-1}-A)Z
  -g^{-1}(h,Z)
  \right\}\right],
  \label{eq:main}
 \end{align}
-where %$h^{\mathsf T}Z=\sum_xh_x\cdot Z_x$ and
+where %$h^*Z=\sum_xh_x\cdot Z_x$ and
 \begin{equation}
- r=D\mu+F,\qquad h=A\mu+D^{\mathsf T}F,
+ r=D\mu+F,\qquad h=A\mu+D^*F,
  \qquad \kappa_g=(2\pi g^2)J(0)=\frac{g^2}{2}.
 \end{equation}
 \end{proposition}
@@ -539,7 +537,7 @@ Now set $\xi=\mu+gZ$, whose Jacobian is $g^{3n}$.
 Ordinary multiplication of squares gives
 \begin{equation}
  |D(\mu+gZ)+F|^2
- =|r|^2+2g\,h^{\mathsf T}Z+g^2Z^{\mathsf T}AZ.
+ =|r|^2+2g\,h^*Z+g^2Z^*AZ.
 \end{equation}
 The constant is
 \begin{equation}
@@ -553,7 +551,7 @@ The constant is
 \newpage
 \section{Parametrization of the renormalized action}
 
-The renormalized action or rather its exponential (called `retained density') is parametrized in (3.29).
+The renormalized action or more precisely its exponential (called `retained density') is parametrized in [O3, (3.29)].
 The density is relative to product normalized spherical area measure $\prod_xd\omega(q_x)$.
 Its representation is
 \begin{equation}
@@ -573,7 +571,7 @@ The different terms describe:
 \item $b \mathcal E_{h,t}$ is a regularized version of the kinetic energy. If all gradients of $q$
 are small then
 \begin{equation}
-\mathcal E_{h,t} = \frac12 \langle q, K_h q\rangle
+\mathcal E_{h,t}(q) = \frac12 \langle q, K_h q\rangle
 \end{equation}
 and $t$ parametrizes a cutoff scale for the size of gradients.
 
@@ -674,11 +672,11 @@ The supremum runs over vector fields satisfying
  |v_{a,x}|\le t(1+\operatorname{dist}(x,o))^8.
  \label{eq:error-directions}
 \end{equation}
-The rotations keep the spins on $S^2$.  Near the anchor, each
-derivative is scaled by $t$, so schematically this norm resembles
+The rotations keep the spins on $S^2$.
+Each derivative is scaled by $t$, so schematically this norm resembles
 $\sum_{r=0}^k t^r\|\nabla^r f_X\|_\infty$, with spatial weights
 and derivatives adapted to the sphere.  The exact definition is
-(3.20)--(3.22) in the preprint.
+[O3, (3.20)--(3.22)].
 
 \subsection{Nonperturbative terms $\Xi$}
 
@@ -716,7 +714,35 @@ TBC
 \newpage
 \section{Finite range fluctuation integrals}
 
-One of the next steps to understand seems to be Section 5.4 of the first O4 paper.
+One of the next steps to understand seems to be the fluctuation integration [O4, Section 5.4]. Given the block spin field $V$,
+the background field $T$ is defined by
+\begin{equation}
+  T_x = V_{[x]}
+\end{equation}
+where $[x]$ is the block containing the site $x$. Use $R(q)$ defined in Section~\ref{sec:background-field}.
+The remaining factor from the density \eqref{eq:density} is (where $\mathcal L$ is also defined in Section~\ref{sec:background-field}):
+\begin{equation}
+  H(q)= H(q;V)=e^{-b\mathcal L(q,V)}
+ \exp\!\left\{
+ -\sum_\alpha1_{X_\alpha}(q)\mathcal P_\alpha(q)
+ -\sum_X1_X(q)f_X(q)
+ \right\}\Xi(q).
+ \label{eq:remaining-factor}
+\end{equation}
+Then we need to evaluate (see Proposition~\ref{prop:background-expect})
+\begin{equation}
+\E_{\gamma_C}\left[
+ H(q(\mu+gZ))\,\mathcal J(\mu+gZ)
+ \exp\!\left\{
+ -\frac{\Delta(\mu+gZ)}{2g^2}
+ +\frac12 Z^*(C^{-1}-A)Z
+ -g^{-1}(h,Z)
+ \right\}\right]
+\end{equation}
+and rearrange the result into the same form as \eqref{eq:density} at the next scale.
+dependence on $V$ is suppressed.
+%
+Frozen spins and tags are held fixed during the Gaussian integral and integrated or summed afterwards.
 
 \subsection{Truncation of the Gaussian covariance}
 
@@ -757,10 +783,17 @@ where $e_\alpha$ and $I_\alpha$ satisfy (...)
 
 \subsection{Fluctuation integral}
 
-The finite range principle property is:
+The finite range property is:
 \begin{equation}
 \E_{\gamma_C}[FG] = \E_{\gamma_C}[F]\E_{\gamma_C}[G]
 \end{equation}
 when the supports of $F$ and $G$ are separated by distance greater than $r_*$.
+Next there should be a combinatorial expansion of $H$ and the $Q$ terms above
+similar to [Brydges, Park City].
+
+\subsection{Estimates}
+
+The next-scale kernels $f_X$ and $k_\ell$ as well as $\mathcal P_\alpha$
+must be estimated in terms of the previous scale ones.
 
 \end{document}
