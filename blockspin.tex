@@ -577,7 +577,7 @@ and $t$ parametrizes a cutoff scale for the size of gradients.
 
 This term is marginal and has size $g^0$. Indeed, its prefactor $b\approx 1/g^2$ and fluctuations are of size $dq^2 \approx g^2$.
 
-\item $\mathcal P_\alpha$ are finitely many irrelevant terms of size at most $\approx g^2$ (first order in $g^2$).
+\item $\mathcal P_\alpha$ are irrelevant second- to sixth-order monomials, of formal orders $g^2$ and $g^4$.
 \item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
 \item $\Xi$ are nonperturbative large field terms (smaller than $e^{-1/g^\epsilon}$).
 \end{itemize}
@@ -709,7 +709,102 @@ and eventually $\|k\| \le w=e^{-p^{1/4}}$.
 
 \subsection{Low order irrelevant terms $\mathcal P$}
 
-TBC
+These are essentially irrelevant sixth order polynomials in the fields,
+written in tangent coordinates. They are defined in [O3, (3.13)--(3.19)]. 
+
+The relative tangent projection of $q_x$ at an anchor $o$ is
+\begin{equation}
+ y_o(x)=q_x-(q_o\cdot q_x)q_o\in q_o^\perp.
+ \label{eq:canonical-tangent}
+\end{equation}
+This is a projection, not the logarithmic coordinate $\Log_{q_o}q_x$.
+A monomial label $\alpha$ consists of a degree $n_\alpha$, a coefficient
+$a_\alpha$, displacements $r_1^\alpha,\ldots,r_n^\alpha\in\mathbb Z^2$, and an
+$O(2)$-invariant multilinear tensor $T_\alpha$:
+\begin{equation}
+ a_\alpha T_\alpha\bigl(y_o(o+r_1^\alpha),\ldots,y_o(o+r_n^\alpha)\bigr).
+\end{equation}
+The set $X_\alpha$ is a connected graph containing the anchor $o$
+the $r_1,\dots,r_n$ with the joining paths and enlargements prescribed by its construction. 
+%
+The tensors $T_\alpha$ are chosen from a fixed basis of the invariant tensor space.
+They are evaluated in $q_o^\perp$ through any orthonormal identification
+with $\R^2$; invariance makes the answer independent of that choice.
+%The label also includes its joining paths, graph mask $1_{X_\alpha}$,
+%and complete record.
+Zero displacements give zero monomials and odd degrees vanish by $O(2)$ invariance.
+%
+Each term $\mathcal P_\alpha$ in \eqref{eq:density} is of the form
+\begin{equation}
+ \mathcal P_\alpha(q)=b^{\varepsilon_\alpha}a_\alpha
+ \begin{cases}
+ T_\alpha\bigl(y_o(o+r_1),\ldots,y_o(o+r_n)\bigr),&n=4,6,\\
+ Q_{r,s}(q),&n=2,
+ \end{cases}
+ \label{eq:canonical-label}
+\end{equation}
+where the slot $\alpha$ determines $(n_\alpha,\varepsilon_\alpha)$:
+
+The slots in the action are
+\begin{equation}
+ (bP_4,\ I_2,\ bP_5,\ I_3,\ bP_6,\ I_4,\ b^{-1}J_2),
+ \qquad P_5=I_3=0,
+ \label{eq:canonical-slots}
+\end{equation}
+where $P_4,I_2,P_6,I_4,J_2$ denote coefficient lists, with indicating their degree.
+The slot determines $(n_\alpha,\varepsilon_\alpha)$:
+\begin{equation}
+ \begin{array}{c|ccccc}
+ \text{slot}&bP_4&I_2&bP_6&I_4&b^{-1}J_2\\ \hline
+ n&4&2&6&4&2\\
+ \varepsilon_\alpha&1&0&1&0&-1\\
+ \text{formal order for }y=O(g),\ b=g^{-2}
+   &g^2&g^2&g^4&g^4&g^4
+ \end{array}
+\end{equation}
+
+To make the graph summation explicit, let $\mathcal X_j$ denote the
+connected graphs on the current lattice that occur as canonical mask
+graphs, and let $\mathcal A_j(X)=\{\alpha:X_\alpha=X\}$ be the
+retained labels with graph $X$.  Then the canonical part of the action is
+\begin{equation}
+ \sum_\alpha1_{X_\alpha}(q)\mathcal P_\alpha(q)
+ =\sum_{X\in\mathcal X_j}1_X(q)
+      \sum_{\alpha\in\mathcal A_j(X)}\mathcal P_\alpha(q).
+ \label{eq:canonical-graph-sum}
+\end{equation}
+% The quadratic labels in $I_2,J_2$ are compensated packets.  Let
+% $\mathcal C_4$ be the four quarter-turn rotations of the square lattice
+% and define
+% \begin{align}
+%  S_o(q)&=\frac14\sum_{|e|_1=1}|y_o(o+e)|^2,\\
+%  Q_{r,s}(q)&=\frac14\sum_{\rho\in\mathcal C_4}
+%  y_o(o+\rho r)\cdot y_o(o+\rho s)-(r\cdot s)S_o(q).
+%  \label{eq:canonical-quadratic-packet}
+% \end{align}
+% For an affine tangent field $y_o(o+r)=Ar$, the two terms in
+% $Q_{r,s}$ agree, so $Q_{r,s}=0$.  This removes the leading kinetic
+% component, whose coefficient is tracked by $b$.  The entire packet,
+% including its nearest-neighbor compensation, retains a common mask
+% and complete record.
+%
+The kernels have exponential decay.
+With $W_\sigma(u)=e^{\sigma u}(1+u)^2$, the degree-four and -six norms are
+\begin{equation}
+ \|A_n\|_\sigma
+ =\sup_o\sum_{\alpha\text{ at }o}
+ |a_\alpha|W_\sigma\!\left(1+\sum_{i=1}^n|r_i|_1\right).
+\end{equation}
+For a quadratic list, the corresponding contribution of $aQ_{r,s}$ is
+\[
+ |a|\bigl\{W_\sigma(1+|r|_1+|s|_1)
+                 +|r\cdot s|W_\sigma(3)\bigr\},
+\]
+summed over labels and with the same supremum over anchors.  These
+are norms of the retained coefficient lists, before cancellations
+between different labels.
+
+
 
 \newpage
 \section{Finite range fluctuation integrals}
