@@ -6,14 +6,20 @@ Author: the community
 
 ## Organization
 
-- <del>Discord channel: https://discord.gg/bF8Hd2ahP</del>
 - Zulip channel: https://probabilistic-qft.zulipchat.com/join/whlijwfr75fksr5gxezhynp5/
-- Mailing list: nlsm@probabilistic-qft.org (not in place yet)
-- Catchup meetings: Mondays 4pm Amsterdam time
+- Catchup meetings: Mondays 4pm Amsterdam time, Zoom link in Zulip channel
+
+
+## Updates
+
+The file blockspin.tex contains human-digested versions in progress of some of the main elements of the construction of the continuum limit.
+
+Contributions are welcome; join Zulip channel for coordination.
+
 
 ## Papers
 
-1. [Exponential decay in two-dimensional classical $O(n)$ models](https://github.com/openai/math/blob/main/preprints/Exponential-decay-in-two-dimensional-classical-On-models-September-23-2026/paper.pdf)
+1. [Exponential decay in two-dimensional classical O(n) models](https://github.com/openai/math/blob/main/preprints/Exponential-decay-in-two-dimensional-classical-On-models-September-23-2026/paper.pdf)
    - Establishes exponential decay for lattice model without estimate on $m(\beta)>0$.
    - Result is not used in the subsequent papers, but related idea implemented there in a stronger way.
    - Understable, Lean available
@@ -36,8 +42,8 @@ Author: the community
 
 - **Mixing estimate:** obtained using noncommutative Mermin-Wagner idea, correlation inequalities, reflection positivity
 - **Block spin transformation** with intrinsic rather than extrinsic coordinates: spins remain on the sphere and potential does not become a double well.
-- **Large/small gradient decomposition** in the spirit of Gawedzki-Kupiainen and Balaban
-- **Finite range fluctuation covariances** in the spirit of Brydges, but finite range condition seems to be implemented through explicit truncation rather than exact decomposition.
+- **Large/small gradient decomposition** in the spirit of Gawedzki-Kupiainen and Balaban, but no large fields, only large gradients.
+- **Finite range fluctuation covariances** in the spirit of Brydges, but finite range condition implemented through explicit truncation rather than exact decomposition.
 - **Nelson's 3/5 argument** is used to prove rotational invariance.
 
 ## General conventions and notation
