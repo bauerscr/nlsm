@@ -129,19 +129,61 @@ and the corresponding kinetic term $K_h$.
 
 \subsection{Lifting the energy}
 
+\begin{proposition}
 The renormalized kinetic term can be written as 
 \begin{equation}
- K_h=c_0d^*d+d^*\ell_h^*\ell_hd,
- \qquad
- \frac12\langle q,K_hq\rangle
- =\frac{c_0}{2}\|dq\|^2+\frac12\|\ell_hdq\|^2,
+ K_h
+ =d^* \mathsf A_h^* \mathsf A_h d
+ = c_0d^*d+d^*\ell_h^*\ell_hd,
 \end{equation}
-where the matrix $\ell_h$ is indexed by edges:
+so that
 \begin{equation}
-  \ell_h : \R^E \to \R^E.
+\frac12\langle q,K_hq\rangle
+=\frac{c_0}{2}\|dq\|^2+\frac12\|\ell_hdq\|^2,
 \end{equation}
+where the matrices $\ell_h$ and $\mathsf A_h$ are indexed by edges:
+\begin{equation}
+  \ell_h : \R^E \to \R^E,
+  \qquad
+  \mathsf A_h = \begin{pmatrix} \sqrt{c_0} I \\\ \ell_h \end{pmatrix} : \R^E \to \R^{E\times E}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By [O3, Section~4.2], $cD\le K_h\le CD$ and $K_h(p)-D(p)=O(|p|^4)$ in Fourier space, where
+$d(p)=\binom{e^{ip_1}-1}{e^{ip_2}-1}$ and $D=d^*d$.
+There is $B_h^{\rm raw}=I+O(|p|^2)$ with $K_h=d^*B_h^{\rm raw}d$.
+Writing $\mathsf c=(-d_2,d_1)$, we have $\mathsf c d=0$, so
+\begin{equation}
+ B_h=B_h^{\rm raw}+\lambda_0\mathsf c^*\mathsf c
+ \quad\text{satisfies}\quad d^*B_hd=K_h.
+\end{equation}
+One fixed sufficiently large $\lambda_0$ makes $B_h$ uniformly
+positive: near $p=0$ the raw lift is close to $I$; away from $p=0$,
+ellipticity controls the longitudinal entry and the added term
+controls the transverse entry, including the mixed term by a Schur
+complement.  The bounds are uniform in the history.
+
+To use the preprint's particular positive completion [O3, Section~4.3],
+make the further modification
+\[
+ \widetilde B_h^{-1}
+ =B_h^{-1}+\lambda_1 B_h^{-1}\mathsf c^*\mathsf c B_h^{-1}.
+\]
+Since $\widetilde B_h^{-1}B_hd=d$, this still gives
+$\widetilde B_hd=B_hd$ and $d^*\widetilde B_hd=K_h$.
+Choose $c_0>0$ below the uniform lower bound of $\widetilde B_h$ and set
+\[
+ \ell_h=(\widetilde B_h-c_0I)^{1/2}.
+\]
+Then $\mathsf A_h^*\mathsf A_h=c_0I+\ell_h^*\ell_h
+=\widetilde B_h$, proving the decomposition and its quadratic-form
+identity.  The uniform analyticity and strict positivity imply that
+$\ell_h$ has an exponentially decaying kernel.  At empty history the
+construction retains $\widetilde B_{\varnothing}=I$.
+\end{proof}
 There is redundancy between $c_0$ and $\ell_h$.
-Initially, for any $c_0$,
+Initially, for $0<c_0<1$,
 \begin{equation}
  K_{\varnothing}=d^*d,
  \qquad \ell_{\varnothing}=\sqrt{1-c_0}\,\Id.
