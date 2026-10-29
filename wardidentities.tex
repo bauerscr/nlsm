@@ -1,0 +1,391 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} % or letter or a5paper or ... etc
+% \geometry{landscape} % rotated page geometry
+\usepackage{physics}
+\usepackage{amssymb}
+% See the ``Article customise'' template for come common customisations
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\title{Notes on the Ward identity trick}
+
+\date{} % delete this line to display the current date
+\usepackage{physics}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{float}
+\usepackage{pythonhighlight}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage[utf8]{inputenc}
+\hypersetup{colorlinks, citecolor={blue}}
+\newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{subsection}
+\newtheorem{lemma}{Lemma}
+\numberwithin{lemma}{subsection}
+\newtheorem{corollary}{Corollary}
+\numberwithin{corollary}{subsection}
+\newtheorem{definition}{Definition}
+\numberwithin{definition}{subsection}
+\newtheorem{prop}{Proposition}
+\newtheorem{rmk}{Remark}
+
+\numberwithin{prop}{subsection}
+\newtheorem{example}{Example}
+
+
+\renewcommand{\div}{\text{ div}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\singsupp}{\text{singsupp}}
+\newcommand{\zbar}{{\overline{z}}}
+\renewcommand{\grad}{\nabla}
+\newcommand{\q}{\text{Op}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\ind}{\text{Ind}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\normm}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+\newenvironment{subproof}[1][\proofname]{%
+  \renewcommand{\qedsymbol}{$\blacksquare$}%
+  \begin{proof}[#1]%
+}{%
+  \end{proof}%
+}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bP}{\mathbb{P}}
+%%% BEGIN DOCUMENT
+\begin{document}
+\maketitle 
+\tableofcontents
+\section{The main idea}
+\subsection{A toy example}
+Let $M\subset\bR^n$ be a smooth, closed submanifold of $\bR^n$.
+Let $f\in C^\infty(\bR^n)$ be a function that is constant on $M$.
+Fix $p\in M$ and $v\in T_p M$
+Then for any geodesic $\gamma(t)=\exp_p(tv)$,
+\[f(\gamma(t)) = f(\gamma(0))\]
+
+Of course, $0=\dv[2]{t}f(\gamma(t))$.
+On the other hand:
+\[\dv[2]{t}f(\gamma(t)) =  D^2 f_{\gamma(t)}(\gamma'(t),\gamma'(t)) + Df_{\gamma(t)}(\gamma''(t))\]
+
+Evaluating at $0$, we conclude:
+\[0= D^2 f_p(v,v) + Df_p(n)\]
+
+However, a geodesic is exactly a curve in $M$ who's acceleration is normal to $M$, so $n\in T_p M^\perp$.
+
+More precisely, one can show that for a geodesic $\gamma$ with velocity $v$ at $p$,
+\[\gamma''(0)=II_p(v,v)\]
+where $II$ is the second fundamental form, which encodes all the data of curvature in a submanifold.
+
+It follows that for all normal directions in the range of $II$, normal derivatives of $f$ at $p$ can 
+be computed from second derivatives in $T_pM$-directions.
+
+Now for generic curves, which need not be geodesics, their accelerations will have both normal and tangential components. So one need not work only with geodesics. Any curves with accelerations that are sufficiently computable would suffice.
+
+
+It will turn out that the ratio of partition functions $\frac{Z(t)}{Z(s)}$
+can be written as a function for which an $M$ like this exists thanks to a sort of gauge symmetry. This gives us a large family of Ward identities that can be used to get control on derivatives along $M$.
+By the above method, these can be converted to get control on normal derivatives, which ultimately enable us to control the hessian of $Z(t)$ for general configurations.
+\subsection{Coupling to a gauge field}
+Fix a finite, connected graph $(V,E)$. Let $P\subset V$ be a non-empty set of 'boundary-vertices' so that the 2-complex associated with $(V\setminus G, E_P)$ is simply connected. 
+Here $E_P\subset E$ is the set of edges such that at least one element belongs to $V\setminus P$.
+
+We equip the graph with an arbitrary orientation for convenience.
+Fix a compact Lie group $G$ and a closed subgroup $H$. Let $X=G/H$. be the space of left-cosets of $H$.
+$G$ acts transitively on the left on $X$ by isometries and has normalized invariant measure $d\sigma$.
+
+Let $h:G\to \bR$ be a smooth function such that invariant under the left and right-action of $H$ on $G$ as well as inversion.
+Then we define
+
+$H:X^V\to \bR$ by 
+\[H(\qty{g_v H}_{v\in V})=\sum_{e\in E}h\qty(g_{e(0)}^{-1}g_{e(1)})\]
+
+A boundary condition is an element $\partial\in X^{P}$. 
+For every such $\partial$, partial evaluation gives a new function $H_\partial:X^{V\setminus P}\to \bR$.
+
+The Gibbs measure with BC $\partial$ is of course 
+\[d\mu_\partial=Z(\partial)^{-1}\exp(- H_\partial)\prod_{v\in V\setminus P}d\sigma_v\]
+
+
+The task is to understand the ratio $\frac{Z_{\partial'}}{Z_{\partial}}$
+
+Now because $G^P$ acts transitively on itself, we can realize any $\partial'$ as $\exp(tX)\partial$
+where $X$ is some Lie algebra element of $\mathfrak{g}^{\oplus P}$. 
+
+Now because each measure $d\sigma_\nu$ is $G$-invariant, we can carry out a change of variables:
+Let $T_0\in G^E$ be the function $T_0(e) = h(e(1))^{-1}h(e(0))$ where $h(v)=\exp(tX_v)$. Then:
+\[Z(\exp(tX)\partial) =\int  \exp(-\sum_{e\in E} h\qty(g_{e(0)}^{-1}g_{e(1)}))\prod_{v\in V\setminus P}d\sigma_v \]
+\[= \int  \exp(-\sum_{e\in E} h\qty(\qty(T_0(e)h(e(0)))^{-1}h(e(1))))\prod_{v\in V\setminus P}d\sigma_v\]
+
+Clearly, $T_0$ is just a special flat $G$-connection on the graph. Inspired by this, we may define for any connection $T$:
+\[Z(T) = \int  \exp(-\sum_{e\in E} h\qty(\qty(T(e)h(e(0)))^{-1}h(e(1))))\prod_{v\in V\setminus P}d\sigma_v\]
+
+Now observe that, yet again by $G$-invariance, the formula for
+$Z(\exp(tX)\partial)$ is independent under gauge transformations that fix the spins in $P$.
+
+In particular we see that $Z(\exp(tX)\partial)=Z(T)$ for any flat connection that comes from a gauge transformation that fixes the spins at $P$ (we may call these good gauge transformations).
+
+We now find ourselves in the setting of the previous subsection. To make the comparison explicit, 
+our ambient manifold is $G^E$. The submanifold $M$ is the orbit of $T_0$ under good gauge transformations.
+
+Our ultimate goal is to control $Z(T_0(t))$ where $t$ is the parameter in $\exp(tX)$.
+
+As $t$ varies, the boundary spins change, so the variation in $t$ cannot be implemented by good gauge transformations.
+
+However we can hope to use the trick in the previous subsection in order to control those derivatives by derivatives along good gauge transformations, for which we can derive Ward identities.
+
+
+
+\subsection{The geometry of gauge orbits}
+\begin{rmk} 
+  This section might appear a bit ridiculously general. It is written in this way in the hopes of smoothing out some aspects of part I of the proof.
+
+  In particular it turns out that the commutator fields $S(f,g)$ constructed in the paper are exactly 'normal vectors' that arise as in the previous section.
+  The paper proceeded by attempting to approximate some given gauge $h$ by a family of sums of $S(f_i, g_j)s$
+  in order to use the curvature trick. It would be nice if instead the normals can be characterized by a nice constraint so that it becomes a more transparent PDE-esque problem.
+\end{rmk}
+Fix any connection $T\in G^E$. Let $O_T$ be its orbit under good gauge transformations. We would like to show 
+that as a smooth submanifold of $G^E$, the second fundamental form of $O_T$ has a large range for $G,H$ sufficiently nice.
+Let $\mathcal{G}$ be the group of good gauge transformations. The following is mostly technical:
+\begin{lemma}
+Let \[\phi:\mathcal{G}\to O_T\]
+be the orbit map 
+\[\phi(g)=gT\]
+Then 
+\[d\phi_g:T_g\mathcal{G}\to T_{gT}O_T\]
+is surjective.
+\end{lemma}
+\begin{proof}
+Let $v\in T_{gT}O_T$. Let $\gamma:[-1,1]\to O_T$ be a smooth curve such that $\gamma(0)=p$ and $\gamma'(0)=v$.
+
+
+Let $K_T$ be the stabilizer of $T$. Then the orbit map $\mathcal{G}\to O_T$ is a principal-$K_T$ bundle. 
+It follows that the curve $\gamma(t)$ has a lift to a curve $g: I\to \mathcal{G}$
+such that $g(0)= I$.
+
+That is, we can realize $\gamma(t)$ as having the form $g(t)T$ where $g$ is a smooth curve.
+The result is immediate.
+\end{proof}
+
+Now the next task is to compute covariant derivatives in $O_T$. First we compute in $G^E$:
+\begin{lemma}
+Let $X,Y$ be left-invariant  vector fields on $G^E$. Then 
+\[\nabla_X Y = \frac{1}{2}[X,Y]\]
+\end{lemma}
+\begin{proof}
+  See:
+
+  \url{https://math.stackexchange.com/questions/2537903/left-invariant-vector-field-induces-constant-components}
+\end{proof}
+
+Now being a Lie group, $G^E$ has a frame of left-invariant vector fields $E_i$.
+
+If $X=\sum_i f^i E_i$, then we can compute:
+\[\nabla_X X = \sum_{i,j} f^iE_i(f^j)E_i +f^i f^j\nabla_{E_i} E^j\]
+by the previous lemma, 
+\[\nabla_X X = \sum_{i,j} f^i E_i(f^j)E_j +f^i f^j\frac{1}{2}[E_i,E_j]\]
+the second term vanishes by skew-symmetry. So we get:
+\[= \sum_j X(f^j)E_j \]
+To summarize,
+\begin{lemma}
+  For any frame of left-invariant vector fields $E_i$,
+\[\nabla_X X = \sum_i X(f^i)E_i\]
+\end{lemma}
+
+Now to conclude, we need to know how to compute $II(X,X)=(\nabla_X X)^\perp$,
+the component normal to the orbit $O_T$.
+
+Using lemma 1.3.1, we can begin by characterizing the tangent spaces of $O_T$.
+Because $\mathcal{G}_P$ acts by diffeomorphisms on $O_T$, it suffices to know the tangent space at the identity.
+
+It turns out that the next theorem will most naturally be expressed in terms of $\mathfrak{g}$-valued differential forms.
+
+Let $\mathfrak{g}^V$ be the set of $0$-forms, $\mathfrak{g}^E$ the $1$-forms, and $\mathfrak{g}^F$ the 2-forms.
+
+For any connection $A\in G^E$, we may define 
+\[d^0_A:\mathfrak{g}^V\to \mathfrak{g}^E\]
+by 
+\[(d_A^0f)(e)= \text{Ad}_{T(e)^{-1}}(f(e(1)))-f(e(0))\]
+
+For plaquettes, we interpret each plaquette as a sequence of edges $e_1e_2e_3e_4$
+such that $e_1(1)=e_2(0)$, $e_2(1)=e_3(0)$, $e_3(1)=e_4(0)$, and $e_4(1)=e_1(0)$.
+We also assume that $e_1(0)$ has the smallest coordinates among all the endpoints of the edges
+so that the order of the edges is unique. We also let $v_p$ be this special vertex if the plaquette is denoted $p$.
+\[d^1_A:\mathfrak{g}^V\to \mathfrak{g}^F\]
+by 
+\[(d^1_A f)(e_1e_2e_3e_4) =\]\[ \text{Ad}_{T(e_4)T(e_3)T(e_2)T(e_1)}(\omega(e_1)) + \text{Ad}_{T(e_4)T(e_3)T(e_2)}(\omega(e_2)) + \text{Ad}_{T(e_4)T(e_3)}(\omega(e_3)) + \text{Ad}_{T(e_4)}(\omega(e_4))\]
+
+\begin{lemma}
+  For any connection $T$, 
+  \[d_T^2 f(p)= (\text{Ad}_{I-F_T(p)})f(v_p)\]
+  where $F_T$ is the curvature-form of $T$. In particular,if $T$ is a flat connection, then $d_T^2=0$.
+\end{lemma}
+\begin{proof}
+
+$d_T (d_T f)=$
+\begin{align*}
+  &\text{Ad}_{T(e_4)T(e_3)T(e_2)T(e_1)}(\text{Ad}_{T(e_1)^{-1}}(f(e_1(1))) - f(e_1(0)))\\
+ + &\text{Ad}_{T(e_4)T(e_3)T(e_2)}(\text{Ad}_{T(e_2)^{-1}}(f(e_2(1))) - f(e_2(0)))\\
+  + &\text{Ad}_{T(e_4)T(e_3)}(\text{Ad}_{T(e_3)^{-1}}(f(e_3(1)))-f(e_3(0)))\\ 
+  + &\text{Ad}_{T(e_4)}(\text{Ad}_{T(e_4)^{-1}}(f(e_4(1)))-f(e_4(0)))
+\end{align*}
+which simplifies to 
+\begin{align*}
+  &\text{Ad}_{T(e_4)T(e_3)T(e_2)}(f(e_1(1)))- \text{Ad}_{T(e_4)T(e_3)T(e_2)T(e_1)}(f(e_1(0)))\\
+ + &\text{Ad}_{T(e_4)T(e_3)}(f(e_2(1))) - \text{Ad}_{T(e_4)T(e_3)T(e_2)}(f(e_2(0)))\\
+  + &\text{Ad}_{T(e_4)}(f(e_3(1)))-\text{Ad}_{T(e_4)T(e_3)}(f(e_3(0)))\\ 
+  + &f(e_4(1))-\text{Ad}_{T(e_4)}(f(e_4(0)))
+\end{align*}
+Now because of the compatibility conditions $e_1(1)=e_2(0),\dots$, we have many cancellations and the sum reduces to:
+
+\[=f(e_4(1)) - \text{Ad}_{T(e_4)T(e_3)T(e_2)T(e_1)}(f(e_1(0)))\]
+\[=f(e_4(1)) - \text{Ad}_{T(e_4)T(e_3)T(e_2)T(e_1)}(f(e_1(0))) = (I-\text{Ad}_{F_T(p)})f(e_1(0))\]
+
+We therefore see that if $F_T=Id$, then $d_T^2=0$.
+\end{proof}
+For the rest of the writeup, $T$ is flat.
+\begin{theorem}
+
+\[T_{T}O_T =\text{Ran}(d_T^0Q_P)\]
+
+\end{theorem}
+\begin{proof}
+By lemma 1.3.1, it suffices to consider the orbit map
+
+\[\phi:G^{V\setminus P}\to G^E\]
+
+we have that 
+\[T_TO_T = \text{Ran}d\phi_e\]
+
+to compute this range, fix a basis $E_i$ for the Lie algebra of $G$.
+
+Let $E_{i,v}$ be the associated basis element of $\mathfrak{g}^{\oplus V\setminus P}$.
+
+If necessary, $E_{i,v}(g)$ is the associated left-invariant vector field on $G^{V\setminus P}$.
+
+Now we compute:
+\[\phi(g)(e) = g(e(1))T(e)g(e(0))^{-1}\]
+
+\[d\phi_e(X_{e_0}, X_{e_1}) = dR_{T(e)}|_e(X_{e_1}) + d(L_{T(e)}\circ I)|_e(X_{e_0})\]
+\[= dR_{T(e)}|_e(X_{e_1}) + dL_{T(e)}|_e\qty(dI_e(X_{e_0}))\]
+
+Now it is a classic result that $dI_e(X)=-X$. So:
+\[= dR_{T(e)}|_{e}(X_{e_1}) - dL_{T(e)}|_{e}(X_{e_0})\]
+
+
+To simplify the expression, we apply the trivialization $TG\cong G\times \mathfrak{g}$
+obtained by left-translation.
+
+In this representation, we get:
+\[= \text{Ad}_{T(e)^{-1}}(X_{e_1})-X_{e_0}\]
+so we see that $T_T O_T=\text{Ran}(d_T^0Q_P)$.
+
+\end{proof}
+
+Now it remains to find a formula for the orthogonal projection onto the range of $d_T^0 Q_P$.
+
+For every vertex $v$, let $\partial^\ast v$ be the set of edges containing $v$.
+For $e\in \partial^\ast v$, $s(e)=1$ if teh edge is oriented towards $v$ and $-1$ otherwise.
+\begin{lemma}
+With respect to the direct-sum inner products on $\mathfrak{g}^V, \mathfrak{g}^E$, 
+let $\delta^1_T=(d_T^0)^\ast$, $\delta^2_T = (d_T^1)^\ast$.
+Then 
+\[\delta_T^1:\mathfrak{g}^E\to \mathfrak{g}^V\]
+is given by:
+\[(\delta_T^1 \omega)(v)=\sum_{e\in \partial^\ast v} \text{Ad}^{\frac{s(v)+1}{2}}_{T(e)}(\omega(e))\]
+and 
+\[\delta_T^2:\mathfrak{g}^P\to\mathfrak{g}^E\]
+is given by: TODO or maybe not needed at all.
+\end{lemma}
+\begin{proof}
+Let $\omega\in\mathfrak{g}^E$ and $f\in\mathfrak{g}^V$.
+\[\qty(\omega, d_T^0 f)=\sum_{e\in E} \ev{\omega(e),(d_T^0f)(e)}\]
+\[=\sum_{e\in E}\ev{\omega(e),\qty(\text{Ad}_{T(e)^{-1}}(f(e(1))) - f(e(0)))}\]
+
+Now every edge $e$ is uniquely determined by its endpoint $e(1)$ and direction $e(1)-e(0)$.
+
+Let $(h, n)$ represent this pair. More precisely, for every vertex, $n$ indexes the set of edges directed towards the vertex $h$.
+\[=\sum_{h,n}\ev{\omega(h,n),\text{Ad}_{T(h,n)^{-1}}(f(h))} - \ev{\omega(h,n),f(h-n)}\]
+\[\sum_{h,n}\ev{\omega(h,n),\text{Ad}_{T(h,n)^{-1}}(f(h))} - \sum_{h,n}\ev{\omega(h,n),f(h-n)}\]
+
+The second sum may be re-indexed.
+
+$h-n$ is the initial point of the edge associated with $(h,n)$.
+
+So we can re-index in terms of initial-points. Let every vertex be represented by the pair $(t, u)$
+where $t$ is the initial point and $u$ indexes the set of outgoing edges at $t$.
+
+Then:
+\[=\sum_{h,n}\ev{\omega(h,n),\text{Ad}_{T(h,n)^{-1}}(f(h))} - \sum_{t,u}\ev{\omega(t,u),f(t)}\]
+\[=\sum_{h,n}\ev{\text{Ad}_{T(h,n)}(\omega(h,n)),f(h)} - \sum_{t,u}\ev{\omega(t,u),f(t)}\]
+
+\[=\sum_{e\in \partial^\ast v} \ev{\text{Ad}^{\frac{s(v)+1}{2}}_{T(e)}(\omega(e)),f(h)}\]
+
+
+Now we carry out a similar computation for $\delta_T^2$. Let $\omega\in \mathfrak{g}^E$ and $\rho\in \mathfrak{g}^P$.
+Then 
+\[\qty(\rho, d_T^1 \omega) = \sum_{p\in P} \rho(p)(d_T^1 \omega)(p)\]
+This looks complicated\dots TODO
+
+
+\end{proof}
+
+
+
+Now we define the covariant Hodge Laplacian:
+\[-\Delta_T: \mathfrak{g}^E\to\mathfrak{g}^E\]
+\[-\Delta_T= \delta_T^2 d_T^1 + d_T^0 \delta_T^1\]
+Clearly, $\Delta_T$ is self-adjoint and negative-definite.
+\begin{theorem}
+\[\ker \Delta_T=\mathcal{F}_T\]
+where $\mathcal{F}_T$ is the (one-dimensional) space of covariantly constant functions $\ker d_T^0$.
+\end{theorem}
+\begin{proof}
+Suppose that $-\Delta_T\omega=0$.
+Then 
+\[0=\qty(\omega, -\Delta_T \omega) = \qty(\omega, \delta_T^2 d_T^1\omega) + \qty(\omega, d_T^0\delta_T^1\omega)\]
+\[=\norm{d_T^1\omega}^2 + \norm{\delta_T^1\omega}^2\]
+so it follows that $d_T^1\omega=0$ and $\delta_T^1\omega=0$.
+Now, $\ker \delta_T^1 = \text{Ran}d_T^0$.
+so $\delta_T^1\omega=0$ implies that $\omega=d_T^0f$ for some $f$. But then $d_T^1\omega=d_T^1d_T^0f=0$.
+\end{proof}
+It follows that $\Delta_T(\mathcal{F}_T^\perp)\subset \mathcal{F}_T^\perp$, 
+and the resulting operator $\Delta_T|_{\mathcal{F}_T^\perp}:\mathcal{F}_T\to\mathcal{F}_T$ is invertible.
+Now we return to the computation of $P_{\text{Ran}(d_T^0 Q_P)^\perp}$.
+
+\[\text{Ran}(d_T^0 Q_P)^\perp = \ker(Q_P^\ast \delta_T^1)\]
+
+Now trivially $Q_P^\ast =Q_P$. So $=\text{Ker}(Q_P\delta_T^1)$.
+
+This is exactly the set $\qty{\omega\in \mathfrak{g}^E|\supp \delta_T^1 \omega\subset P}$.
+
+Now we saw that $\omega$ is harmonic if and only if $d_T^1\omega=\delta_T^1\omega=0$.
+
+It follows by taking adjoints that $\omega$ is harmonic if and only if $\omega$
+is orthogonal to the ranges of $d_T^0$ and $\delta_T^2$. So we get an orthogonal Hodge decomposition:
+\[\mathfrak{g}^E = \text{Ran}d_T^0 \oplus \text{Ran}\delta_T^2 \oplus \mathcal{H}_{T;1}\]
+
+So fix $\omega$ and let $\omega = d_T^0f+\delta_T^2 \rho+h$ be its Hodge decomposition.
+
+$\delta_T^1\omega = \delta_T^1d_T^0 f = -\Delta_T^0f$. 
+
+We wish to compute the orthogonal projection $P$ onto the $d_T^0f$s such that $\supp \Delta_T f\subset P$.
+The remaining projections are elementary and we can combine these into the desired normal projection.
+Let us assume that $\omega = d_T^0 f$.
+
+Here's an idea. Begin with $\delta_T^1 \omega = -\Delta_T f$.
+A first guess is:
+
+\[P=d_T^0(-\Delta_T)^{-1}Q_P \delta_T^1\]
+\[P^2=P\]
+But this is not self-adjoint. Is there a self-adjoint version?
+
+
+\end{document}
+
