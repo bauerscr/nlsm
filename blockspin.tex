@@ -86,13 +86,17 @@ For a given block spin field $V\in\R^B$,
               +\frac a2\|V-Q\phi\|^2\right\}.
 \end{equation}
 Here $n_{\rm fine}$ is the number of fine sites and $B$ the number
-of blocks.  The minimization is over unrestricted real fields. In particular,
-for any $V \in \R^B$ with $\phi_V$ the minimizer of $\mathcal E_V$,
+of blocks.  The minimization is over unrestricted real fields.
+%
+In particular, for any $V \in \R^B$ with $\phi_V$ the minimizer of $\mathcal E_V$,
 \begin{equation}
+\begin{aligned}
   \mathcal E_V(\phi)
-  = \min \mathcal E_V + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
-  = \frac12 \langle V, K_{h+1} V\rangle + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
+  &= \min \mathcal E_V + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
+  \\
+  &= \frac12 \langle V, K_{h+1} V\rangle + \frac12 \langle \phi-\phi_V, \operatorname{Hess} \mathcal E_V(0)(\phi-\phi_V)\rangle 
   .
+\end{aligned}
 \end{equation}
 \end{proposition}
 
@@ -101,22 +105,22 @@ Set $A=K_h+aQ^*Q$. For $a>0$, this matrix is positive definite whenever $\ker K_
 The positive gradient term in $K_h$ makes its kernel consist of constants, while
 $Q$ preserves constants, so this condition holds.
 Expanding the energy gives
-\[
+\begin{equation}
  \mathcal E_V(\phi)
  =\frac12\langle\phi,A\phi\rangle
   -a\langle\phi,Q^*V\rangle+\frac a2\|V\|^2.
-\]
+\end{equation}
 Its unique minimizer therefore satisfies
-\[
+\begin{equation}
  A\phi_V=aQ^*V,\qquad
  \phi_V=a(K_h+aQ^*Q)^{-1}Q^*V.
-\]
+\end{equation}
 Completing the square yields
-\[
+\begin{equation}
  \mathcal E_V(\phi)
  =\frac12\langle\phi-\phi_V,A(\phi-\phi_V)\rangle
   +\frac12\langle V,(a\Id-a^2QA^{-1}Q^*)V\rangle.
-\]
+\end{equation}
 The first term vanishes at $\phi=\phi_V$, giving the stated formula
 for $K_{h+1}$.
 \end{proof}
@@ -128,6 +132,8 @@ and the corresponding kinetic term $K_h$.
 
 
 \subsection{Lifting the energy}
+
+Let $E$ denote the set of directed edges and $d: \R^\Lambda \to \R^E$ and $d^*: \R^E \to \R^V$ be the discrete gradient and curl.
 
 \begin{proposition}
 The renormalized kinetic term can be written as 
@@ -166,16 +172,16 @@ complement.  The bounds are uniform in the history.
 
 To use the preprint's particular positive completion [O3, Section~4.3],
 make the further modification
-\[
+\begin{equation}
  \widetilde B_h^{-1}
  =B_h^{-1}+\lambda_1 B_h^{-1}\mathsf c^*\mathsf c B_h^{-1}.
-\]
+\end{equation}
 Since $\widetilde B_h^{-1}B_hd=d$, this still gives
 $\widetilde B_hd=B_hd$ and $d^*\widetilde B_hd=K_h$.
 Choose $c_0>0$ below the uniform lower bound of $\widetilde B_h$ and set
-\[
+\begin{equation}
  \ell_h=(\widetilde B_h-c_0I)^{1/2}.
-\]
+\end{equation}
 Then $\mathsf A_h^*\mathsf A_h=c_0I+\ell_h^*\ell_h
 =\widetilde B_h$, proving the decomposition and its quadratic-form
 identity.  The uniform analyticity and strict positivity imply that
@@ -545,11 +551,12 @@ its contribution is retained explicitly.
 
 \begin{proposition} \label{prop:background-expect}
 Given arbirary $F$, for any $C$ and $\mu$,
-\begin{align}
+\begin{equation}
+\begin{aligned}
  \mathcal I={}&
  \kappa_g^n(\det A)^{1/2}(\det C)^{3/2}
  \exp\!\left\{-\frac{|r|^2}{2g^2}\right\}
- \nonumber\\
+ \\
  &\E_{\gamma_C}\left[
  H(q(\mu+gZ))\,\mathcal J(\mu+gZ)
  \exp\!\left\{
@@ -558,11 +565,12 @@ Given arbirary $F$, for any $C$ and $\mu$,
  -g^{-1}(h,Z)
  \right\}\right],
  \label{eq:main}
-\end{align}
+\end{aligned}
+\end{equation}
 where %$h^*Z=\sum_xh_x\cdot Z_x$ and
 \begin{equation}
  r=D\mu+F,\qquad h=A\mu+D^*F,
- \qquad \kappa_g=(2\pi g^2)=\frac{g^2}{2}.
+ \qquad \kappa_g=2\pi g^2.
 \end{equation}
 \end{proposition}
 
@@ -639,7 +647,7 @@ The indicator function that $X$ is in the small field region (only has good edge
  \label{eq:mask}
 \end{equation}
 \end{itemize}
- The parameter is chosen as $g_j \ll t \ll g_t^{1-epsilon}$. Typical fluctuations should be of order $g_j$.
+ The parameter is chosen as $g_j \ll t \ll g_t^{1-\epsilon}$. Typical fluctuations should be of order $g_j$.
 
 \subsection{Renormalized kinetic energy $\mathcal E$}
 
@@ -838,10 +846,10 @@ With $W_\sigma(u)=e^{\sigma u}(1+u)^2$, the degree-four and -six norms are
  |a_\alpha|W_\sigma\!\left(1+\sum_{i=1}^n|r_i|_1\right).
 \end{equation}
 For a quadratic list, the corresponding contribution of $aQ_{r,s}$ is
-\[
+\begin{equation}
  |a|\bigl\{W_\sigma(1+|r|_1+|s|_1)
                  +|r\cdot s|W_\sigma(3)\bigr\},
-\]
+\end{equation}
 summed over labels and with the same supremum over anchors.  These
 are norms of the retained coefficient lists, before cancellations
 between different labels.
@@ -932,5 +940,235 @@ similar to [Brydges, Park City].
 
 The next-scale kernels $f_X$ and $k_\ell$ as well as $\mathcal P_\alpha$
 must be estimated in terms of the previous scale ones.
+
+\section{Perturbation theory and the running coupling}
+\label{sec:perturbative-coupling}
+
+We outline the compute of perturbation theory in [O3, Section~5.5] and its
+relation to the coupling constant recursion in Sections~5.7 and~6.1.
+%
+Assuming $f_X=0$, $\Xi=1$, and that the background field is essentially constant, we will derive
+\begin{equation}
+ b_{j-1}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j} + O(b_j^{-1.05}).
+ \label{eq:pert-exact-recursion}
+\end{equation}
+
+\subsection{The Gaussian expansion to be computed}
+
+Consider one step from scale $j$ to $j-1$, and abbreviate
+\begin{equation}
+b=b_j,\quad g=b^{-1/2},\quad K'=K_{h+1}.
+\end{equation}
+%For the formal coefficient
+%calculation use full, untruncated kernels and the empty sector.
+Throughout this subsection the symbols $A,D,C,F,\mu$ refer to these full-kernel quantities:
+\begin{equation}
+ \begin{gathered}
+ A=D^*D=K_h+aQ^*Q,\qquad C=A^{-1},\qquad
+ \mu=-A^{-1}D^*F,\\
+ \xi=\mu+gZ,\qquad Z\sim N(0,C\otimes I_3).
+ \end{gathered}
+\end{equation}
+where $a=1$. The mean is given in terms of 
+\begin{equation}
+F_i=\proj_{T_i^\perp}R_i(0,V),
+\end{equation}
+where $R_i(0,V)$ means $u=0$ and $T_i= ...$ % is the row's coarse reference spin.
+
+% The physical residual
+% uses the full-kernel shifts $(\nu,w)=\mathcal M X'$.
+% Thus the covariance-ratio and linear-mean corrections in
+% \eqref{eq:main} vanish.  The finite range construction is needed
+% to control the exact integral; its replacement by full kernels in
+% this coefficient calculation is justified by the remainder estimates.
+
+First the block spin kinetic action is factored out with the old running coupling constant: $b\mathcal E'(V)$,
+where $\mathcal E'(V)=\tfrac12\langle V,K'V\rangle$ for small fields.
+Relative to this, the correction in the renormalized action is
+\begin{equation}
+ \mathcal W(V)=-\log\E_{C}e^{-\mathcal V(V,Z)}.
+ \label{eq:pert-connected-action}
+\end{equation}
+where $\mathcal V$ is the sum of the following
+ terms evaluated at $\xi=\mu+gZ$:
+\begin{equation}
+ \begin{split}
+ \mathcal V={}&\frac b2\sum_i
+   \bigl(|R_i(q)|^2+|D_iv|^2-|D_i\xi+F_i|^2\bigr)
+   +b\sum_E U_E+\frac b2|D\mu+F|^2\\
+ &+bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q)
+   -\sum_x\log\frac{J(u_x)}{J(0)}.
+ \end{split}
+ \label{eq:pert-vertices}
+\end{equation}
+%Each polynomial here denotes its full incoming list summed over anchors.
+% The first term is the nonlinear square defect already appearing in \eqref{eq:delta};
+% the third is the stationary residual left by completing the affine squares.
+%
+The second term $U_E$ is the defect
+between the linear and normalized block average.
+%with $X'=\mathsf A_{h+1}d'V$ and the full free map $\mathcal M$ of [O3, Section~4.3], it is
+%\begin{equation}
+% U_E=X'_E\cdot
+% \bigl[\mathcal M^*(0,\sqrt a(m-m/|m|))\bigr]_E.
+%\end{equation}
+The Jacobian is:
+\begin{equation}
+ -\log\frac{J(u)}{J(0)}
+ =-\log\frac{\sin|u|}{|u|}
+ =\frac{|u|^2}{6}+\frac{|u|^4}{180}+O(|u|^6).
+\end{equation}
+% The auxiliary normal Gaussian retains its normalizing determinant.
+% Although Wick contractions have three ambient colors, the physical
+% measure still has two tangent components.  Extracting $J(0)$ at
+% each site changes the local scalar $2\pi g^2$ in \eqref{eq:main}
+% to $(2\pi g^2)J(0)=g^2/2$; it is then the normalized ratio
+% $J(u)/J(0)$ that remains in the expectation.
+
+\subsection{Connected Wick contractions and power counting}
+
+Write $\langle W_1;\ldots;W_m\rangle_c$ for a Gaussian cumulant. Then the expansion is
+\begin{equation}
+ \mathcal W
+ =\langle\mathcal V\rangle
+  -\frac12\langle\mathcal V;\mathcal V\rangle_c
+  +\frac16\langle\mathcal V;\mathcal V;\mathcal V\rangle_c
+  -\frac1{24}\langle\mathcal V;\mathcal V;
+                         \mathcal V;\mathcal V\rangle_c+\cdots.
+ \label{eq:pert-cumulants}
+\end{equation}
+Assign order $g$ to both a relative output tangent $y$ and the fluctuation $gZ$.
+For example, after setting
+$y=g\eta$ and writing $\mathcal V=\sum_{r\ge1}g^r\mathcal V_r$, the
+coefficients at orders two and four are
+\begin{align}
+ [g^2]\mathcal W
+ &=\langle \mathcal V_2\rangle-\tfrac12\langle \mathcal V_1;\mathcal V_1\rangle_c,\\
+ [g^4]\mathcal W
+ &=\langle \mathcal V_4\rangle-\langle \mathcal V_1;\mathcal V_3\rangle_c
+   -\tfrac12\langle \mathcal V_2;\mathcal V_2\rangle_c
+   +\tfrac12\langle \mathcal V_1;\mathcal V_1;\mathcal V_2\rangle_c
+   -\tfrac1{24}\langle \mathcal V_1;\mathcal V_1;\mathcal V_1;\mathcal V_1\rangle_c.
+\end{align}
+%
+%Wick's rule pairs Gaussian legs using
+%$\langle Z_x^a Z_y^b\rangle=(C)_{xy}\delta_{ab}$.
+%The cumulant retains pairings connecting all the vertices; pairs
+%within a vertex are allowed as well.  
+%
+%These formulas explain why merely averaging the interaction misses
+%part of the coupling correction.  Express the resulting polynomials
+%in the relative projection coordinates $y_o(x)$ of
+%\eqref{eq:canonical-tangent}.  Odd output degrees vanish by the
+%stabilizer $O(2)$ symmetry.
+After removing constants, the O3 preprint organizes the result as
+($y$ are tangent coordinates):
+\begin{equation}
+ \mathcal W_{\le4}
+ =bF_{2,1}(y)+F_{2,0}(y)
+   +bF_{4,1}(y)+F_{4,0}(y)+b^{-1}F_{4,-1}(y).
+ \label{eq:pert-sorted}
+\end{equation}
+Here $F_{r,d}$ has field degree $r+2d$, so $g^{-2d}F_{r,d}$
+has formal order $g^r$.  Thus the field degrees are $4,2,6,4,2$.
+
+\subsection{Extracting the kinetic coefficient}
+
+The formula produces a quadratic polynomial. It is not exactly a multiple
+of the kinetic term.
+%
+The marginal coefficient is extracted by testing its bulk density
+on affine tangent fields
+\begin{equation}
+ y_o(o+r)=Ar,\qquad A:\R^2\longrightarrow q_o^\perp.
+\end{equation}
+Internal $O(2)$ and spatial quarter-turn symmetry make the resulting
+quadratic form a scalar multiple of $\tfrac12\tr(A^*A)$.
+The quadratic kinetic density $S_{K',o}^{[2]}$ has exactly this
+value, since the free precision has unit quadratic momentum jet.
+Define the affine-Hessian functional $\mathfrak a$ by
+\begin{equation}
+ G_o^{[2]}(Ar)=\mathfrak a(G^{[2]})\,
+                    \tfrac12\tr(A^*A),
+ \qquad \mathfrak a(S_{K'}^{[2]})=1,
+\end{equation}
+where all bulk labels at the anchor are summed before this test.
+Thus the two kinetic increments are
+\begin{equation}
+ \alpha=\mathfrak a(F_{2,0}),\qquad
+ \kappa=\mathfrak a(F_{4,-1}),\qquad
+ b^-=b+\alpha+\frac{\kappa}{b}.
+ \label{eq:pert-bminus}
+\end{equation}
+Although $\alpha$ is an order-one change of $b$, its contribution
+$\alpha\mathcal E'$ is order $g^2$ when $y=O(g)$.
+Similarly $(\kappa/b)\mathcal E'$ is order $g^4$.
+
+The remaining polynomial terms are assigned by the triangular rule
+\begin{align}
+ P'_4&=F_{2,1},&
+ I'_2&=\operatorname{Comp}
+             (F_{2,0}-\alpha S_{K'}^{[2]}),\\
+ P'_6&=F_{4,1},&
+ I'_4&=F_{4,0}-\alpha P'_4-\alpha S_{K'}^{[4]},\\
+ J'_2&=\operatorname{Comp}
+             (F_{4,-1}-\kappa S_{K'}^{[2]}),&
+ P'_5&=I'_3=0.
+ \label{eq:pert-slot-recursion}
+\end{align}
+The operation $\operatorname{Comp}$ writes a quadratic list with
+zero total affine Hessian in the compensated $Q_{r,s}$ packets;
+it preserves the summed polynomial.  The term $-\alpha S_{K'}^{[4]}$
+is needed because shifting $b$ multiplies the whole nonlinear
+kinetic energy.  The term $-\alpha P'_4$ is needed because the
+new quartic slot is written with prefactor $b^-$ rather than $b$.
+Indeed, modulo constants and formal orders above four,
+\begin{equation}
+ b\mathcal E'+\mathcal W_{\le4}
+ =b^-\mathcal E'+b^-P'_4+I'_2+b^-P'_6+I'_4+(b^-)^{-1}J'_2.
+\end{equation}
+This identity explains both the kinetic recursion and the accompanying
+recursion of the irrelevant coefficients.  The coupling does not
+evolve autonomously before these coefficient lists have been specified.
+
+\subsection{From the formal recursion to the exact one}
+
+The coefficient operation defines a deterministic map
+$\mathbf P'=\mathcal C_h(\mathbf P)$, independent of the precise
+$b$ once its displayed powers have been sorted.  Starting from the
+nearest-neighbor action, $\mathbf P^{(0)}=0$ and
+$\mathbf P^{(h+1)}=\mathcal C_h(\mathbf P^{(h)})$.
+Write $\alpha_h,\kappa_h$ for the increments evaluated on this orbit.
+After $h=N-j$ completed steps the perturbative prediction is
+\begin{equation}
+ b_{j-1}^{\rm pert}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j}.
+\end{equation}
+The omitted connected terms, cutoffs and localization corrections
+produce a new regular remainder and covering terms.  Subtracting
+the aligned value of each regular remainder changes the bulk
+scalar; subtracting its affine Hessian gives a further kinetic
+increment $\Delta_j$.  This scalar is distinct from the square
+defect $\Delta(\xi)$ in \eqref{eq:delta}.  The exact construction proves
+\begin{equation}
+ b_{j-1}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j}+\Delta_j,
+ \qquad |\Delta_j|\le C_LH_j^{-1.05}.
+ \label{eq:pert-exact-recursion}
+\end{equation}
+Setting the incoming $f$ to zero does not set this newly generated
+$\Delta_j$ to zero.  Discarding it is a perturbative truncation.
+
+Finally, [O3, Section~6.1] proves that the canonical orbit and free
+history give convergent increments, with
+\begin{equation}
+ \alpha_h\longrightarrow-\gamma,
+ \qquad \gamma=\frac{\log L}{2\pi},\qquad
+ \kappa_h\longrightarrow\kappa_\infty.
+\end{equation}
+The value of $\alpha_\infty$ is identified there by matching a
+finite-volume Laplace coefficient before and after blocking;
+$\kappa_\infty$ is not evaluated numerically.  Thus the leading
+coarse-graining flow decreases the stiffness by $\gamma$ per step,
+and tracing the flow towards the ultraviolet gives the reference
+growth $b_j\approx H+\gamma j$, with logarithmic corrections.
 
 \end{document}
