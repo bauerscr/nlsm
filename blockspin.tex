@@ -1033,6 +1033,51 @@ The Jacobian is
 The term $\mathcal L$ is the defect
 between the linear and normalized block average in \eqref{eq:cEqV}.
 
+\begin{proposition}[Spin symmetry of the output]
+\label{prop:spin-symmetry}
+For globally $O(3)$-invariant input density,
+the output density and the effective interaction $\mathcal W$
+are invariant under global
+$O(3)$ transformations of the spins.
+The connected Taylor coefficients inherit this invariance. 
+At a fixed anchor spin, they are therefore invariant under its
+tangent-plane stabilizer $O(2)$.
+\end{proposition}
+
+\begin{proof}
+First consider an internal spin transformation $R\in O(3)$.
+The block mean obeys $\widehat m(Rq)=R\widehat m(q)$ (with
+the same tag if needed).  Hence the normalized
+block spin kernel $\mathcal B(V,q)$ obeys
+$\mathcal B(RV,Rq)=\mathcal B(V,q)$.  Invariance of the incoming
+density and spherical measure gives, by $q=R\widetilde q$,
+\begin{equation}
+ \rho'(RV)
+ =\int\rho(q)\mathcal B(RV,q)\,d\omega(q)
+ =\int\rho(\widetilde q)\mathcal B(V,\widetilde q)
+                      \,d\omega(\widetilde q)
+ =\rho'(V).
+\end{equation}
+Here the integrals use product spherical measure and include the
+tag average when needed.
+
+The perturbative representation preserves the same symmetry.
+Indeed, the intrinsic coordinates and tangent projections satisfy
+\begin{equation}
+ \Exp_{RT}(Ru)=R\Exp_T(u),\qquad
+ \proj_{(RT)^\perp}(R\xi)=R\proj_{T^\perp}\xi.
+\end{equation}
+The projected affine rows are equivariant and the Gaussian covariance
+is $C\otimes I_3$.  Thus $RZ$ has the same law as $Z$, and
+\begin{equation}
+ \mathcal V(RV,RZ)=\mathcal V(V,Z),\qquad
+ \mathcal W(RV)=\mathcal W(V).
+\end{equation}
+Taking the connected expansion and each homogeneous Taylor part
+preserves these identities.  Fixing the anchor spin leaves the full
+stabilizer $O(2)$ acting on its tangent plane.
+\end{proof}
+
 \subsection{Connected Wick contractions and power counting}
 
 Write $\langle W_1;\ldots;W_m\rangle_c$ for a Gaussian cumulant. Then the expansion is
@@ -1114,10 +1159,6 @@ displacements to tangent spin vectors.
 The tangent projection is
 $\proj_{q_o^\perp}:\R^3\to q_o^\perp$, used in the definition
 of $y_o$.
-Internal $O(2)$ and spatial quarter-turn symmetry make the resulting
-quadratic form a scalar multiple of
-$\tfrac12\tr(\mathsf L_o^*\mathsf L_o)$.
-%
 To make this test concrete, choose two tangent vectors
 $a_1,a_2\in q_o^\perp$ and write
 \begin{equation}
@@ -1129,6 +1170,55 @@ $a_1,a_2\in q_o^\perp$ and write
 The vectors $a_1,a_2$ are the constant increments of the affine
 tangent field in the two spatial directions.  This is the meaning
 of its slope; $\mathsf L_o$ is not a projection.
+
+\begin{proposition}[Symmetry of the quadratic kinetic correction]
+\label{prop:kinetic-symmetry}
+Under the hypotheses of Proposition~\ref{prop:spin-symmetry}, use
+also the equivariant bulk coefficient prescription of the preprint.
+The bulk coefficients preserve spatial quarter-turn symmetry.
+
+Let $G_o^{[2]}$ be a homogeneous quadratic output contribution,
+summed over the complete symmetry orbits of its labels at anchor
+$o$.  Then there is a scalar $\alpha_G$ such that
+\begin{equation}
+ G_o^{[2]}(\mathsf L_o r)
+ =\frac{\alpha_G}{2}\tr(\mathsf L_o^*\mathsf L_o)
+ =\frac{\alpha_G}{2}\bigl(|a_1|^2+|a_2|^2\bigr).
+ \label{eq:kinetic-symmetry}
+\end{equation}
+Only spatial quarter turns are required; arbitrary spatial rotations
+are not symmetries of the lattice construction.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:spin-symmetry}, fixing the anchor spin
+leaves an internally $O(2)$-invariant Taylor polynomial.
+
+For spatial quarter turns, the bulk block geometry, free kernels,
+and coefficient-assignment rules transform together.  The preprint
+keeps complete symmetry orbits of labels, so the summed bulk
+quadratic contribution has this symmetry as well.  This statement
+concerns the bulk coefficient calculation, not arbitrary winding
+terms on a torus without the corresponding spatial symmetry.
+
+Now evaluate $G_o^{[2]}$ on $y_o(o+r)=r_1a_1+r_2a_2$.
+The exponential coefficient bounds make this evaluation summable.
+Internal $O(2)$ invariance implies that the resulting quadratic form
+is a linear combination of dot products:
+\begin{equation}
+ Q(a_1,a_2)
+ =c_1|a_1|^2+2c_{12}a_1\cdot a_2+c_2|a_2|^2.
+\end{equation}
+A spatial quarter turn exchanges the slopes up to a sign, so
+\begin{equation}
+ Q(a_1,a_2)=Q(a_2,-a_1)
+ =c_1|a_2|^2-2c_{12}a_1\cdot a_2+c_2|a_1|^2.
+\end{equation}
+Since this holds for arbitrary $a_1,a_2$, it forces
+$c_1=c_2$ and $c_{12}=0$.  Setting $\alpha_G=2c_1$ proves
+\eqref{eq:kinetic-symmetry}.  An individual unsymmetrized label
+need not have this form.
+\end{proof}
 
 The symbol $S_{K',o}$ denotes the contribution anchored at $o$ to
 the block spin kinetic energy, with the edge and row contributions
