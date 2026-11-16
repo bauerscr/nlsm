@@ -362,7 +362,7 @@ kernel whose exponential part is
  e^{-\frac{ba}{2}\|V-\widehat m(q)\|^2}.
 \end{equation}
 Then the leading part of the energy decomposition has the following form:
-\begin{equation}
+\begin{equation} \label{eq:cEqV}
  \mathcal E_{h,t}(q)
  +\frac a2\|V-\widehat m(q)\|^2
  =\mathcal E_{h',t'}(V)
@@ -845,6 +845,21 @@ With $W_\sigma(u)=e^{\sigma u}(1+u)^2$, the degree-four and -six norms are
  =\sup_o\sum_{\alpha\text{ at }o}
  |a_\alpha|W_\sigma\!\left(1+\sum_{i=1}^n|r_i|_1\right).
 \end{equation}
+Here $A_n$ denotes the entire degree-$n$ coefficient list
+$(a_\alpha)_\alpha$, together with its labels.  Each label specifies
+an anchor $o(\alpha)$, displacements $r_i^\alpha$, an invariant
+tensor $T_\alpha$, and support data.  The associated polynomial
+interaction is
+\begin{equation}
+ A_n(q)=\sum_\alpha 1_{X_\alpha}(q)\,a_\alpha
+ T_\alpha\bigl(y_{o(\alpha)}(o(\alpha)+r_1^\alpha),\ldots,
+               y_{o(\alpha)}(o(\alpha)+r_n^\alpha)\bigr).
+\end{equation}
+Thus the norm sums the individual coefficients of $A_n$ with
+spatial weights.  For example, $A_4$ can stand for $P_4$ or $I_4$,
+and $A_6$ for $P_6$; the displayed powers of $b$ in the action are
+excluded.  This notation is unrelated to the Gaussian precision
+matrix $A=D^*D$.
 For a quadratic list, the corresponding contribution of $aQ_{r,s}$ is
 \begin{equation}
  |a|\bigl\{W_\sigma(1+|r|_1+|s|_1)
@@ -953,41 +968,48 @@ Assuming $f_X=0$, $\Xi=1$, and that the background field is essentially constant
  \label{eq:pert-exact-recursion}
 \end{equation}
 
-\subsection{The Gaussian expansion to be computed}
-
-Consider one step from scale $j$ to $j-1$, and abbreviate
+\subsection{Gaussian perturbation theory}
+Scales run from the ultraviolet scale $j=N$ to the unit scale $j=0$.
+%
+We consider one step from scale $j$ to $j-1$, and abbreviate
 \begin{equation}
 b=b_j,\quad g=b^{-1/2},\quad K'=K_{h+1}.
 \end{equation}
 %For the formal coefficient
 %calculation use full, untruncated kernels and the empty sector.
-Throughout this subsection the symbols $A,D,C,F,\mu$ refer to these full-kernel quantities:
+Throughout this subsection the symbols $A,D,C,F,\mu$ refer to (with $a=1$):
 \begin{equation}
- \begin{gathered}
  A=D^*D=K_h+aQ^*Q,\qquad C=A^{-1},\qquad
- \mu=-A^{-1}D^*F,\\
- \xi=\mu+gZ,\qquad Z\sim N(0,C\otimes I_3).
- \end{gathered}
+ \mu=-A^{-1}D^*F,
 \end{equation}
-where $a=1$. The mean is given in terms of 
+where the mean is given in terms of the block spin field $V$ by
 \begin{equation}
 F_i=\proj_{T_i^\perp}R_i(0,V),
 \end{equation}
 where $R_i(0,V)$ means $u=0$ and $T_i= ...$ % is the row's coarse reference spin.
+%
+No finite range truncation is done here.
 
+
+The fluctuation integral is then defined by Proposition~\ref{prop:background-expect}:
+\begin{equation}
+ \xi=\mu+gZ,\qquad Z\sim N(0,C\otimes I_3).
+\end{equation}
+%
 % The physical residual
 % uses the full-kernel shifts $(\nu,w)=\mathcal M X'$.
 % Thus the covariance-ratio and linear-mean corrections in
 % \eqref{eq:main} vanish.  The finite range construction is needed
 % to control the exact integral; its replacement by full kernels in
 % this coefficient calculation is justified by the remainder estimates.
-
-First the block spin kinetic action is factored out with the old running coupling constant: $b\mathcal E'(V)$,
-where $\mathcal E'(V)=\tfrac12\langle V,K'V\rangle$ for small fields.
-Relative to this, the correction in the renormalized action is
+%
+As explained in and around \eqref{eq:cEqV},
+the block spin kinetic action is first factored out with the old running coupling constant:
+$b\mathcal E'(V)$, where $\mathcal E'(V)=\tfrac12\langle V,K'V\rangle$ for small fields,
+and relative to this, the correction in the renormalized action is given by Proposition~\ref{prop:background-expect} as
 \begin{equation}
- \mathcal W(V)=-\log\E_{C}e^{-\mathcal V(V,Z)}.
  \label{eq:pert-connected-action}
+ \mathcal W(V)=-\log\E_{C}e^{-\mathcal V(V,Z)},
 \end{equation}
 where $\mathcal V$ is the sum of the following
  terms evaluated at $\xi=\mu+gZ$:
@@ -995,35 +1017,21 @@ where $\mathcal V$ is the sum of the following
  \begin{split}
  \mathcal V={}&\frac b2\sum_i
    \bigl(|R_i(q)|^2+|D_iv|^2-|D_i\xi+F_i|^2\bigr)
-   +b\sum_E U_E+\frac b2|D\mu+F|^2\\
+   + b\mathcal L %+b\sum_E U_E
+   +\frac b2|D\mu+F|^2\\
  &+bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q)
    -\sum_x\log\frac{J(u_x)}{J(0)}.
  \end{split}
  \label{eq:pert-vertices}
 \end{equation}
-%Each polynomial here denotes its full incoming list summed over anchors.
-% The first term is the nonlinear square defect already appearing in \eqref{eq:delta};
-% the third is the stationary residual left by completing the affine squares.
-%
-The second term $U_E$ is the defect
-between the linear and normalized block average.
-%with $X'=\mathsf A_{h+1}d'V$ and the full free map $\mathcal M$ of [O3, Section~4.3], it is
-%\begin{equation}
-% U_E=X'_E\cdot
-% \bigl[\mathcal M^*(0,\sqrt a(m-m/|m|))\bigr]_E.
-%\end{equation}
-The Jacobian is:
+The Jacobian is
 \begin{equation}
  -\log\frac{J(u)}{J(0)}
  =-\log\frac{\sin|u|}{|u|}
  =\frac{|u|^2}{6}+\frac{|u|^4}{180}+O(|u|^6).
 \end{equation}
-% The auxiliary normal Gaussian retains its normalizing determinant.
-% Although Wick contractions have three ambient colors, the physical
-% measure still has two tangent components.  Extracting $J(0)$ at
-% each site changes the local scalar $2\pi g^2$ in \eqref{eq:main}
-% to $(2\pi g^2)J(0)=g^2/2$; it is then the normalized ratio
-% $J(u)/J(0)$ that remains in the expectation.
+The term $\mathcal L$ is the defect
+between the linear and normalized block average in \eqref{eq:cEqV}.
 
 \subsection{Connected Wick contractions and power counting}
 
@@ -1061,8 +1069,9 @@ coefficients at orders two and four are
 %in the relative projection coordinates $y_o(x)$ of
 %\eqref{eq:canonical-tangent}.  Odd output degrees vanish by the
 %stabilizer $O(2)$ symmetry.
+The result depends on the tangential coordinates $y$ relative to the
+fixed block spin field.
 After removing constants, the O3 preprint organizes the result as
-($y$ are tangent coordinates):
 \begin{equation}
  \mathcal W_{\le4}
  =bF_{2,1}(y)+F_{2,0}(y)
@@ -1071,25 +1080,97 @@ After removing constants, the O3 preprint organizes the result as
 \end{equation}
 Here $F_{r,d}$ has field degree $r+2d$, so $g^{-2d}F_{r,d}$
 has formal order $g^r$.  Thus the field degrees are $4,2,6,4,2$.
+More precisely, after writing $y=g\eta$, homogeneity gives
+\begin{equation}
+ g^{-2d}F_{r,d}(g\eta)=g^rF_{r,d}(\eta).
+\end{equation}
+Thus the $F_{r,d}$ are exactly the components of the coefficients
+$[g^r]\mathcal W$ computed above, separated by external-field degree:
+\begin{align}
+ [g^2]\mathcal W(V(g\eta))
+ &=F_{2,1}(\eta)+F_{2,0}(\eta),\\
+ [g^4]\mathcal W(V(g\eta))
+ &=F_{4,1}(\eta)+F_{4,0}(\eta)+F_{4,-1}(\eta).
+\end{align}
+Coefficient extraction holds $\eta$ fixed.  The first index $r$
+records the perturbative order, while the second index $d$
+distinguishes the field degrees $r+2d$ within that order:
+$4,2$ at order two and $6,4,2$ at order four.
 
 \subsection{Extracting the kinetic coefficient}
 
-The formula produces a quadratic polynomial. It is not exactly a multiple
-of the kinetic term.
+The formula produces a quadratic polynomial in $y$.
+It is not exactly a multiple of the kinetic term.
 %
 The marginal coefficient is extracted by testing its bulk density
 on affine tangent fields
 \begin{equation}
- y_o(o+r)=Ar,\qquad A:\R^2\longrightarrow q_o^\perp.
+ y_o(o+r)=\mathsf L_o r,\qquad
+ \mathsf L_o:\R^2\longrightarrow q_o^\perp,
 \end{equation}
+where the tangent coordinates are defined in \eqref{eq:canonical-tangent}
+and $\mathsf L_o$ is an arbitrary linear map from spatial
+displacements to tangent spin vectors. 
+The tangent projection is
+$\proj_{q_o^\perp}:\R^3\to q_o^\perp$, used in the definition
+of $y_o$.
 Internal $O(2)$ and spatial quarter-turn symmetry make the resulting
-quadratic form a scalar multiple of $\tfrac12\tr(A^*A)$.
-The quadratic kinetic density $S_{K',o}^{[2]}$ has exactly this
-value, since the free precision has unit quadratic momentum jet.
+quadratic form a scalar multiple of
+$\tfrac12\tr(\mathsf L_o^*\mathsf L_o)$.
+%
+To make this test concrete, choose two tangent vectors
+$a_1,a_2\in q_o^\perp$ and write
+\begin{equation}
+ \mathsf L_o(r_1,r_2)=r_1a_1+r_2a_2,
+ \qquad
+ \frac12\tr(\mathsf L_o^*\mathsf L_o)
+ =\frac12\bigl(|a_1|^2+|a_2|^2\bigr).
+\end{equation}
+The vectors $a_1,a_2$ are the constant increments of the affine
+tangent field in the two spatial directions.  This is the meaning
+of its slope; $\mathsf L_o$ is not a projection.
+
+The symbol $S_{K',o}$ denotes the contribution anchored at $o$ to
+the block spin kinetic energy, with the edge and row contributions
+assigned to anchors as in the preprint. For small gradients,
+\begin{equation}
+ \mathcal E'(V)=\frac12\langle V,K'V\rangle
+              =\sum_o S_{K',o}(V).
+\end{equation}
+The superscript $[2]$ denotes the homogeneous degree-two Taylor
+term in the tangent coordinates $y$:
+\begin{equation}
+ S_{K',o}^{[2]}(y)
+ =\frac12\left.\frac{d^2}{d\varepsilon^2}
+                  S_{K',o}(\varepsilon y)\right|_{\varepsilon=0},
+ \qquad
+ \mathcal E'^{[2]}(y)=\sum_o S_{K',o}^{[2]}(y).
+\end{equation}
+The full kinetic energy has higher-degree terms because block spins are on the sphere.
+
+The free kinetic term is normalized such that
+\begin{equation}
+ K'(p)=|p|^2+O(|p|^4)\qquad(p\to0).
+\end{equation}
+Its quadratic kinetic density therefore has the usual gradient
+normalization.  Evaluated on the affine tangent field, it gives
+\begin{equation}
+ S_{K',o}^{[2]}(\mathsf L_o r)
+ =\frac12\sum_{\mu=1}^2|\mathsf L_o e_\mu|^2
+ =\frac12\tr(\mathsf L_o^*\mathsf L_o).
+\end{equation}
+We expand \emph{around} a constant block-spin configuration;
+the block spins are not kept exactly constant during the test.
+At an exactly constant configuration both $\mathcal E'$ and its
+kinetic densities vanish.  Their second variation under nonconstant
+perturbations determines the kinetic coefficient.  Using the density
+$S_{K',o}^{[2]}$ states this normalization per anchor and avoids an
+overall volume factor.
+%
 Define the affine-Hessian functional $\mathfrak a$ by
 \begin{equation}
- G_o^{[2]}(Ar)=\mathfrak a(G^{[2]})\,
-                    \tfrac12\tr(A^*A),
+ G_o^{[2]}(\mathsf L_o r)=\mathfrak a(G^{[2]})\,
+                    \tfrac12\tr(\mathsf L_o^*\mathsf L_o),
  \qquad \mathfrak a(S_{K'}^{[2]})=1,
 \end{equation}
 where all bulk labels at the anchor are summed before this test.
@@ -1128,16 +1209,34 @@ Indeed, modulo constants and formal orders above four,
  =b^-\mathcal E'+b^-P'_4+I'_2+b^-P'_6+I'_4+(b^-)^{-1}J'_2.
 \end{equation}
 This identity explains both the kinetic recursion and the accompanying
-recursion of the irrelevant coefficients.  The coupling does not
-evolve autonomously before these coefficient lists have been specified.
+recursion of the irrelevant coefficients. 
 
 \subsection{From the formal recursion to the exact one}
 
+Write $\mathbf P$ for the collection of retained polynomial
+coefficient lists,
+\begin{equation}
+ \mathbf P=(P_4,I_2,P_5,I_3,P_6,I_4,J_2),
+ \qquad P_5=I_3=0.
+\end{equation}
+The subscripts indicate degree in the relative tangent field $y$.
+The displayed powers of $b$ are not part of these lists: their
+contribution to the action is
+\begin{equation}
+ bP_4+I_2+bP_6+I_4+b^{-1}J_2,
+\end{equation}
+with the prescribed sums over labels and their masks.  Each entry
+of $\mathbf P$ is a coefficient list, not a single scalar coupling.
 The coefficient operation defines a deterministic map
 $\mathbf P'=\mathcal C_h(\mathbf P)$, independent of the precise
-$b$ once its displayed powers have been sorted.  Starting from the
-nearest-neighbor action, $\mathbf P^{(0)}=0$ and
-$\mathbf P^{(h+1)}=\mathcal C_h(\mathbf P^{(h)})$.
+$b$ once its displayed powers have been sorted.  It updates all
+these lists together.  Starting from the nearest-neighbor action,
+\begin{equation}
+ \mathbf P^{(0)}=0,\qquad
+ \mathbf P^{(h+1)}=\mathcal C_h(\mathbf P^{(h)}).
+\end{equation}
+Blocking generates nonzero polynomial terms even from this zero
+initial list.
 Write $\alpha_h,\kappa_h$ for the increments evaluated on this orbit.
 After $h=N-j$ completed steps the perturbative prediction is
 \begin{equation}
