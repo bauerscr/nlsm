@@ -11,6 +11,8 @@
 \newcommand{\Log}{\operatorname{Log}}
 \newcommand{\proj}{\operatorname{proj}}
 
+\newcommand{\commentrb}[1]{\begin{quote}\textbf{Comment from RB:} #1 \end{quote}}
+
 \newtheorem{proposition}{Proposition}
 %\theoremstyle{remark}
 \newtheorem*{remark}{Remark}
@@ -629,25 +631,26 @@ This term is marginal and has size $g^0$. Indeed, its prefactor $b\approx 1/g^2$
 
 \item $\mathcal P_\alpha$ are irrelevant second- to sixth-order monomials, of formal orders $g^2$ and $g^4$.
 \item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
-\item $\Xi$ are nonperturbative large field terms (smaller than $e^{-(log g)^\epsilon}$).
+\item $\Xi$ are nonperturbative large field terms (smaller than $e^{-(\log g)^\epsilon}$).
 \end{itemize}
 %
 Given a field scale parameter $t>0$:
 \begin{itemize}
 \item 
-The large field region (set of bad edges) is defined by
+The large gradient region (set of bad edges) is defined by
 \begin{equation}
  D(q)=\{e: |d_e q|>t\}.
  \label{eq:bad-edges}
 \end{equation}
 \item
-The indicator function that $X$ is in the small field region (only has good edges) is
+The indicator function that $X$ is in the small gradient region (only has good edges) is
 \begin{equation}
- 1_X(q)=\mathbf1\{|d_eq| \le  t\text{ for every }e\in X\}.
+ 1_X(q)=\mathbf1\{|d_eq| \le  t\text{ for every }e\in X\}
+ =\mathbf1\{X\cap D(q) = \varnothing\}.
  \label{eq:mask}
 \end{equation}
 \end{itemize}
- The parameter is chosen as $g_j \ll t \ll g_t^{1-\epsilon}$. Typical fluctuations should be of order $g_j$.
+ The parameter is chosen as $g_j \ll t \ll g_j^{1-\epsilon}$. Typical fluctuations should be of order $g_j$.
 
 \subsection{Renormalized kinetic energy $\mathcal E$}
 
@@ -868,6 +871,68 @@ For a quadratic list, the corresponding contribution of $aQ_{r,s}$ is
 summed over labels and with the same supremum over anchors.  These
 are norms of the retained coefficient lists, before cancellations
 between different labels.
+
+\subsubsection{Example}
+
+For example, the quartic polynomial anchored at $o$ can be written
+explicitly using the three $O(2)$-invariant dot-product pairings.
+Writing $\mathbf r=(r_1,r_2,r_3,r_4)$ and $y_i=y_o(o+r_i)$,
+and displaying the polynomial without its graph masks, we have
+\begin{equation}
+ \begin{split}
+ P_{4,o}(y)=\sum_{\mathbf r\in(\mathbb Z^2)^4}\bigl[&
+ a^{12|34}_{o;\mathbf r}(y_1\cdot y_2)(y_3\cdot y_4)\\
+ &+a^{13|24}_{o;\mathbf r}(y_1\cdot y_3)(y_2\cdot y_4)\\
+ &+a^{14|23}_{o;\mathbf r}(y_1\cdot y_4)(y_2\cdot y_3)\bigr].
+ \end{split}
+ \label{eq:quartic-anchor-polynomial}
+\end{equation}
+The $a^{ij|kl}_{o;\mathbf r}$ are the quartic coefficients, with
+the action prefactor $b$ excluded.  In the retained representation,
+each coefficient keeps its graph label and mask; these extra labels
+are suppressed here.  Summing the masked terms over anchors gives
+$P_4$, whose contribution to the action is $bP_4$.
+
+These coefficients are generally not finite range.  The displacement
+tuple ranges over $(\mathbb Z^2)^4$; terms with any $r_i=0$ vanish
+because $y_o(o)=0$.  Instead of finite range, the coefficient norm
+requires exponential spatial decay:
+\begin{equation}
+ \sup_o\sum_{\alpha:\,o(\alpha)=o}
+ |a_\alpha|\,
+ e^{\sigma(1+\sum_{i=1}^4|r_i^\alpha|_1)}
+ \left(2+\sum_{i=1}^4|r_i^\alpha|_1\right)^2\le C.
+\end{equation}
+Here $\alpha$ includes the pairing type and all additional retained
+labels of the quartic coefficient.  Interactions reaching far from
+the anchor are therefore small but need not vanish.  The finite
+range of the fluctuation covariance $C_s$ does not imply finite
+range of these coefficients: their canonical perturbative calculation
+uses full kernels.  On a finite torus the positions are folded
+periodically, while the decay bounds use the lifted displacement
+records.
+
+The same polynomial can be expressed directly in the spin variables.
+Since $|q_o|=1$, define
+\begin{equation}
+ G_o(x,z):=y_o(x)\cdot y_o(z)
+ =q_x\cdot q_z-(q_o\cdot q_x)(q_o\cdot q_z).
+\end{equation}
+Writing $x_i=o+r_i$, we obtain
+\begin{equation}
+ \begin{split}
+ P_{4,o}(q)=\sum_{\mathbf r\in(\mathbb Z^2)^4}\bigl[&
+ a^{12|34}_{o;\mathbf r}G_o(x_1,x_2)G_o(x_3,x_4)\\
+ &+a^{13|24}_{o;\mathbf r}G_o(x_1,x_3)G_o(x_2,x_4)\\
+ &+a^{14|23}_{o;\mathbf r}G_o(x_1,x_4)G_o(x_2,x_3)\bigr].
+ \end{split}
+ \label{eq:quartic-anchor-spins}
+\end{equation}
+The same graph masks are attached to the retained labels.
+Global $O(3)$ invariance is explicit because only scalar products
+of spins occur.  The word ``quartic'' refers to degree in the
+relative tangent coordinates, not degree in all the ambient spin
+variables $q$.
 
 
 
@@ -1141,6 +1206,8 @@ Coefficient extraction holds $\eta$ fixed.  The first index $r$
 records the perturbative order, while the second index $d$
 distinguishes the field degrees $r+2d$ within that order:
 $4,2$ at order two and $6,4,2$ at order four.
+
+\commentrb{It is a mess from here on.}
 
 \subsection{Extracting the kinetic coefficient}
 
