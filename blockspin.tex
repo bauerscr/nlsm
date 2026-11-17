@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=18mm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{color}
 
 \usepackage[hidelinks]{hyperref}
 \newcommand{\R}{\mathbb R}
@@ -10,6 +11,8 @@
 \newcommand{\Exp}{\operatorname{Exp}}
 \newcommand{\Log}{\operatorname{Log}}
 \newcommand{\proj}{\operatorname{proj}}
+
+\newcommand{\red}{\color{red}}
 
 \newcommand{\commentrb}[1]{\begin{quote}\textbf{Comment from RB:} #1 \end{quote}}
 
@@ -1151,17 +1154,18 @@ b=b_j,\quad g=b^{-1/2},\quad K'=K_{h+1}.
 Throughout this subsection the symbols $A,D,C,F,\mu$ refer to (with $a=1$):
 \begin{equation}
  A=D^*D=K_h+aQ^*Q,\qquad C=A^{-1},\qquad
- \mu=-A^{-1}D^*F,
+ \mu=-A^{-1}D^*F.
 \end{equation}
-where the mean is given in terms of the block spin field $V$ by
-\begin{equation}
-F_i=\proj_{T_i^\perp}R_i(0,V),
-\end{equation}
-where $R_i(0,V)$ means $u=0$ and $T_i= ...$ % is the row's coarse reference spin.
+We ignore the choice of $F$ for now.
+%where the mean is given in terms of the block spin field $V$ by
+%\begin{equation}
+%F_i=\proj_{T_i^\perp}R_i(0,V),
+%\end{equation}
+%where $R_i(0,V)$ means $u=0$ and $T_i= ...$ is chosen {\red how}?
 %
-No finite range truncation is done here.
-
-
+No finite range truncation is done on $C$.
+%
+%
 The fluctuation integral is then defined by Proposition~\ref{prop:background-expect}:
 \begin{equation}
  \xi=\mu+gZ,\qquad Z\sim N(0,C\otimes I_3).
@@ -1174,8 +1178,8 @@ The fluctuation integral is then defined by Proposition~\ref{prop:background-exp
 % to control the exact integral; its replacement by full kernels in
 % this coefficient calculation is justified by the remainder estimates.
 %
-As explained in and around \eqref{eq:cEqV},
-the block spin kinetic action is first factored out with the old running coupling constant:
+Using \eqref{eq:cEqV},
+the kinetic term of the block spin field $V$ is first factored out with the old running coupling constant:
 $b\mathcal E'(V)$, where $\mathcal E'(V)=\tfrac12\langle V,K'V\rangle$ for small fields,
 and relative to this, the correction in the renormalized action is given by Proposition~\ref{prop:background-expect} as
 \begin{equation}
@@ -1204,15 +1208,13 @@ The Jacobian is
 The term $\mathcal L$ is the defect
 between the linear and normalized block average in \eqref{eq:cEqV}.
 
-\begin{proposition}[Spin symmetry of the output]
+\begin{proposition}[Symmetry]
 \label{prop:spin-symmetry}
 For globally $O(3)$-invariant input density,
 the output density and the effective interaction $\mathcal W$
 are invariant under global
 $O(3)$ transformations of the spins.
 The connected Taylor coefficients inherit this invariance. 
-At a fixed anchor spin, they are therefore invariant under its
-tangent-plane stabilizer $O(2)$.
 \end{proposition}
 
 \begin{proof}
@@ -1245,8 +1247,7 @@ is $C\otimes I_3$.  Thus $RZ$ has the same law as $Z$, and
  \mathcal W(RV)=\mathcal W(V).
 \end{equation}
 Taking the connected expansion and each homogeneous Taylor part
-preserves these identities.  Fixing the anchor spin leaves the full
-stabilizer $O(2)$ acting on its tangent plane.
+preserves these identities.
 \end{proof}
 
 \subsection{Connected Wick contractions and power counting}
@@ -1285,9 +1286,17 @@ coefficients at orders two and four are
 %in the relative projection coordinates $y_o(x)$ of
 %\eqref{eq:canonical-tangent}.  Odd output degrees vanish by the
 %stabilizer $O(2)$ symmetry.
-The result depends on the tangential coordinates $y$ relative to the
-fixed block spin field.
-After removing constants, the O3 preprint organizes the result as
+With the block-spin field $V$ held fixed, the expectation integrates
+the Gaussian fluctuation $Z$, with $\xi=\mu(V)+gZ$ determining
+the fine spins $q$.  The result depends only on $V$.  For each
+connected local output term, choose a coarse anchor $o$ and express
+the neighbouring spins in relative tangent coordinates
+\begin{equation}
+ y_o(Y)=V_Y-(V_o\cdot V_Y)V_o.
+\end{equation}
+Holding $V_o$ fixed, expand that term around $y_o=0$.  After
+extracting field-independent terms, organize the resulting Taylor
+coefficients as follows:
 \begin{equation}
  \mathcal W_{\le4}
  =bF_{2,1}(y)+F_{2,0}(y)
