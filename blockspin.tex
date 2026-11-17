@@ -14,8 +14,13 @@
 \newcommand{\commentrb}[1]{\begin{quote}\textbf{Comment from RB:} #1 \end{quote}}
 
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
 %\theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\theoremstyle{plain}
 
 \title{Block spins and fluctuation integral}
 \author{}
@@ -762,31 +767,138 @@ and eventually $\|k\| \le w=e^{-p^{1/4}}$.
 
 \subsection{Low order irrelevant terms $\mathcal P$}
 
-These are essentially irrelevant sixth order polynomials in the fields,
-written in tangent coordinates. They are defined in [O3, (3.13)--(3.19)]. 
+These are the terms:
+\begin{equation}
+\exp\!\left\{
+ -\sum_{\alpha}
+       1_{X_\alpha}(q)\,\mathcal P_\alpha(q) \right\}
+       .
+\end{equation}
+These are essentially irrelevant sixth order polynomials
+written in tangent coordinates relative to a reference spin (part of $\alpha$).
+They are defined in [O3, (3.13)--(3.19)]. 
 
+\begin{definition}
 The relative tangent projection of $q_x$ at an anchor $o$ is
 \begin{equation}
  y_o(x)=q_x-(q_o\cdot q_x)q_o\in q_o^\perp.
  \label{eq:canonical-tangent}
 \end{equation}
 This is a projection, not the logarithmic coordinate $\Log_{q_o}q_x$.
-A monomial label $\alpha$ consists of a degree $n_\alpha$, a coefficient
-$a_\alpha$, displacements $r_1^\alpha,\ldots,r_n^\alpha\in\mathbb Z^2$, and an
-$O(2)$-invariant multilinear tensor $T_\alpha$:
+\end{definition}
+
+\begin{definition}
+An invariant tensor of degree $n$ is a multilinear map
+$T:(\R^2)^n\to\R$ satisfying
 \begin{equation}
- a_\alpha T_\alpha\bigl(y_o(o+r_1^\alpha),\ldots,y_o(o+r_n^\alpha)\bigr).
+ T(Rv_1,\ldots,Rv_n)=T(v_1,\ldots,v_n)
+ \qquad\text{for every }R\in O(2).
 \end{equation}
-The set $X_\alpha$ is a connected graph containing the anchor $o$
-the $r_1,\dots,r_n$ with the joining paths and enlargements prescribed by its construction. 
-%
+The vectors $v_i$ represent tangent vectors in $q_o^\perp$ for a fixed anchor $o$.
+\end{definition}
+
+\begin{example}
+At degree two, a basis consists of the single tensor
+\begin{equation}
+ T(v_1,v_2)=v_1\cdot v_2,
+ \qquad T_{ab}=\delta_{ab}.
+\end{equation}
+At degree four, a basis consists of the three pairings
+\begin{align}
+ T_{12|34}(v_1,v_2,v_3,v_4)
+   &=(v_1\cdot v_2)(v_3\cdot v_4),\\
+ T_{13|24}(v_1,v_2,v_3,v_4)
+   &=(v_1\cdot v_3)(v_2\cdot v_4),\\
+ T_{14|23}(v_1,v_2,v_3,v_4)
+   &=(v_1\cdot v_4)(v_2\cdot v_3).
+\end{align}
+For instance, $(T_{12|34})_{abcd}=\delta_{ab}\delta_{cd}$.
+%These are the tensor types in the quartic polynomial below.
+At degree six, examples are
+\begin{equation}
+ (v_1\cdot v_2)(v_3\cdot v_4)(v_5\cdot v_6),
+ \qquad
+ (v_1\cdot v_3)(v_2\cdot v_5)(v_4\cdot v_6).
+\end{equation}
+All fifteen pairings span the degree-six invariant space.  In
+dimension two they have linear relations, so a basis is obtained
+by choosing a linearly independent subset.  Odd degrees have no
+nonzero invariant tensors: applying $R=-I$ gives
+\begin{equation}
+ T(v_1,\ldots,v_n)=(-1)^nT(v_1,\ldots,v_n).
+\end{equation}
+The basis of tensor types is fixed once and for all.
+\end{example}
+
+Let $q_o\in S^2$ and let $T:(\R^2)^n\to\R$ be an
+$O(2)$-invariant multilinear tensor.  For $v_1,\ldots,v_n\in q_o^\perp$
+and any linear isometry $\iota:q_o^\perp\to\R^2$, the value
+\begin{equation}
+ T_{q_o}(v_1,\ldots,v_n):=T(\iota v_1,\ldots,\iota v_n)
+\end{equation}
+is independent of $\iota$.  Thus $T$ defines a multilinear tensor
+on the tangent plane without choosing an orthonormal frame.
+
+The corresponding global covariance rotates the anchor spin and
+all tangent vectors simultaneously:
+\begin{equation}
+ T_{Rq_o}(Rv_1,\ldots,Rv_n)=T_{q_o}(v_1,\ldots,v_n),
+ \qquad R\in O(3).
+\end{equation}
+Indeed, if $\iota$ is an orthonormal identification at $q_o$, then
+$\iota R^{-1}$ is one at $Rq_o$.  For tangent vectors obtained
+from physical spins, the same covariance follows from
+\begin{equation}
+ \proj_{(Rq_o)^\perp}(Rq_x)
+ =R\proj_{q_o^\perp}q_x.
+\end{equation}
+Thus a simultaneous global transformation of the spin configuration
+leaves each invariant polynomial unchanged.  Holding the anchor
+spin fixed restricts this symmetry to its stabilizer,
+\begin{equation}
+ \{R\in O(3):Rq_o=q_o\}\cong O(2),
+\end{equation}
+which is the $O(2)$ acting on tangent vectors in the definition of $T_\alpha$. 
+
+\begin{definition}
+A monomial label 
+\begin{equation}
+\alpha = (o_\alpha,n_\alpha,\varepsilon_\alpha,a_\alpha,{\bf r}_\alpha,T_\alpha, X_\alpha, S_\alpha, R_\alpha,s_\alpha)
+\end{equation}
+specifies an anchor $o_\alpha$, a degree $n_\alpha$, a coefficient
+$a_\alpha$, displacements $r_1^\alpha,\ldots,r_{n_\alpha}^\alpha\in\mathbb Z^2$, and an
+$O(2)$-invariant multilinear tensor $T_\alpha$.  Writing $o=o_\alpha$,
+its monomial is
+\begin{equation}
+ a_\alpha T_\alpha\bigl(y_o(o+r_1^\alpha),\ldots,y_o(o+r_{n_\alpha}^\alpha)\bigr).
+\end{equation}
 The tensors $T_\alpha$ are chosen from a fixed basis of the invariant tensor space.
-They are evaluated in $q_o^\perp$ through any orthonormal identification
-with $\R^2$; invariance makes the answer independent of that choice.
-%The label also includes its joining paths, graph mask $1_{X_\alpha}$,
-%and complete record.
-Zero displacements give zero monomials and odd degrees vanish by $O(2)$ invariance.
+The label also contains the following geometric data:
+\begin{itemize}
+\item the mask graph $X_\alpha$ is a connected graph
+containing the anchor $o$ and the sites $o+r_i^\alpha$, with the
+joining paths, enlargements, and complete record $R_\alpha$ prescribed by its construction;
 %
+\item the complete support $S_\alpha$ is a set of vertices containing every spin
+argument and every site or edge contained in $X_\alpha$ and extended by the range of the finite-range covariances;
+\item
+the record $R_\alpha$ is a connected collection of cubes of radius
+$\mathfrak m_j=\lceil(\log H_j)^2\rceil$ and joining paths covering
+$S_\alpha$ and containing $X_\alpha$.  It retains path multiplicities
+and, on a torus, displacements before reduction modulo the periods
+\item its integer load $s_\alpha\ge1$ satisfies
+\begin{equation}
+ |S_\alpha|\le C\mathfrak m_j^2s_\alpha,
+ \qquad
+ \operatorname{length}(R_\alpha)\le C\mathfrak m_js_\alpha,
+\end{equation}
+where $|S_\alpha|$ counts sites, including endpoints of queried edges.
+The load need not be minimal.
+\end{itemize}
+\end{definition}
+
+% Zero displacements give zero monomials and odd degrees vanish by $O(2)$ invariance.
+
 Each term $\mathcal P_\alpha$ in \eqref{eq:density} is of the form
 \begin{equation}
  \mathcal P_\alpha(q)=b^{\varepsilon_\alpha}a_\alpha
@@ -796,16 +908,15 @@ Each term $\mathcal P_\alpha$ in \eqref{eq:density} is of the form
  \end{cases}
  \label{eq:canonical-label}
 \end{equation}
-where the slot $\alpha$ determines $(n_\alpha,\varepsilon_\alpha)$:
-
-The slots in the action are
+They are grouped into the following slots:
 \begin{equation}
  (bP_4,\ I_2,\ bP_5,\ I_3,\ bP_6,\ I_4,\ b^{-1}J_2),
  \qquad P_5=I_3=0,
  \label{eq:canonical-slots}
 \end{equation}
-where $P_4,I_2,P_6,I_4,J_2$ denote coefficient lists, with indicating their degree.
-The slot determines $(n_\alpha,\varepsilon_\alpha)$:
+%where $P_4,I_2,P_6,I_4,J_2$ denote coefficient lists, with indicating their degree.
+%The slot determines $(n_\alpha,\varepsilon_\alpha)$:
+where
 \begin{equation}
  \begin{array}{c|ccccc}
  \text{slot}&bP_4&I_2&bP_6&I_4&b^{-1}J_2\\ \hline
@@ -815,11 +926,8 @@ The slot determines $(n_\alpha,\varepsilon_\alpha)$:
    &g^2&g^2&g^4&g^4&g^4
  \end{array}
 \end{equation}
-
-To make the graph summation explicit, let $\mathcal X_j$ denote the
-connected graphs on the current lattice that occur as canonical mask
-graphs, and let $\mathcal A_j(X)=\{\alpha:X_\alpha=X\}$ be the
-retained labels with graph $X$.  Then the canonical part of the action is
+%
+Let $\mathcal X_j$ denote all possible graphs and $\mathcal A_j(X)=\{\alpha:X_\alpha=X\}$ be the labels with graph $X$.  Then 
 \begin{equation}
  \sum_\alpha1_{X_\alpha}(q)\mathcal P_\alpha(q)
  =\sum_{X\in\mathcal X_j}1_X(q)
@@ -841,6 +949,12 @@ retained labels with graph $X$.  Then the canonical part of the action is
 % including its nearest-neighbor compensation, retains a common mask
 % and complete record.
 %
+Restricting to degree $n$, the polynomial interaction is
+\begin{equation}
+ A_n(q)=\sum_\alpha 1_{X_\alpha}(q)\,a_\alpha
+ T_\alpha\bigl(y_{o(\alpha)}(o(\alpha)+r_1^\alpha),\ldots,
+               y_{o(\alpha)}(o(\alpha)+r_n^\alpha)\bigr).
+\end{equation}
 The kernels have exponential decay.
 With $W_\sigma(u)=e^{\sigma u}(1+u)^2$, the degree-four and -six norms are
 \begin{equation}
@@ -850,27 +964,19 @@ With $W_\sigma(u)=e^{\sigma u}(1+u)^2$, the degree-four and -six norms are
 \end{equation}
 Here $A_n$ denotes the entire degree-$n$ coefficient list
 $(a_\alpha)_\alpha$, together with its labels.  Each label specifies
-an anchor $o(\alpha)$, displacements $r_i^\alpha$, an invariant
-tensor $T_\alpha$, and support data.  The associated polynomial
-interaction is
-\begin{equation}
- A_n(q)=\sum_\alpha 1_{X_\alpha}(q)\,a_\alpha
- T_\alpha\bigl(y_{o(\alpha)}(o(\alpha)+r_1^\alpha),\ldots,
-               y_{o(\alpha)}(o(\alpha)+r_n^\alpha)\bigr).
-\end{equation}
+an anchor $o_\alpha$, displacements $r_i^\alpha$, an invariant
+tensor $T_\alpha$, and support data. 
+
 Thus the norm sums the individual coefficients of $A_n$ with
 spatial weights.  For example, $A_4$ can stand for $P_4$ or $I_4$,
 and $A_6$ for $P_6$; the displayed powers of $b$ in the action are
-excluded.  This notation is unrelated to the Gaussian precision
-matrix $A=D^*D$.
+excluded.  
 For a quadratic list, the corresponding contribution of $aQ_{r,s}$ is
 \begin{equation}
  |a|\bigl\{W_\sigma(1+|r|_1+|s|_1)
                  +|r\cdot s|W_\sigma(3)\bigr\},
 \end{equation}
-summed over labels and with the same supremum over anchors.  These
-are norms of the retained coefficient lists, before cancellations
-between different labels.
+summed over labels and with the same supremum over anchors.
 
 \subsubsection{Example}
 
