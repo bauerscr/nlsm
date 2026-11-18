@@ -5,12 +5,15 @@
 
 \usepackage[hidelinks]{hyperref}
 \newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
 \newcommand{\E}{\mathbb E}
 \newcommand{\Id}{I}
 \newcommand{\tr}{\operatorname{Tr}}
 \newcommand{\Exp}{\operatorname{Exp}}
 \newcommand{\Log}{\operatorname{Log}}
 \newcommand{\proj}{\operatorname{proj}}
+\newcommand{\Tay}{\operatorname{Tay}}
+\newcommand{\Loc}{\operatorname{Loc}}
 
 \newcommand{\red}{\color{red}}
 
@@ -172,7 +175,7 @@ where the matrices $\ell_h$ and $\mathsf A_h$ are indexed by edges:
 \end{proposition}
 
 \begin{proof}
-By [O3, Section~4.2], $cD\le K_h\le CD$ and $K_h(p)-D(p)=O(|p|^4)$ in Fourier space, where
+By [O3, Section~\ref{subsec:pert-connected}], $cD\le K_h\le CD$ and $K_h(p)-D(p)=O(|p|^4)$ in Fourier space, where
 $d(p)=\binom{e^{ip_1}-1}{e^{ip_2}-1}$ and $D=d^*d$.
 There is $B_h^{\rm raw}=I+O(|p|^2)$ with $K_h=d^*B_h^{\rm raw}d$.
 Writing $\mathsf c=(-d_2,d_1)$, we have $\mathsf c d=0$, so
@@ -1055,10 +1058,11 @@ variables $q$.
 \section{Perturbation theory and the running coupling}
 \label{sec:perturbative-coupling}
 
-We outline the compute of perturbation theory in [O3, Section~5.5] and its
+We outline the computation of perturbation theory in [O3, Section~5.5] and its
 relation to the coupling constant recursion in Sections~5.7 and~6.1.
 %
 Assuming $f_X=0$, $\Xi=1$, and that the background field is essentially constant, we will derive
+the two-loop recursion
 \begin{equation}
  b_{j-1}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j} + O(b_j^{-1.05}).
  \label{eq:pert-exact-recursion}
@@ -1074,7 +1078,7 @@ The initial renormalized action (at scale $j$) is
 \begin{equation}
   b \mathcal E(q) + \mathcal W(q),
 \end{equation}
-where $\mathcal E(q) \approx \frac12 \langle q,K q\rangle$ and [since $f_X=0$ and $\Xi=1$]
+where $\mathcal E(q) = \frac12 \langle q,K q\rangle$ on the small gradient region and [since $f_X=0$ and $\Xi=1$]
 \begin{equation}
 \mathcal W(q) = bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q).
 \end{equation}
@@ -1085,11 +1089,12 @@ It evolves the renormalized action according to
 \end{equation}
 In a subsequent step the coupling constant is adjusted from $b$ to $b'$ so that
 \begin{equation}
-  b \mathcal E(q) + \mathcal W(q) \quad \mapsto \quad b' \mathcal E'(V) + \mathcal W'(V),
+  b \mathcal E(q) + \mathcal W(q) \quad \mapsto \quad b' \mathcal E'(V) + \mathcal W'(V) + \mathcal R'(V),
   \qquad
-  \mathcal W' = (b-b')\mathcal E + \mathcal W'',
+  \mathcal W' = (b-b')\mathcal E' + \mathcal W'',
 \end{equation}
-with $\mathcal W'$ of the same form as the incoming $\mathcal W$.
+with $\mathcal W'$ of the same form as the incoming $\mathcal W$ and $\mathcal R'$ higher order terms
+dropped after each step in this formal calcuation.
 
 \subsection{Fluctuation integral}
 
@@ -1190,6 +1195,7 @@ preserves these identities.
 \end{proof}
 
 \subsection{Connected Wick contractions and power counting}
+\label{subsec:pert-connected}
 
 Write $\langle X_1;\ldots;X_m\rangle_c$ for a Gaussian cumulant. Then the expansion is
 \begin{equation}
@@ -1256,34 +1262,148 @@ $[g^r]\mathcal W$ computed above, separated by external-field degree:
  [g^4]\mathcal W''(V(g\eta))
  &=F_{4,1}(\eta)+F_{4,0}(\eta)+F_{4,-1}(\eta).
 \end{align}
-Coefficient extraction holds $\eta$ fixed.  The first index $r$
-records the perturbative order, while the second index $d$
+The first index $r$ records the perturbative order, while the second index $d$
 distinguishes the field degrees $r+2d$ within that order:
 $4,2$ at order two and $6,4,2$ at order four.
 
+\subsection{Computation of one- and two-loop beta function}
+\label{subsec:pert-beta}
 
-\subsection{Extracting the kinetic coefficient}
+Only the two quadratic terms contribute of the output polynomials from
+Section~\ref{subsec:pert-connected} contribute directly to the kinetic term:
+\begin{equation}
+ \Tay_2\mathcal W''_{\le4}
+   =F_{2,0}+b^{-1}F_{4,-1},
+ \label{eq:beta-quadratic-input}
+\end{equation}
+where $\Tay_2$ extracts homogeneous degree two in the relative output
+tangent field, and $\le4$ refers to formal order in $g$.
 
-We now extract the kinetic coefficients, change $b$ to $b'$ and $\mathcal W''$ to $\mathcal W'$.
+%All coefficients below are bulk densities per coarse anchor, with
+%the equivariant anchor assignment fixed.  We first define the
+%affine-Hessian functional and then apply it to these two inputs.
 
-\commentrb{It is a mess from here on.}
 
-The formula produces a quadratic polynomial in $y$.
-It is not exactly a multiple of the kinetic term.
-%
-The marginal coefficient is extracted by testing its bulk density
-on affine tangent fields
+\subsubsection{Effective action densities}
+
+Let \emph{density} mean a scalar contribution to the effective
+action assigned to one lattice anchor.
+More precisely, $G=(G_o)_o$ is a family of such
+contributions on the bulk lattice, with the assignment of terms
+to anchors fixed.  For each anchor $o$ and anchor spin $q_o\in S^2$,
+the arguments of $G_o$ are the relative tangent coordinates
+$y_o(x)\in q_o^\perp$, with $y_o(o)=0$.  One possible precise
+domain for an actual, rather than formal, density is
+\begin{equation}
+ \mathcal Y_o(q_o)
+   =\{y_o\in\ell^\infty(\mathbb Z^2;q_o^\perp):y_o(o)=0\},
+ \qquad
+ G_o(q_o;\,\cdot):
+ B_\varepsilon(0;\mathcal Y_o(q_o))\longrightarrow\R,
+ \quad 0<\varepsilon<1,
+ \label{eq:loc-density-domain}
+\end{equation}
+where $G_o$ is twice continuously differentiable near zero.
+Only its germ at zero is used.  In this chart the associated
+spin configuration is
+\begin{equation}
+ q_x=\sqrt{1-|y_o(x)|^2}\,q_o+y_o(x),
+ \qquad
+ y_o(x)=\proj_{q_o^\perp}q_x.
+ \label{eq:loc-density-spin-chart}
+\end{equation}
+The anchor spin is held fixed when taking Taylor derivatives,
+and $y_o=0$ is the configuration in which all spins equal $q_o$.
+We usually suppress the parameter $q_o$ and write $G_o(y_o)$.
+For a finite collection $\Lambda$ of anchors, the corresponding
+action contribution is
+\begin{equation}
+ \mathcal G_\Lambda(q)
+   =\sum_{o\in\Lambda}
+       G_o\bigl(q_o;(\proj_{q_o^\perp}q_x)_{x\in\mathbb Z^2}\bigr),
+ \label{eq:loc-density-sum}
+\end{equation}
+whenever the fields lie in the relevant charts.  Each summand
+uses its own anchor coordinates.  No convergence of the extensive
+sum over all anchors in $\mathbb Z^2$ is required.
+
+\begin{definition}
+For a bulk density $G=(G_o)_o$, define the quadratic Taylor part
+of each $G_o$ by varying the tangent field while holding its
+anchor spin $q_o$ fixed:
+\begin{equation}
+ (\Tay_2 G_o)(y)
+   =\frac12\left.\frac{d^2}{dt^2}G_o(ty)\right|_{t=0}.
+ \label{eq:kinetic-loc-taylor}
+\end{equation}
+The resulting density still has $q_o$ as a parameter.  Formal
+Taylor series are also allowed.  More generally, whenever the
+derivative exists, or as a formal coefficient, set
+\begin{equation}
+ (\Tay_n G_o)(y)
+   =\frac1{n!}\left.\frac{d^n}{dt^n}G_o(ty)\right|_{t=0},
+ \qquad n\geq0.
+\end{equation}
+Thus $\Tay_n$ extracts exactly degree $n$, not all degrees up to $n$.
+\end{definition}
+
+\subsubsection{Localization operator}
+
+%A density $G$ can contain several Taylor degrees, and even its
+%quadratic part need not be a multiple of the kinetic term.
+The localization operator extracts the kinetic coefficient of a
+density's quadratic Taylor part by matching it on affine tangent
+test functions
 \begin{equation}
  y_o(o+r)=\mathsf L_o r,\qquad
  \mathsf L_o:\R^2\longrightarrow q_o^\perp,
 \end{equation}
 where the tangent coordinates are defined in \eqref{eq:canonical-tangent}
-and $\mathsf L_o$ is an arbitrary linear map from spatial
-displacements to tangent spin vectors. 
+and $\mathsf L_o$ is an arbitrary linear map from spatial displacements to tangent spin vectors. 
+Note that $\mathsf L_o$ is defined on $\R^2 \supset \Z^2$.
 The tangent projection is
-$\proj_{q_o^\perp}:\R^3\to q_o^\perp$, used in the definition
-of $y_o$.
-To make this test concrete, choose two tangent vectors
+$\proj_{q_o^\perp}:\R^3\to q_o^\perp$, used in the definition of $y_o$.
+
+\begin{definition}[Localization operator]
+\label{def:kinetic-loc}
+Fix the full coarse kinetic density $S_{K'}=(S_{K',o})_o$,
+whose quadratic Taylor part has unit affine normalization
+\begin{equation}
+ (\Tay_2 S_{K',o})(\mathsf L_o r)
+   =\tfrac12\tr(\mathsf L_o^*\mathsf L_o).
+ \label{eq:kinetic-loc-normalization}
+\end{equation}
+Its construction and normalization are given in
+Section~\ref{subsec:pert-reassembly}.
+On densities $G$ for which the following affine evaluations
+are defined and can be matched, define $\Loc_{K'}G$
+to be the unique element of $\operatorname{span}\{S_{K'}\}$
+such that, at every anchor,
+\begin{equation}
+ \Bigl[\Tay_2\bigl(G_o-(\Loc_{K'}G)_o\bigr)\Bigr]
+                      (\mathsf L_o r)=0
+ \quad\text{for every }\mathsf L_o:\R^2\to q_o^\perp.
+ \label{eq:kinetic-loc-matching}
+\end{equation}
+The operator reads only the quadratic Taylor part of $G$, but
+returns a multiple of the full nonlinear kinetic density $S_{K'}$.
+Evaluation on an affine test function is algebraic; the unbounded
+affine field need not lie in a small-field chart.
+Uniqueness follows from \eqref{eq:kinetic-loc-normalization}.
+\end{definition}
+
+For $G$ in the domain of $\Loc_{K'}$, denote its
+scalar kinetic coefficient by $\mathfrak a(G)$:
+\begin{equation}
+ \Loc_{K'}G=\mathfrak a(G)S_{K'}.
+ \label{eq:kinetic-loc}
+\end{equation}
+This coefficient is normalized per anchor, rather than on the
+extensive sum over a finite volume.
+
+The following proposition gives sufficient conditions for existence.
+
+To make this test function concrete, choose two tangent vectors
 $a_1,a_2\in q_o^\perp$ and write
 \begin{equation}
  \mathsf L_o(r_1,r_2)=r_1a_1+r_2a_2,
@@ -1295,38 +1415,44 @@ The vectors $a_1,a_2$ are the constant increments of the affine
 tangent field in the two spatial directions.  This is the meaning
 of its slope; $\mathsf L_o$ is not a projection.
 
-\begin{proposition}[Symmetry of the quadratic kinetic correction]
+\begin{proposition}[Existence of kinetic localization]
 \label{prop:kinetic-symmetry}
-Under the hypotheses of Proposition~\ref{prop:spin-symmetry}, use
-also the equivariant bulk coefficient prescription of the preprint.
-The bulk coefficients preserve spatial quarter-turn symmetry.
-
-Let $G_o^{[2]}$ be a homogeneous quadratic output contribution,
-summed over the complete symmetry orbits of its labels at anchor
-$o$.  Then there is a scalar $\alpha_G$ such that
+Let $G=(G_o)_o$ be unmasked bulk densities on $\mathbb Z^2$,
+before folding onto a torus, with a fixed equivariant assignment
+of terms to anchors.  Suppose their quadratic parts satisfy:
+\begin{enumerate}
+\item the family is translation covariant and globally $O(3)$
+covariant in the anchor spin and tangent arguments; in particular,
+at a fixed anchor spin each quadratic density is internally
+$O(2)$ invariant;
+\item all labels assigned to an anchor, including complete spatial
+quarter-turn orbits and any quadratic compensation terms, are
+summed, and the resulting quadratic density is invariant under
+spatial quarter turns about that anchor;
+\item the quadratic coefficients have a finite absolute second
+displacement moment:
 \begin{equation}
- G_o^{[2]}(\mathsf L_o r)
+ (\Tay_2 G_o)(y)=\sum_{r,s\in\mathbb Z^2}a_{r,s}\,
+              y_o(o+r)\cdot y_o(o+s),
+ \qquad
+ \sum_{r,s}|a_{r,s}|(1+|r|_1+|s|_1)^2<\infty.
+ \label{eq:affine-hessian-domain}
+\end{equation}
+\end{enumerate}
+Then the affine evaluations converge and there is a scalar
+$\alpha_G$, independent of the anchor site and anchor spin, such that
+\begin{equation}
+ (\Tay_2 G_o)(\mathsf L_o r)
  =\frac{\alpha_G}{2}\tr(\mathsf L_o^*\mathsf L_o)
  =\frac{\alpha_G}{2}\bigl(|a_1|^2+|a_2|^2\bigr).
  \label{eq:kinetic-symmetry}
 \end{equation}
-Only spatial quarter turns are required; arbitrary spatial rotations
-are not symmetries of the lattice construction.
+Consequently $\Loc_{K'}G$ exists.
 \end{proposition}
 
 \begin{proof}
-By Proposition~\ref{prop:spin-symmetry}, fixing the anchor spin
-leaves an internally $O(2)$-invariant Taylor polynomial.
-
-For spatial quarter turns, the bulk block geometry, free kernels,
-and coefficient-assignment rules transform together.  The preprint
-keeps complete symmetry orbits of labels, so the summed bulk
-quadratic contribution has this symmetry as well.  This statement
-concerns the bulk coefficient calculation, not arbitrary winding
-terms on a torus without the corresponding spatial symmetry.
-
-Now evaluate $G_o^{[2]}$ on $y_o(o+r)=r_1a_1+r_2a_2$.
-The exponential coefficient bounds make this evaluation summable.
+Evaluate $\Tay_2 G_o$ on $y_o(o+r)=r_1a_1+r_2a_2$.
+The absolute second moment makes this evaluation summable.
 Internal $O(2)$ invariance implies that the resulting quadratic form
 is a linear combination of dot products:
 \begin{equation}
@@ -1340,9 +1466,684 @@ A spatial quarter turn exchanges the slopes up to a sign, so
 \end{equation}
 Since this holds for arbitrary $a_1,a_2$, it forces
 $c_1=c_2$ and $c_{12}=0$.  Setting $\alpha_G=2c_1$ proves
-\eqref{eq:kinetic-symmetry}.  An individual unsymmetrized label
-need not have this form.
+\eqref{eq:kinetic-symmetry}.  Translation and spin covariance
+make $\alpha_G$ independent of the anchor site and anchor spin.
+Thus $\alpha_G S_{K'}$ satisfies the matching condition
+\eqref{eq:kinetic-loc-matching}.
 \end{proof}
+
+The perturbative coefficient families satisfy these hypotheses
+by spin covariance, the prescription of complete spatial symmetry
+orbits, and exponential coefficient bounds.  An individual
+unsymmetrized label need not satisfy them.
+
+Under the hypotheses of Proposition~\ref{prop:kinetic-symmetry},
+the explicit coefficient formula follows from affine matching:
+\begin{equation}
+ \mathfrak a(G)=\mathfrak a(\Tay_2 G)
+              =\sum_{r,s}a_{r,s}(r\cdot s).
+ \label{eq:affine-hessian-moment}
+\end{equation}
+\begin{proof}
+Choose an isometry $\mathsf L_o:\R^2\to q_o^\perp$.
+Then $\tfrac12\tr(\mathsf L_o^*\mathsf L_o)=1$ and
+$(\mathsf L_o r)\cdot(\mathsf L_o s)=r\cdot s$.
+Substitution of \eqref{eq:affine-hessian-domain} and
+\eqref{eq:kinetic-loc} into the matching condition
+\eqref{eq:kinetic-loc-matching}, using the unit normalization
+\eqref{eq:kinetic-loc-normalization}, gives
+\eqref{eq:affine-hessian-moment}; the absolute second moment
+justifies the sum.
+\end{proof}
+
+The operator is a linear projection, and its remainder has zero
+affine coefficient:
+\begin{equation}
+ \Loc_{K'}^2=\Loc_{K'},\qquad
+ \mathfrak a\bigl((\Id-\Loc_{K'})G\bigr)=0.
+ \label{eq:kinetic-loc-projection}
+\end{equation}
+Both identities follow immediately from
+$\mathfrak a(S_{K'})=\mathfrak a(\Tay_2 S_{K'})=1$.
+This is a kinetic-sector analogue
+of localization by matching polynomial test functions in
+\href{https://arxiv.org/abs/1403.7253}{Brydges--Slade,
+\emph{Approximation by local polynomials}}.
+Here the coefficient is determined by the invariant quadratic
+sector, while the chosen representative is the full kinetic
+density, rather than a polynomial of degree two.  Vacuum
+extraction is separate.  Subtracting
+$\Loc_{K'}G$ therefore also subtracts
+$\mathfrak a(G)\Tay_d S_{K'}$ in each higher Taylor degree $d$.
+%Moreover, $\Tay_2 S_{K'}$ can have exponentially decaying spatial tails.
+%   A strictly local representative with the same affine
+% normalization would instead be
+% \begin{equation}
+%  S_o^{\mathrm{nn}}(y)=\frac14\sum_{|e|_1=1}|y_o(o+e)|^2,
+%  \qquad
+%  \Loc_{\mathrm{nn}}G
+%    =\mathfrak a(G)S^{\mathrm{nn}}.
+% \end{equation}
+% We use $\Loc_{K'}$ because the running coupling
+% multiplies the prescribed history-dependent kinetic energy.
+% The zero affine coefficient identifies the remainder to be
+% estimated; contraction of that remainder still requires the
+% kernel and coefficient-norm estimates.
+
+\subsubsection{Contribution of the quadratic output}
+
+The perturbation theory inputs $F_{2,0}$ and $F_{4,-1}$ satisfy the assumptions of
+Proposition~\ref{prop:kinetic-symmetry}.  Expand the two quadratic densities at an anchor $o$ as
+\begin{align}
+ F_{2,0;o}(y)
+   &=\sum_{r,s}a^{(2)}_{r,s}\,
+          y_o(o+r)\cdot y_o(o+s),\\
+ F_{4,-1;o}(y)
+   &=\sum_{r,s}a^{(4)}_{r,s}\,
+          y_o(o+r)\cdot y_o(o+s).
+ \label{eq:beta-input-coefficients}
+\end{align}
+There is no factor $1/2$ in this coefficient convention.  All
+labels, symmetry copies and any compensating coefficients are
+included in these sums; their absolute second displacement moments
+are finite.
+
+\begin{proposition}[Kinetic increments from the quadratic output]
+\label{prop:beta-extraction}
+The one- and two-loop kinetic increments, including the contributions
+of the incoming canonical slots, are
+\begin{equation}
+ \alpha=\mathfrak a(F_{2,0})
+       =\sum_{r,s}a^{(2)}_{r,s}(r\cdot s),
+ \qquad
+ \kappa=\mathfrak a(F_{4,-1})
+       =\sum_{r,s}a^{(4)}_{r,s}(r\cdot s).
+ \label{eq:beta-moments}
+\end{equation}
+Equivalently, for any unit tangent vector $e\in V_o^\perp$
+with the rank-one affine field $\eta_o(o+r)=r_1e$,
+\begin{equation}
+ \alpha=2F_{2,0;o}(\eta_o),\qquad
+ \kappa=2F_{4,-1;o}(\eta_o).
+ \label{eq:beta-affine-test}
+\end{equation}
+\end{proposition}
+
+The perturbatively updated kinetic coupling is
+\begin{equation}
+ \alpha=\mathfrak a(F_{2,0}),\qquad
+ \kappa=\mathfrak a(F_{4,-1}),\qquad
+ b^-=b+\alpha+\frac{\kappa}{b}.
+ \label{eq:pert-bminus}
+\end{equation}
+
+\begin{proof}
+For either coefficient array, evaluate its quadratic density on
+$y_o(o+r)=\mathsf L_o r$.  Internal $O(2)$ invariance and spatial
+quarter-turn symmetry give
+\begin{equation}
+ \sum_{r,s}a_{r,s}(\mathsf L_o r)\cdot(\mathsf L_o s)
+   =\frac12\left(\sum_{r,s}a_{r,s}\,r\cdot s\right)
+                      \tr(\mathsf L_o^*\mathsf L_o).
+\end{equation}
+Absolute second moments justify the sums.  By
+the matching condition \eqref{eq:kinetic-loc-matching} and
+\eqref{eq:kinetic-loc}, these scalar moments are the
+coefficients of $\tfrac12\tr(\mathsf L_o^*\mathsf L_o)$.
+This is the unit kinetic normalization, verified in
+Section~\ref{subsec:pert-reassembly} below.
+The rank-one test function has
+$\tr(\mathsf L_o^*\mathsf L_o)=1$, explaining the factor two in
+\eqref{eq:beta-affine-test}.  By linearity, the affine coefficient
+of \eqref{eq:beta-quadratic-input} is $\alpha+\kappa/b$.
+Adding it to the incoming kinetic coefficient $b$ proves
+\eqref{eq:pert-bminus}.
+\end{proof}
+
+\begin{proposition}[Localization of the perturbative output]
+\label{prop:beta-localization}
+With $\alpha=\mathfrak a(F_{2,0})$ and
+$\kappa=\mathfrak a(F_{4,-1})$, the retained output satisfies
+\begin{align}
+\Loc_{K'}\mathcal W''_{\le4}
+       =\left(\alpha+\frac{\kappa}{b}\right)S_{K'}.
+ \label{eq:beta-localization}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:kinetic-loc} and the definitions of $\alpha$ and $\kappa$:
+\begin{equation}
+\Loc_{K'}F_{2,0}=\alpha S_{K'},
+\qquad
+\Loc_{K'}F_{4,-1}=\kappa S_{K'},
+\end{equation}
+The operator $\Loc_{K'}$ is linear and depends only on the quadratic Taylor part.
+Thus \eqref{eq:beta-quadratic-input} gives the identity.
+\end{proof}
+
+Thus the kinetic part is absorbed into $b^-$ and the
+$(\Id-\Loc_{K'})$ part is retained as an interaction.
+The subtraction already includes the higher Taylor terms of the
+kinetic energy.  Reassembly sorts the resulting remainder into
+the canonical slots and rewrites their prefactors using $b^-$.
+
+One can perform this extraction directly on the connected
+expectations in Section~\ref{subsec:pert-connected}.  Let $\Pi_2$ denote projection onto
+homogeneous degree two in the external variable $\eta$, after
+putting $y=g\eta$ and assigning the output terms to anchors.
+With the cumulant notation of that section, the explicit formulas are
+\begin{align}
+ \alpha
+ &=\mathfrak a\Pi_2\left(
+      \langle\mathcal V_2\rangle
+      -\tfrac12\langle\mathcal V_1;\mathcal V_1\rangle_c
+                    \right),\\
+ \kappa
+ &=\mathfrak a\Pi_2\left(
+      \langle\mathcal V_4\rangle
+      -\langle\mathcal V_1;\mathcal V_3\rangle_c
+      -\tfrac12\langle\mathcal V_2;\mathcal V_2\rangle_c
+ \right.\nonumber\\
+ &\hspace{35mm}\left.
+      +\tfrac12\langle\mathcal V_1;\mathcal V_1;\mathcal V_2\rangle_c
+      -\tfrac1{24}\langle\mathcal V_1;\mathcal V_1;
+                              \mathcal V_1;\mathcal V_1\rangle_c
+                    \right).
+ \label{eq:beta-connected-extraction}
+\end{align}
+Thus the procedure is: take the connected Gaussian expectations,
+retain their external quadratic part, and take its affine moment.
+
+% Since $\mathcal E'(g\eta)=O(g^2)$, the action corrections
+% $\alpha\mathcal E'$ and $(\kappa/b)\mathcal E'$ have formal orders
+% $g^2$ and $g^4$, respectively.  For a blocking factor $L$, the
+% finite-step increment per logarithmic length is
+% \begin{equation}
+%  \beta_b^{\mathrm{step}}(b)
+%  :=\frac{b^--b}{\log L}
+%  =\frac{\alpha}{\log L}+\frac{\kappa}{b\log L}.
+%  \label{eq:beta-discrete}
+% \end{equation}
+% This is a finite-step quantity, not an asserted differential flow.
+% The increments depend on the free history and the incoming canonical
+% coefficient lists.  On the canonical orbit they are denoted
+% $\alpha_h,\kappa_h$, with $h=N-j$.  The exact update has the additional
+% remainder $\Delta_j$ discussed below; evaluating the numerical values
+% of the moments in \eqref{eq:beta-moments} requires the corresponding
+% Gaussian kernels and incoming coefficients.
+
+\subsection{Explicit one-loop expression}
+\label{subsec:explicit-alpha}
+
+\subsubsection{Setup}
+
+We can evaluate the formula for $\alpha$ without leaving an
+affine-Hessian operation or a Gaussian cumulant unevaluated.
+The external variable $\eta$ is a deterministic field on the
+coarse lattice, taking values in the tangent plane at a constant
+reference spin $n$.  Fix a coarse anchor $o$ and set $\eta_o=0$.
+The physical coarse tangent is $y=g\eta$, so near the aligned
+configuration the coarse spins are
+\begin{equation}
+ V_Y(g\eta)=\sqrt{1-g^2|\eta_Y|^2}\,n+g\eta_Y,
+ \qquad \eta_Y\in n^\perp,\qquad V_o=n.
+ \label{eq:alpha-external-eta}
+\end{equation}
+Thus $\eta$ parametrizes the external block-spin perturbation; it
+is not a Gaussian field and is not integrated.  The Gaussian
+fluctuation is denoted by $Z$.  To extract the scalar kinetic
+coefficient, specialize to a unit vector $e\in n^\perp$ and the
+rank-one affine test function
+\begin{equation}
+ \eta_o(o+r)=r_1e,\qquad y=\lambda g\eta_o.
+ \label{eq:alpha-test-field}
+\end{equation}
+The parameter $\lambda$ records external-field degree; the
+coefficients $\mathcal V_1,\mathcal V_2$ are still the coefficients
+of $g,g^2$ defined in Section~\ref{subsec:pert-connected}.
+In this subsection use the preprint's full-kernel residual shifts
+and projected affine rows, with the completed mean
+$\mu=-A^{-1}D^*F$.
+
+Write $[\cdot]_o$ for assignment of a connected output to the
+anchor $o$, followed by summation over all its labels, with the
+fixed equivariant convention.  In a covariance or a product of
+vertices this assignment is made \emph{after} the connected
+contraction.  It is not the operation of first keeping only the
+input vertices anchored at $o$.  All affine evaluations below are
+algebraic evaluations of the bulk coefficient lists, justified by
+their displacement moments.
+
+For $k=0,1,2$ define polynomials of the Gaussian field by
+\begin{equation}
+ A_k(Z)=
+ \left.\frac{d^k}{d\lambda^k}
+       \mathcal V_1(\lambda\eta_o,Z)\right|_{\lambda=0},
+ \qquad
+ B_2(Z)=
+ \left.\frac{d^2}{d\lambda^2}
+       \mathcal V_2(\lambda\eta_o,Z)\right|_{\lambda=0}.
+ \label{eq:alpha-vertex-derivatives}
+\end{equation}
+These symbols denote derivatives of the interaction vertices, not
+the precision matrix $A$.  The rank-one test and the connected
+expansion give
+\begin{equation}
+ \alpha=
+ \left[
+   \E_C B_2
+   -\operatorname{Cov}_C(A_1,A_1)
+   -\operatorname{Cov}_C(A_0,A_2)
+ \right]_o.
+ \label{eq:alpha-derivative-formula}
+\end{equation}
+Indeed, $\alpha$ is the second $\lambda$ derivative at zero of
+the anchored coefficient $[g^2]\mathcal W''(V(\lambda g\eta_o))$.
+Differentiating
+$\E_C\mathcal V_2-\tfrac12\operatorname{Cov}_C
+(\mathcal V_1,\mathcal V_1)$ twice yields
+\eqref{eq:alpha-derivative-formula}.  The fourth-degree output
+$F_{2,1}(\lambda\eta_o)$ has zero second derivative at zero.
+
+For the aligned construction used here, $A_0=0$.  To see this,
+set the external tangent field to zero.  The block spins and
+references then coincide with a constant spin, $F=\mu=0$, and the
+residual shifts vanish.  In each physical row the linear
+fluctuation is tangent and the quadratic fluctuation is normal,
+so their scalar product is zero.  The added scalar square cancels
+the normal part of the affine square.  Thus there is no pure
+fluctuation cubic vertex.  The mean-normalization defect vanishes
+at constant output, and the old slots and Jacobian start at order
+$g^2$.  Hence \eqref{eq:alpha-derivative-formula} reduces to
+\begin{equation}
+ \alpha=\left[\E_C B_2-\operatorname{Var}_C(A_1)\right]_o.
+ \label{eq:alpha-two-contributions}
+\end{equation}
+
+Here are the remaining Gaussian contractions explicitly.
+Use a combined index $I=(x,a)$, where $x$ is a fine site and
+$a\in\{1,2,3\}$ is an ambient spin component, and write
+\begin{equation}
+ \Gamma_{IJ}=\E_C[Z_I Z_J]=C_{xy}\delta_{ab},
+ \qquad I=(x,a),\quad J=(y,b).
+ \label{eq:alpha-colored-covariance}
+\end{equation}
+Power counting gives a quadratic polynomial for $A_1$ and a
+constant plus a quadratic polynomial for $B_2$:
+\begin{equation}
+ A_1(Z)=\frac12\sum_{I,J}\mathsf B_{IJ}Z_I Z_J,\qquad
+ B_2(Z)=d_\alpha+\frac12\sum_{I,J}\mathsf M_{IJ}Z_I Z_J.
+ \label{eq:alpha-fluctuation-polynomials}
+\end{equation}
+The symmetric coefficient arrays and the constant are specified
+directly by the vertices:
+\begin{align}
+ \mathsf B_{IJ}
+ &=\left.
+   \partial_{Z_I}\partial_{Z_J}\partial_\lambda
+       \mathcal V_1(\lambda\eta_o,Z)
+   \right|_{\lambda=0,Z=0},\\
+ \mathsf M_{IJ}
+ &=\left.
+   \partial_{Z_I}\partial_{Z_J}\partial_\lambda^2
+       \mathcal V_2(\lambda\eta_o,Z)
+   \right|_{\lambda=0,Z=0},\\
+ d_\alpha
+ &=\left.\partial_\lambda^2
+       \mathcal V_2(\lambda\eta_o,0)\right|_{\lambda=0}.
+ \label{eq:alpha-explicit-arrays}
+\end{align}
+The constant $d_\alpha$ includes the external quadratic terms
+without fluctuation legs, including those from the incoming
+quadratic slot and from the Jacobian.
+Wick's rule gives
+\begin{equation}
+ \operatorname{Cov}_C(Z_I Z_J,Z_K Z_L)
+   =\Gamma_{IK}\Gamma_{JL}+\Gamma_{IL}\Gamma_{JK}.
+\end{equation}
+Substitution in \eqref{eq:alpha-two-contributions} therefore yields
+\begin{equation}
+ \alpha=
+ \left[
+ d_\alpha+\frac12\sum_{I,J}\mathsf M_{IJ}\Gamma_{IJ}
+ -\frac12\sum_{I,J,K,L}
+       \mathsf B_{IJ}\mathsf B_{KL}
+       \Gamma_{IK}\Gamma_{JL}
+ \right]_o.
+ \label{eq:alpha-explicit-wick}
+\end{equation}
+The first contraction pairs the two fluctuation legs of a
+$\mathcal V_2$ vertex.  The last term joins two $\mathcal V_1$
+vertices by two covariance lines; its factor $1/2$ includes both
+cross-pairings and the cumulant coefficient.
+The arrays in this formula include all input vertex labels.
+In particular, the product $\mathsf B_{IJ}\mathsf B_{KL}$
+includes pairs with different input anchors before the connected
+output is assigned to $o$.
+
+Formula~\eqref{eq:alpha-explicit-wick} is an explicit covariance-sum
+expression for the finite-history increment.  Its numerical value
+depends on $C$, the mean and residual kernels entering the vertices,
+and the incoming canonical coefficients.  It is not an identity
+asserting $\alpha_h=-\log L/(2\pi)$ at every history; that value is
+the limiting increment established separately in the preprint.
+
+We can also separate the contribution of the incoming interactions
+without referring to $\mathcal V$.  Define the linear harmonic
+extension from coarse tangent fields to fine tangent fields by
+\begin{equation}
+ H=aCQ^*,\qquad C=(K+aQ^*Q)^{-1}.
+ \label{eq:alpha-harmonic-extension}
+\end{equation}
+The preprint uses $a=1$.  In the linearized Gaussian problem the
+fine tangent field has conditional mean $H\eta$: completing the
+square in
+$\tfrac12\langle\psi,K\psi\rangle+
+ \tfrac a2\|\eta-Q\psi\|^2$
+gives
+\begin{equation}
+ \psi=H\eta+Z^\top,\qquad
+ \E[Z_x^{\top,a}Z_y^{\top,b}]=C_{xy}\delta_{ab},
+ \qquad a,b\in\{1,2\}.
+ \label{eq:alpha-tangent-conditional-law}
+\end{equation}
+Here $Z^\top$ is the tangent projection of the three-component
+Gaussian at the constant reference spin $n$.  The map $H$ describes
+the total linearized physical fine field, including the variation
+of the reference spins $T_x=V_{[x]}$; it is not the shift $\mu$
+alone.
+
+Let $P_4^{\mathrm{tan}}(\psi)$ denote the leading homogeneous
+quartic polynomial of the incoming $P_4$ in this common tangent
+plane.  For an incoming label anchored at a fine site $z$, its
+relative tangent arguments are replaced by
+$\psi_{z+r_i}-\psi_z$.  The masks are one in this formal
+coefficient calculation.  Write $\alpha_{\mathrm{geom}}$ for
+the kinetic increment computed with the incoming canonical slots
+set to zero, retaining the nonlinear kinetic and observation
+terms and the spherical Jacobian.  Then
+\begin{equation}
+ \alpha=\alpha_{\mathrm{geom}}
+  +\mathfrak a\left(
+     \Pi_2\E_C P_4^{\mathrm{tan}}(H\eta+Z^\top)
+              \right).
+ \label{eq:alpha-quartic-transfer}
+\end{equation}
+As before, $\Pi_2$ extracts degree two in the external field
+$\eta$, and $\mathfrak a$ is applied to the resulting anchored
+output densities.  Since $P_4^{\mathrm{tan}}$ has degree four,
+the required Gaussian expectation consists of exactly one
+contraction:
+\begin{equation}
+ \alpha=\alpha_{\mathrm{geom}}
+ +\frac12\mathfrak a\left(
+   \left.\sum_{x,y}C_{xy}\sum_{a=1}^2
+       \frac{\partial^2P_4^{\mathrm{tan}}(\psi)}
+            {\partial\psi_x^a\,\partial\psi_y^a}
+   \right|_{\psi=H\eta}
+                         \right).
+ \label{eq:alpha-quartic-covariance}
+\end{equation}
+The expression inside parentheses is a quadratic polynomial in
+$\eta$.  All sums retain the prescribed assignment to coarse
+anchors.
+
+\subsubsection{The geometric contribution}
+For a regular square-block step, $\alpha_{\mathrm{geom}}$ can be
+written directly in the free kernels and the averaging weights.
+This calculation sets the incoming canonical slots to zero.
+Use the scalar bulk kernel $K=K_h$, with
+$K(p)=|p|^2+O(|p|^4)$, and
+$C=(K+aQ^*Q)^{-1}$.  Choose a reference block $Y_0$ with centre
+$x_0$.  For every fine site and coarse block centre put
+\begin{equation}
+ h_x=\frac{x_1-x_{0,1}}{L},\qquad
+ h_Y=\frac{x_{Y,1}-x_{0,1}}{L},\qquad
+ u_x=h_x-h_{[x]}.
+ \label{eq:geom-affine-coordinates}
+\end{equation}
+Thus $h_Y$ has unit slope in the first coarse coordinate and
+$h_x$ has slope $1/L$ in fine coordinates.  With $w_x=w_{Y_0}(x)$,
+define the dimensionless within-block second moment
+\begin{equation}
+ \sigma_w^2=\sum_{x\in Y_0}w_xu_x^2,\qquad
+ \sum_{x\in Y_0}w_x=1,\qquad
+ \sum_{x\in Y_0}w_xu_x=0.
+ \label{eq:geom-weight-moment}
+\end{equation}
+The weights are the actual sampled smooth weights of the
+preprint, not uniform weights unless that alternative observation
+has been chosen.
+
+For this regular step the result is
+\begin{align}
+ \alpha_{\mathrm{geom}}
+ ={}&-\frac{2}{L^2}\sum_{x\in Y_0}C_{xx}
+     -\frac12\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
+            C_{xy}K_{xy}(h_x-h_y)^2 \nonumber\\
+ &+a\sum_{x,y\in Y_0}w_xw_y C_{xy}
+       \left(2\sigma_w^2-\frac{u_x^2+u_y^2}{2}\right).
+ \label{eq:alpha-geom-kernel}
+\end{align}
+This is a coefficient per coarse site: the first two sums contain
+one fine block, not one fine site.  The second sum uses lifted
+bulk displacements, and converges by exponential localization.
+Using $K=C^{-1}-aQ^*Q$ gives the equivalent formula
+\begin{align}
+ \alpha_{\mathrm{geom}}
+ ={}&-\frac{2}{L^2}\sum_{x\in Y_0}C_{xx}
+     -\frac12\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
+        C_{xy}(C^{-1})_{xy}(h_x-h_y)^2 \nonumber\\
+ &+a\sum_{x,y\in Y_0}w_xw_y C_{xy}
+                         (2\sigma_w^2-u_xu_y).
+ \label{eq:alpha-geom-covariance}
+\end{align}
+Here $C^{-1}$ is the inverse operator, not the entrywise inverse.
+Once the observation geometry is fixed, this expression uses only
+$C$, its inverse, and the known weights and coordinates.
+The complete $\alpha$ still includes the incoming quartic
+contribution in \eqref{eq:alpha-quartic-covariance}.
+
+To derive \eqref{eq:alpha-geom-kernel}, use a slowly rotating
+background along a great circle:
+\begin{equation}
+ \bar q_x(\varepsilon)
+   =(\sin(\varepsilon h_x),0,\cos(\varepsilon h_x)),\qquad
+ V_Y(\varepsilon)
+   =(\sin(\varepsilon h_Y),0,\cos(\varepsilon h_Y)).
+ \label{eq:geom-helical-background}
+\end{equation}
+Its linear tangent variation is the rank-one affine test function
+used above.  All derivatives here are bulk coefficient
+derivatives at $\varepsilon=0$; no nonperiodic affine field is
+inserted into a fixed periodic spin integral.
+The even block weights give
+\begin{equation}
+ (Q\bar q)_Y=\rho(\varepsilon)V_Y(\varepsilon),\qquad
+ \rho(\varepsilon)
+   =\sum_{x\in Y_0}w_x\cos(\varepsilon u_x)
+   =1-\tfrac12\sigma_w^2\varepsilon^2+O(\varepsilon^4).
+ \label{eq:geom-block-mean}
+\end{equation}
+In particular, the normalized block mean equals $V_Y$ for small
+$\varepsilon$.  Translation invariance and symmetry of $K$ give
+\begin{equation}
+ (K\bar q)_x=k(\varepsilon)\bar q_x,\qquad
+ k(\varepsilon)=K(\varepsilon e_1/L)
+               =\varepsilon^2/L^2+O(\varepsilon^4).
+\end{equation}
+Hence this background is stationary, in the bulk, for the
+constrained energy
+\begin{equation}
+ \mathcal S_V(q)
+ =\tfrac12\langle q,Kq\rangle
+       +a\sum_Y\bigl(1-V_Y\cdot\widehat m_Y(q)\bigr).
+ \label{eq:geom-constrained-energy}
+\end{equation}
+The tree-level energy has quadratic coarse slope coefficient
+$b/2$; the order-one correction to that coefficient is obtained
+from the Gaussian determinant at this stationary background.
+
+Use the orthonormal tangent vectors
+\begin{equation}
+ e_{\parallel,x}
+   =(\cos(\varepsilon h_x),0,-\sin(\varepsilon h_x)),
+ \qquad e_{\perp,x}=(0,1,0).
+\end{equation}
+In intrinsic coordinates centred at $\bar q(\varepsilon)$, the
+Hessian splits into two scalar matrices:
+\begin{align}
+ (A_\parallel(\varepsilon))_{xy}
+ ={}&K_{xy}\cos\bigl(\varepsilon(h_x-h_y)\bigr)
+        -k(\varepsilon)\delta_{xy} \nonumber\\
+ &+\frac{a}{\rho(\varepsilon)^2}
+       \sum_Y w_Y(x)w_Y(y)
+             \cos(\varepsilon u_x)\cos(\varepsilon u_y),\\
+ (A_\perp(\varepsilon))_{xy}
+ ={}&K_{xy}-k(\varepsilon)\delta_{xy}
+       +\frac{a}{\rho(\varepsilon)^2}
+             \sum_Yw_Y(x)w_Y(y).
+ \label{eq:geom-two-hessians}
+\end{align}
+The kinetic diagonal term comes from differentiating the sphere
+constraint.  For the observation term, the Hessian with respect
+to its mean $m=\rho V$ is
+$a\rho^{-2}(\Id-VV^*)$; its first derivative vanishes there.
+These facts give \eqref{eq:geom-two-hessians} directly.
+
+Both Hessians equal $A=C^{-1}$ at $\varepsilon=0$ and have zero
+first derivative.  Define the trace per coarse cell by
+\begin{equation}
+ \tr_{\mathrm{cell}} T=\sum_{x\in Y_0}T_{xx}.
+\end{equation}
+The background-dependent part of the one-loop action per coarse
+site is
+\begin{equation}
+ \mathcal G(\varepsilon)
+ =\tfrac12\tr_{\mathrm{cell}}
+       \bigl(\log A_\parallel(\varepsilon)
+             +\log A_\perp(\varepsilon)-2\log A\bigr),
+ \qquad
+ \alpha_{\mathrm{geom}}=\mathcal G''(0).
+ \label{eq:geom-logdet}
+\end{equation}
+This is the bulk trace density, equivalently obtained by Bloch
+decomposition with one fine block as the cell.  The spherical
+area density at the centre of each intrinsic chart is the same
+constant $J(0)$, and the normalized observation has a
+background-independent denominator.  They add no further
+background-dependent term at this order.  The Jacobian and
+coordinate-change contributions in the earlier vertex calculation
+are thereby included in this intrinsic Hessian calculation.
+
+Writing
+$A_\parallel(\varepsilon)+A_\perp(\varepsilon)
+ =2A+\varepsilon^2\mathsf B_{\mathrm{geom}}+O(\varepsilon^4)$ gives
+\begin{align}
+ (\mathsf B_{\mathrm{geom}})_{xy}
+ ={}&-\tfrac12K_{xy}(h_x-h_y)^2
+       -\frac{2}{L^2}\delta_{xy}\nonumber\\
+ &+a\sum_Y w_Y(x)w_Y(y)
+       \left(2\sigma_w^2-\frac{u_x^2+u_y^2}{2}\right),\\
+ \alpha_{\mathrm{geom}}&=\tr_{\mathrm{cell}}(C\mathsf B_{\mathrm{geom}}).
+\end{align}
+Expanding this trace proves \eqref{eq:alpha-geom-kernel}.
+Finally, for two sites in the same block,
+$h_x-h_y=u_x-u_y$; substituting
+$K=C^{-1}-aQ^*Q$ combines the observation terms into
+$2\sigma_w^2-u_xu_y$ and proves
+\eqref{eq:alpha-geom-covariance}.  These formulas concern the
+formal one-loop coefficient for a regular step, not the
+large-gradient remainder of the exact integration.
+
+\subsubsection{The leading logarithm}
+The coefficient of the logarithm can be seen directly in
+\eqref{eq:alpha-geom-kernel}.  Define the mean diagonal covariance
+over one fine block by
+\begin{equation}
+ \overline C_L=\frac1{L^2}\sum_{x\in Y_0}C_{xx}.
+\end{equation}
+Translation invariance and the normalization
+$K(p)=|p|^2+O(|p|^4)$ imply the exact moment identity
+\begin{equation}
+ \sum_y K_{xy}(x_1-y_1)^2
+ =-\partial_{p_1}^2K(0)=-2.
+ \label{eq:geom-kinetic-moment}
+\end{equation}
+In the second term of \eqref{eq:alpha-geom-kernel}, use
+$h_x-h_y=(x_1-y_1)/L$ and split
+$C_{xy}=C_{xx}+(C_{xy}-C_{xx})$.  The part containing $C_{xx}$
+is $+\overline C_L$, cancelling one of the two diagonal
+contributions.  Thus, exactly,
+\begin{align}
+ \alpha_{\mathrm{geom}}
+   &=-\overline C_L+R_{\mathrm{kin}}+R_{\mathrm{obs}},
+       \label{eq:geom-log-decomposition}\\
+ R_{\mathrm{kin}}
+   &=-\frac1{2L^2}\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
+       K_{xy}(C_{xy}-C_{xx})(x_1-y_1)^2,\\
+ R_{\mathrm{obs}}
+   &=a\sum_{x,y\in Y_0}w_xw_yC_{xy}
+          \left(2\sigma_w^2-\frac{u_x^2+u_y^2}{2}\right).
+\end{align}
+
+The expected logarithm in $\overline C_L$ comes from wavelengths
+between the fine scale $1$ and the block scale $L$.  On the
+corresponding momenta the leading continuum covariance is
+$|p|^{-2}$, and
+\begin{equation}
+ \int_{1/L\leq |p|\leq1}
+       \frac{d^2p}{(2\pi)^2|p|^2}
+   =\frac1{2\pi}\int_{1/L}^1\frac{dr}{r}
+   =\frac{\log L}{2\pi}.
+ \label{eq:geom-shell-log}
+\end{equation}
+This explains the leading term; it is not an exact Fourier
+representation of $C$, which is only block-translation invariant.
+In $R_{\mathrm{kin}}$, a covariance difference removes the common
+logarithmic part, while localization of $K$ controls the remaining
+displacements.  In $R_{\mathrm{obs}}$, averaging over two sites
+in the block makes the logarithmic singularity integrable:
+the diagonal value alone does not determine this average.
+
+For precision, sufficient estimates for this argument are
+\begin{align}
+ \left|\overline C_L-\frac{\log L}{2\pi}\right|&\leq M,\\
+ \frac1{L^2}\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
+   |K_{xy}|\,|C_{xy}-C_{xx}|\,|x-y|^2&\leq M,\\
+ \sum_{x,y\in Y_0}w_xw_y|C_{xy}|&\leq M,
+ \label{eq:geom-uniform-bounds}
+\end{align}
+with $M$ independent of $L$ and of the histories under
+consideration.  Since $a$ is fixed and the within-block
+coordinates $u_x$ are bounded, these estimates would imply
+\begin{equation}
+ \alpha_{\mathrm{geom}}
+   =-\frac{\log L}{2\pi}+O(1).
+ \label{eq:geom-leading-log}
+\end{equation}
+The uniform estimates above are additional requirements;
+they have not been established in this calculation.  In
+particular, fixed-$L$ localization estimates alone do not
+justify an $O(1)$ bound uniform as $L\to\infty$.
+
+Nor does \eqref{eq:geom-leading-log} say that the incoming
+$P_4$ contributes zero.  The preprint identifies the limiting
+total increment along the canonical orbit, for each fixed $L$,
+as $-\log L/(2\pi)$.  If the limiting geometric contribution is
+written as $-\log L/(2\pi)+c_L$, the limiting quartic contribution
+in \eqref{eq:alpha-quartic-transfer} must therefore be $-c_L$.
+This identity by itself neither forces $c_L=0$ nor proves a
+bound on $c_L$ uniform in $L$.
+
+\subsection{Reassembly of the renormalized action}
+\label{subsec:pert-reassembly}
+
+Section~\ref{subsec:pert-beta} determined the kinetic increments
+and the perturbative coupling $b^-=b+\alpha+\kappa/b$.  We first
+relate the affine normalization to the coarse kinetic energy and
+its local densities, then reorganize the remaining polynomial terms.
 
 The symbol $S_{K',o}$ denotes the contribution anchored at $o$ to
 the block spin kinetic energy, with the edge and row contributions
@@ -1351,14 +2152,14 @@ assigned to anchors as in the preprint. For small gradients,
  \mathcal E'(V)=\frac12\langle V,K'V\rangle
               =\sum_o S_{K',o}(V).
 \end{equation}
-The superscript $[2]$ denotes the homogeneous degree-two Taylor
+The operator $\Tay_2$ extracts the homogeneous degree-two Taylor
 term in the tangent coordinates $y$:
 \begin{equation}
- S_{K',o}^{[2]}(y)
+ (\Tay_2 S_{K',o})(y)
  =\frac12\left.\frac{d^2}{d\varepsilon^2}
                   S_{K',o}(\varepsilon y)\right|_{\varepsilon=0},
  \qquad
- \mathcal E'^{[2]}(y)=\sum_o S_{K',o}^{[2]}(y).
+ (\Tay_2\mathcal E')(y)=\sum_o (\Tay_2 S_{K',o})(y).
 \end{equation}
 The full kinetic energy has higher-degree terms because block spins are on the sphere.
 
@@ -1369,53 +2170,54 @@ The free kinetic term is normalized such that
 Its quadratic kinetic density therefore has the usual gradient
 normalization.  Evaluated on the affine tangent field, it gives
 \begin{equation}
- S_{K',o}^{[2]}(\mathsf L_o r)
+ (\Tay_2 S_{K',o})(\mathsf L_o r)
  =\frac12\sum_{\mu=1}^2|\mathsf L_o e_\mu|^2
- =\frac12\tr(\mathsf L_o^*\mathsf L_o).
+ =\frac12\tr(\mathsf L_o^*\mathsf L_o),
+ \qquad \mathfrak a(\Tay_2 S_{K'})=1.
 \end{equation}
 We expand \emph{around} a constant block-spin configuration;
 the block spins are not kept exactly constant during the test.
 At an exactly constant configuration both $\mathcal E'$ and its
 kinetic densities vanish.  Their second variation under nonconstant
 perturbations determines the kinetic coefficient.  Using the density
-$S_{K',o}^{[2]}$ states this normalization per anchor and avoids an
+$\Tay_2 S_{K',o}$ states this normalization per anchor and avoids an
 overall volume factor.
-%
-Define the affine-Hessian functional $\mathfrak a$ by
-\begin{equation}
- G_o^{[2]}(\mathsf L_o r)=\mathfrak a(G^{[2]})\,
-                    \tfrac12\tr(\mathsf L_o^*\mathsf L_o),
- \qquad \mathfrak a(S_{K'}^{[2]})=1,
-\end{equation}
-where all bulk labels at the anchor are summed before this test.
-Thus the two kinetic increments are
-\begin{equation}
- \alpha=\mathfrak a(F_{2,0}),\qquad
- \kappa=\mathfrak a(F_{4,-1}),\qquad
- b^-=b+\alpha+\frac{\kappa}{b}.
- \label{eq:pert-bminus}
-\end{equation}
-Although $\alpha$ is an order-one change of $b$, its contribution
-$\alpha\mathcal E'$ is order $g^2$ when $y=O(g)$.
-Similarly $(\kappa/b)\mathcal E'$ is order $g^4$.
+
+We now subtract $(b^--b)\mathcal E'$ from $\mathcal W''$ and express
+the retained remainder in the canonical slots with coupling $b^-$.
+At the level of anchored densities this is precisely
+$(\Id-\Loc_{K'})\mathcal W''_{\le4}$.
+The reassembly identities below are understood modulo vacuum terms
+and formal orders above four.  The additional correction from $b^-$
+to the exact coupling $b'$ is treated in the following subsection.
 
 The remaining polynomial terms are assigned by the triangular rule
 \begin{align}
  P'_4&=F_{2,1},&
  I'_2&=\operatorname{Comp}
-             (F_{2,0}-\alpha S_{K'}^{[2]}),\\
+             \Bigl(\Tay_2\bigl((\Id-\Loc_{K'})
+                         F_{2,0}\bigr)\Bigr),\\
  P'_6&=F_{4,1},&
- I'_4&=F_{4,0}-\alpha P'_4-\alpha S_{K'}^{[4]},\\
+ I'_4&=F_{4,0}-\alpha P'_4-\alpha \Tay_4 S_{K'},\\
  J'_2&=\operatorname{Comp}
-             (F_{4,-1}-\kappa S_{K'}^{[2]}),&
+             \Bigl(\Tay_2\bigl((\Id-\Loc_{K'})
+                         F_{4,-1}\bigr)\Bigr),&
  P'_5&=I'_3=0.
  \label{eq:pert-slot-recursion}
 \end{align}
-The operation $\operatorname{Comp}$ writes a quadratic list with
-zero total affine Hessian in the compensated $Q_{r,s}$ packets;
-it preserves the summed polynomial.  The term $-\alpha S_{K'}^{[4]}$
-is needed because shifting $b$ multiplies the whole nonlinear
-kinetic energy.  The term $-\alpha P'_4$ is needed because the
+Here $\Tay_2\bigl((\Id-\Loc_{K'})F_{2,0}\bigr)
+=F_{2,0}-\alpha \Tay_2 S_{K'}$, and likewise for $F_{4,-1}$
+with coefficient $\kappa$.
+The explicit quadratic projection is needed because
+$\Loc_{K'}$ returns the full kinetic density.
+The operation $\operatorname{Comp}$ then writes the resulting
+quadratic list with zero total affine Hessian in the compensated
+$Q_{r,s}$ packets; it preserves the summed polynomial.
+The term $-\alpha \Tay_4 S_{K'}$ is already supplied by the
+quartic part of the localization subtraction.
+The term $-(\kappa/b)\Tay_4 S_{K'}$ has formal order $g^6$
+and is beyond the retained orders.
+The term $-\alpha P'_4$ is needed because the
 new quartic slot is written with prefactor $b^-$ rather than $b$.
 Indeed, modulo constants and formal orders above four,
 \begin{equation}
