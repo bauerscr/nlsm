@@ -1364,17 +1364,36 @@ Note that $\mathsf L_o$ is defined on $\R^2 \supset \Z^2$.
 The tangent projection is
 $\proj_{q_o^\perp}:\R^3\to q_o^\perp$, used in the definition of $y_o$.
 
-\begin{definition}[Localization operator]
-\label{def:kinetic-loc}
-Fix the full coarse kinetic density $S_{K'}=(S_{K',o})_o$,
-whose quadratic Taylor part has unit affine normalization
+\begin{definition}[Kinetic term]
+\label{def:coarse-kinetic-density}
+Let $K'$ be the running coarse precision, normalized by
+$K'(p)=|p|^2+O(|p|^4)$ near zero.
+%The full coarse kinetic density is the family
+%$S_{K'}=(S_{K',o})_o$ obtained by assigning the edge and row
+%contributions of the coarse kinetic energy to anchors as in the
+%preprint.  In the small-gradient region,
+The nonlinear quadratic energy is decomposed into local terms as
+\begin{equation}
+ \mathcal E'(V)=\frac12\langle V,K'V\rangle
+              =\sum_o S_{K',o}(V).
+ \label{eq:coarse-kinetic-density}
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+The quadratic part of $S_{K',o}$ has unit affine normalization:
 \begin{equation}
  (\Tay_2 S_{K',o})(\mathsf L_o r)
    =\tfrac12\tr(\mathsf L_o^*\mathsf L_o).
  \label{eq:kinetic-loc-normalization}
 \end{equation}
-Its construction and normalization are given in
-Section~\ref{subsec:pert-reassembly}.
+This normalization is explained in Section~\ref{subsec:pert-reassembly}.
+\end{proposition}
+
+\begin{definition}[Localization operator]
+\label{def:kinetic-loc}
+Use the full coarse kinetic density of
+Definition~\ref{def:coarse-kinetic-density}.
 On densities $G$ for which the following affine evaluations
 are defined and can be matched, define $\Loc_{K'}G$
 to be the unique element of $\operatorname{span}\{S_{K'}\}$
@@ -2145,13 +2164,8 @@ and the perturbative coupling $b^-=b+\alpha+\kappa/b$.  We first
 relate the affine normalization to the coarse kinetic energy and
 its local densities, then reorganize the remaining polynomial terms.
 
-The symbol $S_{K',o}$ denotes the contribution anchored at $o$ to
-the block spin kinetic energy, with the edge and row contributions
-assigned to anchors as in the preprint. For small gradients,
-\begin{equation}
- \mathcal E'(V)=\frac12\langle V,K'V\rangle
-              =\sum_o S_{K',o}(V).
-\end{equation}
+For the densities of Definition~\ref{def:coarse-kinetic-density},
+the energy decomposes as in \eqref{eq:coarse-kinetic-density}.
 The operator $\Tay_2$ extracts the homogeneous degree-two Taylor
 term in the tangent coordinates $y$:
 \begin{equation}
