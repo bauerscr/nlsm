@@ -33,10 +33,16 @@
 \begin{document}
 \maketitle
 \abstract{The goal is to summarize the introduction of the block spin
-transform from Section~3 and the fluctuation integral from Section~5.}
+transform, the fluctuation integral with nonlinear coordinates,
+and the calculation of the 1-loop beta function.}
 
 \setcounter{tocdepth}{1}
 \tableofcontents
+
+%Status:
+%\begin{itemize}
+%\item 
+%\end{itemize}
 
 \newpage
 \section{Block spin transforms}
@@ -1046,90 +1052,6 @@ variables $q$.
 
 
 \newpage
-\section{Finite range fluctuation integrals}
-
-One of the next steps to understand seems to be the fluctuation integration [O4, Section 5.4]. Given the block spin field $V$,
-the background field $T$ is defined by
-\begin{equation}
-  T_x = V_{[x]}
-\end{equation}
-where $[x]$ is the block containing the site $x$. Use $R(q)$ defined in Section~\ref{sec:background-field}.
-The remaining factor from the density \eqref{eq:density} is (where $\mathcal L$ is also defined in Section~\ref{sec:background-field}):
-\begin{equation}
-  H(q)= H(q;V)=e^{-b\mathcal L(q,V)}
- \exp\!\left\{
- -\sum_\alpha1_{X_\alpha}(q)\mathcal P_\alpha(q)
- -\sum_X1_X(q)f_X(q)
- \right\}\Xi(q).
- \label{eq:remaining-factor}
-\end{equation}
-Then we need to evaluate (see Proposition~\ref{prop:background-expect})
-\begin{equation}
-\E_{\gamma_C}\left[
- H(q(\mu+gZ))\,\mathcal J(\mu+gZ)
- \exp\!\left\{
- -\frac{\Delta(\mu+gZ)}{2g^2}
- +\frac12 Z^*(C^{-1}-A)Z
- -g^{-1}(h,Z)
- \right\}\right]
-\end{equation}
-and rearrange the result into the same form as \eqref{eq:density} at the next scale.
-dependence on $V$ is suppressed.
-%
-Frozen spins and tags are held fixed during the Gaussian integral and integrated or summed afterwards.
-
-\subsection{Truncation of the Gaussian covariance}
-
-The untruncated covariance is $A^{-1}$. The truncated finite range covariance is defined by
-\begin{equation}
-  C_s = \frac12 (\Pi_0+\Pi_0^*), \qquad (\Pi_0)_{yx} = 1_{y\in\Omega_x} (A_{\Omega_x}^{-1})_{yx}
-  .
-\end{equation}
-The set $\Omega_x$ is referred to as \emph{inverse window}. It is defined by
-\begin{equation}
-  \Omega_x = S \cap B(x,r_*), \qquad r_* \approx \mathfrak m_j \approx (\log g_j)^2.
-\end{equation}
-Let $E_{s} = AC_s-1$. Then
-\begin{equation}
-  C_s^{-1}-A = \sum_{k=1}^\infty (-E_s)^{k}A,
-  \qquad
-  \|E_s\| \lesssim e^{-c(\log g_j)^2}.
-\end{equation}
-In the Gaussian expectation formula (Proposition~\ref{prop:background-expect}),
-the error resulting from the truncation is
-\begin{equation}
- \frac12Z^*(C_s^{-1}-A)Z-g^{-1}h_s^*Z=\sum_\alpha Q_\alpha(Z).
-\end{equation}
-This is written as
-\begin{equation}
- e^{\sum_\alpha Q_\alpha}
- =\prod_\alpha(1+R_\alpha),\qquad
- R_\alpha=e^{Q_\alpha}-1
- \label{eq:ratio-factors}
-\end{equation}
-with
-\begin{equation}
- |Q_\alpha(Z)|\le e_\alpha
- \left(1+\sum_{x\in I_\alpha}|Z_x|^2\right),
- \label{eq:envelope}
-\end{equation}
-where $e_\alpha$ and $I_\alpha$ satisfy (...)
-
-\subsection{Fluctuation integral}
-
-The finite range property is:
-\begin{equation}
-\E_{\gamma_C}[FG] = \E_{\gamma_C}[F]\E_{\gamma_C}[G]
-\end{equation}
-when the supports of $F$ and $G$ are separated by distance greater than $r_*$.
-Next there should be a combinatorial expansion of $H$ and the $Q$ terms above
-similar to [Brydges, Park City].
-
-\subsection{Estimates}
-
-The next-scale kernels $f_X$ and $k_\ell$ as well as $\mathcal P_\alpha$
-must be estimated in terms of the previous scale ones.
-
 \section{Perturbation theory and the running coupling}
 \label{sec:perturbative-coupling}
 
@@ -1141,16 +1063,37 @@ Assuming $f_X=0$, $\Xi=1$, and that the background field is essentially constant
  b_{j-1}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j} + O(b_j^{-1.05}).
  \label{eq:pert-exact-recursion}
 \end{equation}
-
-\subsection{Gaussian perturbation theory}
-Scales run from the ultraviolet scale $j=N$ to the unit scale $j=0$.
-%
-We consider one step from scale $j$ to $j-1$, and abbreviate
+Scales run from the ultraviolet scale $j=N$ to the unit scale $j=0$ and thus
+a single step goes from $j$ to $j-1$. Abbreviate
+the scale $j$ and $j-1$ couplings and kinetic terms by
+\begin{gather}
+b=b_j, \qquad g=b^{-1/2}, \qquad K=K_{h}\\
+b'=b_{j-1}, \qquad g'=b'^{-1/2}, \qquad K'=K_{h+1}
+\end{gather}
+The initial renormalized action (at scale $j$) is
 \begin{equation}
-b=b_j,\quad g=b^{-1/2},\quad K'=K_{h+1}.
+  b \mathcal E(q) + \mathcal W(q),
 \end{equation}
-%For the formal coefficient
-%calculation use full, untruncated kernels and the empty sector.
+where $\mathcal E(q) \approx \frac12 \langle q,K q\rangle$ and [since $f_X=0$ and $\Xi=1$]
+\begin{equation}
+\mathcal W(q) = bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q).
+\end{equation}
+The fluctuation integral is now done as in Section~\ref{sec:background-field}.
+It evolves the renormalized action according to
+\begin{equation}
+  b \mathcal E(q) + \mathcal W(q) \quad \mapsto \quad b \mathcal E'(V) + \mathcal W''(V).
+\end{equation}
+In a subsequent step the coupling constant is adjusted from $b$ to $b'$ so that
+\begin{equation}
+  b \mathcal E(q) + \mathcal W(q) \quad \mapsto \quad b' \mathcal E'(V) + \mathcal W'(V),
+  \qquad
+  \mathcal W' = (b-b')\mathcal E + \mathcal W'',
+\end{equation}
+with $\mathcal W'$ of the same form as the incoming $\mathcal W$.
+
+\subsection{Fluctuation integral}
+
+We now setup the fluctuation integral as in Section~\ref{sec:background-field}, assuming there are no exceptional regions and fields.
 Throughout this subsection the symbols $A,D,C,F,\mu$ refer to (with $a=1$):
 \begin{equation}
  A=D^*D=K_h+aQ^*Q,\qquad C=A^{-1},\qquad
@@ -1171,47 +1114,43 @@ The fluctuation integral is then defined by Proposition~\ref{prop:background-exp
  \xi=\mu+gZ,\qquad Z\sim N(0,C\otimes I_3).
 \end{equation}
 %
-% The physical residual
-% uses the full-kernel shifts $(\nu,w)=\mathcal M X'$.
-% Thus the covariance-ratio and linear-mean corrections in
-% \eqref{eq:main} vanish.  The finite range construction is needed
-% to control the exact integral; its replacement by full kernels in
-% this coefficient calculation is justified by the remainder estimates.
-%
 Using \eqref{eq:cEqV},
 the kinetic term of the block spin field $V$ is first factored out with the old running coupling constant:
 $b\mathcal E'(V)$, where $\mathcal E'(V)=\tfrac12\langle V,K'V\rangle$ for small fields,
 and relative to this, the correction in the renormalized action is given by Proposition~\ref{prop:background-expect} as
 \begin{equation}
  \label{eq:pert-connected-action}
- \mathcal W(V)=-\log\E_{C}e^{-\mathcal V(V,Z)},
+ \mathcal W''(V)=-\log\E_{C}e^{-\mathcal V(V,Z)},
 \end{equation}
-where $\mathcal V$ is the sum of the following
- terms evaluated at $\xi=\mu+gZ$:
-\begin{equation}
- \begin{split}
- \mathcal V={}&\frac b2\sum_i
+The potential $\mathcal V$ is the sum of the following terms evaluated at $\xi=\mu+gZ$:
+\begin{align}
+ \mathcal V(V,Z)
+  &= \mathcal W(q(V,Z))
+\nonumber\\
+&\qquad
+  + \frac b2\sum_i
+    \bigl(|R_i(q)|^2+|D_iv|^2-|D_i\xi+F_i|^2\bigr) + b\mathcal L  +\frac b2|D\mu+F|^2 -\sum_x\log\frac{J(u_x)}{J(0)}
+\nonumber\\ 
+  &=\frac b2\sum_i
    \bigl(|R_i(q)|^2+|D_iv|^2-|D_i\xi+F_i|^2\bigr)
    + b\mathcal L %+b\sum_E U_E
    +\frac b2|D\mu+F|^2\\
- &+bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q)
+ &\qquad +bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q)
    -\sum_x\log\frac{J(u_x)}{J(0)}.
- \end{split}
  \label{eq:pert-vertices}
-\end{equation}
+\end{align}
 The Jacobian is
 \begin{equation}
  -\log\frac{J(u)}{J(0)}
  =-\log\frac{\sin|u|}{|u|}
  =\frac{|u|^2}{6}+\frac{|u|^4}{180}+O(|u|^6).
 \end{equation}
-The term $\mathcal L$ is the defect
-between the linear and normalized block average in \eqref{eq:cEqV}.
+The term $\mathcal L$ is the defect between the linear and normalized block average in \eqref{eq:cEqV}.
 
 \begin{proposition}[Symmetry]
 \label{prop:spin-symmetry}
-For globally $O(3)$-invariant input density,
-the output density and the effective interaction $\mathcal W$
+For globally $O(3)$-invariant input density $\mathcal W$,
+the output density and the effective interaction $\mathcal W'$
 are invariant under global
 $O(3)$ transformations of the spins.
 The connected Taylor coefficients inherit this invariance. 
@@ -1252,9 +1191,9 @@ preserves these identities.
 
 \subsection{Connected Wick contractions and power counting}
 
-Write $\langle W_1;\ldots;W_m\rangle_c$ for a Gaussian cumulant. Then the expansion is
+Write $\langle X_1;\ldots;X_m\rangle_c$ for a Gaussian cumulant. Then the expansion is
 \begin{equation}
- \mathcal W
+ \mathcal W''
  =\langle\mathcal V\rangle
   -\frac12\langle\mathcal V;\mathcal V\rangle_c
   +\frac16\langle\mathcal V;\mathcal V;\mathcal V\rangle_c
@@ -1267,9 +1206,9 @@ For example, after setting
 $y=g\eta$ and writing $\mathcal V=\sum_{r\ge1}g^r\mathcal V_r$, the
 coefficients at orders two and four are
 \begin{align}
- [g^2]\mathcal W
+ [g^2]\mathcal W''
  &=\langle \mathcal V_2\rangle-\tfrac12\langle \mathcal V_1;\mathcal V_1\rangle_c,\\
- [g^4]\mathcal W
+ [g^4]\mathcal W''
  &=\langle \mathcal V_4\rangle-\langle \mathcal V_1;\mathcal V_3\rangle_c
    -\tfrac12\langle \mathcal V_2;\mathcal V_2\rangle_c
    +\tfrac12\langle \mathcal V_1;\mathcal V_1;\mathcal V_2\rangle_c
@@ -1298,7 +1237,7 @@ Holding $V_o$ fixed, expand that term around $y_o=0$.  After
 extracting field-independent terms, organize the resulting Taylor
 coefficients as follows:
 \begin{equation}
- \mathcal W_{\le4}
+ \mathcal W_{\le4}''
  =bF_{2,1}(y)+F_{2,0}(y)
    +bF_{4,1}(y)+F_{4,0}(y)+b^{-1}F_{4,-1}(y).
  \label{eq:pert-sorted}
@@ -1312,9 +1251,9 @@ More precisely, after writing $y=g\eta$, homogeneity gives
 Thus the $F_{r,d}$ are exactly the components of the coefficients
 $[g^r]\mathcal W$ computed above, separated by external-field degree:
 \begin{align}
- [g^2]\mathcal W(V(g\eta))
+ [g^2]\mathcal W''(V(g\eta))
  &=F_{2,1}(\eta)+F_{2,0}(\eta),\\
- [g^4]\mathcal W(V(g\eta))
+ [g^4]\mathcal W''(V(g\eta))
  &=F_{4,1}(\eta)+F_{4,0}(\eta)+F_{4,-1}(\eta).
 \end{align}
 Coefficient extraction holds $\eta$ fixed.  The first index $r$
@@ -1322,9 +1261,12 @@ records the perturbative order, while the second index $d$
 distinguishes the field degrees $r+2d$ within that order:
 $4,2$ at order two and $6,4,2$ at order four.
 
-\commentrb{It is a mess from here on.}
 
 \subsection{Extracting the kinetic coefficient}
+
+We now extract the kinetic coefficients, change $b$ to $b'$ and $\mathcal W''$ to $\mathcal W'$.
+
+\commentrb{It is a mess from here on.}
 
 The formula produces a quadratic polynomial in $y$.
 It is not exactly a multiple of the kinetic term.
@@ -1477,7 +1419,7 @@ kinetic energy.  The term $-\alpha P'_4$ is needed because the
 new quartic slot is written with prefactor $b^-$ rather than $b$.
 Indeed, modulo constants and formal orders above four,
 \begin{equation}
- b\mathcal E'+\mathcal W_{\le4}
+ b\mathcal E'+\mathcal W_{\le4}''
  =b^-\mathcal E'+b^-P'_4+I'_2+b^-P'_6+I'_4+(b^-)^{-1}J'_2.
 \end{equation}
 This identity explains both the kinetic recursion and the accompanying
@@ -1541,5 +1483,92 @@ $\kappa_\infty$ is not evaluated numerically.  Thus the leading
 coarse-graining flow decreases the stiffness by $\gamma$ per step,
 and tracing the flow towards the ultraviolet gives the reference
 growth $b_j\approx H+\gamma j$, with logarithmic corrections.
+
+
+
+\newpage
+\section{Finite range fluctuation integrals}
+
+One of the next steps to understand seems to be the fluctuation integration [O4, Section 5.4]. Given the block spin field $V$,
+the background field $T$ is defined by
+\begin{equation}
+  T_x = V_{[x]}
+\end{equation}
+where $[x]$ is the block containing the site $x$. Use $R(q)$ defined in Section~\ref{sec:background-field}.
+The remaining factor from the density \eqref{eq:density} is (where $\mathcal L$ is also defined in Section~\ref{sec:background-field}):
+\begin{equation}
+  H(q)= H(q;V)=e^{-b\mathcal L(q,V)}
+ \exp\!\left\{
+ -\sum_\alpha1_{X_\alpha}(q)\mathcal P_\alpha(q)
+ -\sum_X1_X(q)f_X(q)
+ \right\}\Xi(q).
+ \label{eq:remaining-factor}
+\end{equation}
+Then we need to evaluate (see Proposition~\ref{prop:background-expect})
+\begin{equation}
+\E_{\gamma_C}\left[
+ H(q(\mu+gZ))\,\mathcal J(\mu+gZ)
+ \exp\!\left\{
+ -\frac{\Delta(\mu+gZ)}{2g^2}
+ +\frac12 Z^*(C^{-1}-A)Z
+ -g^{-1}(h,Z)
+ \right\}\right]
+\end{equation}
+and rearrange the result into the same form as \eqref{eq:density} at the next scale.
+dependence on $V$ is suppressed.
+%
+Frozen spins and tags are held fixed during the Gaussian integral and integrated or summed afterwards.
+
+\subsection{Truncation of the Gaussian covariance}
+
+The untruncated covariance is $A^{-1}$. The truncated finite range covariance is defined by
+\begin{equation}
+  C_s = \frac12 (\Pi_0+\Pi_0^*), \qquad (\Pi_0)_{yx} = 1_{y\in\Omega_x} (A_{\Omega_x}^{-1})_{yx}
+  .
+\end{equation}
+The set $\Omega_x$ is referred to as \emph{inverse window}. It is defined by
+\begin{equation}
+  \Omega_x = S \cap B(x,r_*), \qquad r_* \approx \mathfrak m_j \approx (\log g_j)^2.
+\end{equation}
+Let $E_{s} = AC_s-1$. Then
+\begin{equation}
+  C_s^{-1}-A = \sum_{k=1}^\infty (-E_s)^{k}A,
+  \qquad
+  \|E_s\| \lesssim e^{-c(\log g_j)^2}.
+\end{equation}
+In the Gaussian expectation formula (Proposition~\ref{prop:background-expect}),
+the error resulting from the truncation is
+\begin{equation}
+ \frac12Z^*(C_s^{-1}-A)Z-g^{-1}h_s^*Z=\sum_\alpha Q_\alpha(Z).
+\end{equation}
+This is written as
+\begin{equation}
+ e^{\sum_\alpha Q_\alpha}
+ =\prod_\alpha(1+R_\alpha),\qquad
+ R_\alpha=e^{Q_\alpha}-1
+ \label{eq:ratio-factors}
+\end{equation}
+with
+\begin{equation}
+ |Q_\alpha(Z)|\le e_\alpha
+ \left(1+\sum_{x\in I_\alpha}|Z_x|^2\right),
+ \label{eq:envelope}
+\end{equation}
+where $e_\alpha$ and $I_\alpha$ satisfy (...)
+
+\subsection{Fluctuation integral}
+
+The finite range property is:
+\begin{equation}
+\E_{\gamma_C}[FG] = \E_{\gamma_C}[F]\E_{\gamma_C}[G]
+\end{equation}
+when the supports of $F$ and $G$ are separated by distance greater than $r_*$.
+Next there should be a combinatorial expansion of $H$ and the $Q$ terms above
+similar to [Brydges, Park City].
+
+\subsection{Estimates}
+
+The next-scale kernels $f_X$ and $k_\ell$ as well as $\mathcal P_\alpha$
+must be estimated in terms of the previous scale ones.
 
 \end{document}
