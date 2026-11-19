@@ -1814,8 +1814,8 @@ Summing the localized densities in the following proposition gives
  \label{eq:pert-bminus}
 \end{equation}
 Here $b^-$ is the perturbative coupling of
-\eqref{eq:pert-formal-reassembly}; the exact correction is treated
-in Section~\ref{subsec:pert-exact}.
+\eqref{eq:pert-formal-reassembly}; the exact correction appears in
+\eqref{eq:pert-exact-recursion} below.
 
 \begin{proposition}[Localization of the perturbative output]
 \label{prop:beta-localization}
@@ -2008,10 +2008,64 @@ The term $-\alpha P'_4$ is needed because the
 new quartic slot is written with prefactor $b^-$ rather than $b$.
 \end{proof}
 
+\paragraph{From the formal recursion to the exact one}
+
+Write $\mathbf P$ for the collection of retained polynomial
+coefficient lists,
+\begin{equation}
+ \mathbf P=(P_4,I_2,P_5,I_3,P_6,I_4,J_2),
+ \qquad P_5=I_3=0.
+\end{equation}
+The subscripts indicate degree in the relative tangent field $y$.
+The displayed powers of $b$ are not part of these lists: their
+contribution to the action is
+\begin{equation}
+ bP_4+I_2+bP_6+I_4+b^{-1}J_2,
+\end{equation}
+with the prescribed sums over labels and their masks.  Each entry
+of $\mathbf P$ is a coefficient list, not a single scalar coupling.
+The coefficient operation defines a deterministic map
+$\mathbf P'=\mathcal C_h(\mathbf P)$, independent of the precise
+$b$ once its displayed powers have been sorted.  It updates all
+these lists together.  Starting from the nearest-neighbor action,
+\begin{equation}
+ \mathbf P^{(0)}=0,\qquad
+ \mathbf P^{(h+1)}=\mathcal C_h(\mathbf P^{(h)}).
+\end{equation}
+Blocking generates nonzero polynomial terms even from this zero
+initial list.
+Write $\alpha_h,\kappa_h$ for the increments evaluated on this orbit.
+After $h=N-j$ completed steps the perturbative prediction is
+\begin{equation}
+ b_{j-1}^{\rm pert}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j}.
+\end{equation}
+The omitted connected terms, cutoffs and localization corrections
+produce a new regular remainder and covering terms.  Subtracting
+the aligned value of each regular remainder changes the bulk
+scalar; subtracting its affine Hessian gives a further kinetic
+increment $\Delta_j$.  This scalar is distinct from the square
+defect $\Delta(\xi)$ in \eqref{eq:delta}.  The exact construction proves
+\begin{equation}
+ b_{j-1}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j}+\Delta_j,
+ \qquad |\Delta_j|\le C_LH_j^{-1.05}.
+ \label{eq:pert-exact-recursion}
+\end{equation}
+
 \subsection{Explicit one-loop expression}
 \label{subsec:explicit-alpha}
 
-Our goal is to show the following in perturbation theory above.
+\cite[Section~6.1]{OpenAI-O3} is supposed to show that along the renormalization group flow
+the one- and two-loop beta function coefficients are given by
+\begin{equation}
+ \alpha_h\longrightarrow-\gamma,
+ \qquad \gamma=\frac{\log L}{2\pi},\qquad
+ \kappa_h\longrightarrow\kappa_\infty.
+\end{equation}
+The value of $\alpha_\infty$ is identified there by matching a
+finite-volume Laplace coefficient before and after blocking;
+$\kappa_\infty$ is not evaluated numerically.   We will try
+to reproduce the computation of $\alpha$.
+
 \begin{proposition}
   The one-loop beta function coefficient defined in
   Proposition~\ref{prop:beta-localization} satisfies
@@ -2387,68 +2441,6 @@ written as $-\log L/(2\pi)+c_L$, the limiting quartic contribution
 in \eqref{eq:alpha-quartic-transfer} must therefore be $-c_L$.
 This identity by itself neither forces $c_L=0$ nor proves a
 bound on $c_L$ uniform in $L$.
-
-\subsection{From the formal recursion to the exact one}
-\label{subsec:pert-exact}
-
-Write $\mathbf P$ for the collection of retained polynomial
-coefficient lists,
-\begin{equation}
- \mathbf P=(P_4,I_2,P_5,I_3,P_6,I_4,J_2),
- \qquad P_5=I_3=0.
-\end{equation}
-The subscripts indicate degree in the relative tangent field $y$.
-The displayed powers of $b$ are not part of these lists: their
-contribution to the action is
-\begin{equation}
- bP_4+I_2+bP_6+I_4+b^{-1}J_2,
-\end{equation}
-with the prescribed sums over labels and their masks.  Each entry
-of $\mathbf P$ is a coefficient list, not a single scalar coupling.
-The coefficient operation defines a deterministic map
-$\mathbf P'=\mathcal C_h(\mathbf P)$, independent of the precise
-$b$ once its displayed powers have been sorted.  It updates all
-these lists together.  Starting from the nearest-neighbor action,
-\begin{equation}
- \mathbf P^{(0)}=0,\qquad
- \mathbf P^{(h+1)}=\mathcal C_h(\mathbf P^{(h)}).
-\end{equation}
-Blocking generates nonzero polynomial terms even from this zero
-initial list.
-Write $\alpha_h,\kappa_h$ for the increments evaluated on this orbit.
-After $h=N-j$ completed steps the perturbative prediction is
-\begin{equation}
- b_{j-1}^{\rm pert}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j}.
-\end{equation}
-The omitted connected terms, cutoffs and localization corrections
-produce a new regular remainder and covering terms.  Subtracting
-the aligned value of each regular remainder changes the bulk
-scalar; subtracting its affine Hessian gives a further kinetic
-increment $\Delta_j$.  This scalar is distinct from the square
-defect $\Delta(\xi)$ in \eqref{eq:delta}.  The exact construction proves
-\begin{equation}
- b_{j-1}=b_j+\alpha_{N-j}+\frac{\kappa_{N-j}}{b_j}+\Delta_j,
- \qquad |\Delta_j|\le C_LH_j^{-1.05}.
- \label{eq:pert-exact-recursion}
-\end{equation}
-Setting the incoming $f$ to zero does not set this newly generated
-$\Delta_j$ to zero.  Discarding it is a perturbative truncation.
-
-Finally, \cite[Section~6.1]{OpenAI-O3} proves that the canonical orbit and free
-history give convergent increments, with
-\begin{equation}
- \alpha_h\longrightarrow-\gamma,
- \qquad \gamma=\frac{\log L}{2\pi},\qquad
- \kappa_h\longrightarrow\kappa_\infty.
-\end{equation}
-The value of $\alpha_\infty$ is identified there by matching a
-finite-volume Laplace coefficient before and after blocking;
-$\kappa_\infty$ is not evaluated numerically.  Thus the leading
-coarse-graining flow decreases the stiffness by $\gamma$ per step,
-and tracing the flow towards the ultraviolet gives the reference
-growth $b_j\approx H+\gamma j$, with logarithmic corrections.
-
-
 
 \newpage
 \section{Finite range fluctuation integrals}
