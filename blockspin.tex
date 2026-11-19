@@ -64,7 +64,7 @@ and the calculation of the 1-loop beta function.}
 
 This explains roughly \cite[Section~3.2]{OpenAI-O3}. See also \cite{MR588686}.
 
-The lattice $\Lambda$ has positively oriented edge set $E$ and $B$ blocks.
+The lattice $\Lambda$ has positively oriented edge set $E$ and blocks $B$.
 Fields on the lattice are denoted $\phi$ and block spin fields $V$.
 Let $d:\R^\Lambda\to\R^E$ be the discrete gradient and $d^*:\R^E\to\R^\Lambda$ its adjoint.
 
@@ -72,7 +72,8 @@ Let $d:\R^\Lambda\to\R^E$ be the discrete gradient and $d^*:\R^E\to\R^\Lambda$ i
 
 \subsection{Nonlinear block spin transforms}
 
-The preprints use `soft' block spin transforms defined in terms of a penalization parameter $a>0$.
+The construction uses `soft' block spin transforms defined in terms of a penalization parameter $a>0$
+(which will actually be set to $a=1$).
 For a block $Y \subset \Lambda$, the linear block average of $\phi: \Lambda \to \R$ is defined by
 \begin{equation}
  (Q\phi)_Y=\sum_{x\in Y}w_Y(x)\phi_x,
@@ -84,11 +85,13 @@ The nonlinear block spin average $\widehat m_Y(q)$ of a spin configuration $q: \
   \begin{cases}
       \frac{m_Y(q)}{|m_Y(q)|} & (|m_Y(q)|\geq \frac12)
       \\
-      \dots
+      q_{\tau_Y} & (|m_Y(q)| < \frac12),
   \end{cases}
 \end{equation}
-The block spin transform of a measure on configurations $q: \Lambda \to S^2$ is done by inserting the following factor into the measure for $q$:
+where $\tau_Y$ is a random point in $Y$ chosen according to distribution (...).
+The block spin transform of a measure on configurations $q: \Lambda \to S^2$ is done by inserting the following reblocking kernel into the measure for $q$:
 \begin{equation}
+\mathcal B(q, dV)
 \propto \prod_{Y \in \Lambda'} e^{-\frac{a}{2}|V_Y-\widehat m_Y(q)|^2} \, d\omega(V_Y)
 \end{equation}
 and integrating over $q$. This defines a new measure on block configurations $V :\Lambda' \to S^2$ where $Y\in\Lambda'$ are the blocks of the original lattice $\Lambda$.
@@ -96,14 +99,15 @@ and integrating over $q$. This defines a new measure on block configurations $V 
 
 \subsection{Gaussian block spin transforms}
 
-For Gaussian measures, the block spin transform is an explicit recursion for the kinetic term,
-when the linear block average $Q\phi$ is used instead of $\widehat m$.
+For Gaussian measures and using the linear block average $Q\phi$ is instead of $\widehat m$,
+the block spin transform is an explicit recursion for the kinetic term. This recursion was analyzed in
+\cite{MR588686} (with hard rather than soft average).
 
-The kinetic term of the initial Gaussian measure is given by the Laplacian on the lattice $\Lambda$ \cite[above (3.4)]{OpenAI-O3}:
+For the initial Gaussian measure, the kinetic term is given by the Laplacian on $\Lambda$ \cite[above (3.4)]{OpenAI-O3}:
 \begin{equation}
   K_{\varnothing} = d^* d.
 \end{equation}
-For an observation parameter $a>0$, the next-scale kinetic term is defined by \cite[(3.4)]{OpenAI-O3}
+Tthe next-scale kinetic term is defined by \cite[(3.4)]{OpenAI-O3}:
 \begin{equation}
 K_{h+1} = a\Id-a^2Q(K_h+aQ^*Q)^{-1}Q^*.
 \end{equation}
@@ -324,8 +328,8 @@ This roughly explains \cite[Section~5.2]{OpenAI-O3}.
 Throughout this section, $S\subset \Lambda$ are the nonfrozen fine sites (small field region) with
  one spin $q_x \in S^2$ integrated at each site $x\in S$. 
 Their number is $n=|S|$.
-For each site $x\in S$, there is a background field of reference spins $T_x\in  S^2$
-which are held fixed. We consider the integral
+For each site $x\in S$, a background field of reference spins $T_x\in  S^2$ is held fixed.
+Consider the integral
 \begin{equation}
  \mathcal I=
  \int_{(S^2)^S} H(q)
@@ -334,15 +338,16 @@ which are held fixed. We consider the integral
  \label{eq:spin-integral}
 \end{equation}
 where $|R(q)|^2$ is a reference energy and $d\omega$ the normalized measure on $S^2$.
-The function $H(q)$ contains nonlocal contributions not explicitly tracked in $|R(q)|^2$.
+% The function $H(q)$ is eventually used for nonlocal contributions not explicitly tracked in $|R(q)|^2$.
 
 
 \subsection{Reference energy}
 
 The precise form of the reference energy $|R(q)|^2$ is unimportant for the algebraic manipulations
-in the subsequent subsections, but it motivated their choice.
-$|R(q)|^2$ is a nonlinear version of the Gaussian energy with soft block spin condition,
-defined in the last section:
+in the subsequent subsections, but it motivates their choice.
+
+$|R(q)|^2$ is a nonlinear version of the Gaussian energy with soft block spin conditioning,
+defined in Section~\ref{sec:block-gauss}:
 \begin{equation}
   \mathcal E_V(\phi) - \mathcal E_V(\phi_V) = \frac12 \|D_0\phi+c_V-s_V\|^2.
 \end{equation}
@@ -354,7 +359,8 @@ D = D_0|_{S\times R}.
 \end{equation}
 %
 For the purpose of the discussion, we ignore this restriction; it does not change much.
-Thus, up to dropping rows and columns, in Proposition~\ref{prop:D0}, it was shown that
+Thus, up to this dropping rows and columns,
+in Proposition~\ref{prop:D0}, it was shown that
 \begin{equation}
 D\phi +c_V -s_V = \begin{pmatrix}
   \sqrt{c_0} d\phi\\
@@ -369,7 +375,7 @@ D\phi +c_V -s_V = \begin{pmatrix}
 .
 \end{equation}
 %
-For $q: \R^n  \to S^2$, define $R(q)$ as a nonlinear version of this:
+For $q: \R^\Lambda  \to S^2$, define $R(q)$ as a nonlinear version of this:
 \begin{equation}
   R(q) = \begin{pmatrix}
   \sqrt{c_0} dq\\
