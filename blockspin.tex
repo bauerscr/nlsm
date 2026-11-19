@@ -90,7 +90,7 @@ The nonlinear block spin average $\widehat m_Y(q)$ of a spin configuration $q: \
 \end{equation}
 where $\tau_Y$ is a random point in $Y$ chosen according to distribution (...).
 The block spin transform of a measure on configurations $q: \Lambda \to S^2$ is done by inserting the following reblocking kernel into the measure for $q$:
-\begin{equation}
+\begin{equation} \label{eq:nl-block-average}
 \mathcal B(q, dV)
 \propto \prod_{Y \in \Lambda'} e^{-\frac{a}{2}|V_Y-\widehat m_Y(q)|^2} \, d\omega(V_Y)
 \end{equation}
@@ -1493,6 +1493,21 @@ terms, its result has the form
 where $\mathcal W'$ is in the retained canonical slots and
 $\mathcal R'$ contains the omitted formal orders.
 
+Each term in $\mathcal W$ (incoming slot) is a sum of labelled terms with
+anchors $o_\alpha$, as in \eqref{eq:canonical-label}.
+Its tangent arguments are the relative projections
+$y_{o_\alpha}(x)$ of \eqref{eq:canonical-tangent}, whose
+reference spin is $q_{o_\alpha}$. 
+%
+The same holds for the renormalized $\mathcal W'$ with block anchors $O_\alpha$.
+
+During the fluctuation integration, the anchored spin
+$q_{o_\alpha}=\Exp_{T_{o_\alpha}}u_{o_\alpha}$ varies with the
+integration variables, whereas the reference spin $T_{o_\alpha}=V_{[o_\alpha]}$
+is fixed by the block-spin field.  Thus all terms in $\mathcal W$
+are evaluated on the same spin configuration $q$,
+but each uses its own anchor spin and relative tangent coordinates.
+
 \subsection{Fluctuation integral}
 
 Throughout we assume that all gradients are small and that there no bad regions.
@@ -1520,23 +1535,21 @@ Equation~\eqref{eq:cEqV} extracts $b\mathcal E'(V)$ with the incoming coupling $
 Proposition~\ref{prop:background-expect}
 then expresses the remaining interaction, modulo constants, as
 \begin{equation}
- \mathcal W''(V)=-\log\E_C e^{-\mathcal V(V,Z)},
+ \mathcal W''(V)
+   =-\log\E_C\left[e^{-\mathcal V(V,Z)}
+                         e^{-\mathcal W(q(V,Z))}\right],
  \label{eq:pert-connected-action}
 \end{equation}
-with 
-\begin{align}
+where $q(V,Z)$ is the spin configuration reconstructed from $\xi=\mu(V)+gZ$ and the
+geometric part of the fluctuation integral is given by Proposition~\ref{prop:background-expect} by
+\begin{equation}
  \mathcal V(V,Z)
- ={}&\frac b2\sum_i
+ =\frac b2\sum_i
    \bigl(|R_i(q)|^2+|D_iv|^2-|D_i\xi+F_i|^2\bigr)
-   +b\mathcal L(q,V)+\frac b2|D\mu+F|^2\nonumber\\
- &+bP_4(q)+I_2(q)+bP_6(q)+I_4(q)+b^{-1}J_2(q)
-   -\sum_x\log\frac{J(u_x)}{J(0)}.
- \label{eq:pert-vertices}
-\end{align}
-All fields on the right are evaluated at $\xi=\mu+gZ$ as in
-Section~\ref{sec:background-field}.  The scalar Gaussian
-normalization is included, and field-independent determinant
-factors contribute to the bulk scalar.
+   +b\mathcal L(q,V)+\frac b2|D\mu+F|^2
+ -\sum_x\log\frac{J(u_x)}{J(0)}.
+   \label{eq:pert-vertices}
+\end{equation}
 %
 The Jacobian is
 \begin{equation}
@@ -1562,7 +1575,7 @@ The connected Taylor coefficients inherit this invariance.
 
 \begin{proof}
 For $R\in O(3)$, the block mean obeys
-$\widehat m(Rq)=R\widehat m(q)$, with the same tag if needed.
+$\widehat m(Rq)=R\widehat m(q)$.  %, with the same tag if needed.
 The normalized block-spin kernel consequently satisfies
 \begin{equation}
  \mathcal B(RV,Rq)=\mathcal B(V,q).
@@ -1591,108 +1604,60 @@ is $C\otimes I_3$.  Thus $RZ$ has the same law as $Z$, and
  \mathcal V(RV,RZ)=\mathcal V(V,Z),\qquad
  \mathcal W''(RV)=\mathcal W''(V).
 \end{equation}
+The incoming factor has the same invariance, since
+$q(RV,RZ)=Rq(V,Z)$ and $\mathcal W(Rq)=\mathcal W(q)$.
 Taking the connected expansion and each homogeneous Taylor part
 preserves these identities.
 \end{proof}
 
-\subsection{Connected Wick contractions and power counting}
+\subsection{Connected Wick contractions}
 \label{subsec:pert-connected}
 
 Write $\langle X_1;\ldots;X_m\rangle_c$ for a cumulant with
 respect to the Gaussian field $Z$, holding the block spin field $V$ fixed.
-Then the expansion is
+The cumulants act on the total interaction
+\begin{equation}
+ \mathcal V_{\mathrm{tot}}(V,Z)
+   :=\mathcal V(V,Z)+\mathcal W(q(V,Z)).
+ \label{eq:pert-total-interaction}
+\end{equation}
+This includes mixed contractions between the geometric vertices
+and the incoming polynomial terms.  The expansion is
 \begin{equation}
  \begin{aligned}
  \mathcal W''(V)
- ={}&\langle\mathcal V(V,Z)\rangle
-  -\frac12\langle\mathcal V(V,Z);\mathcal V(V,Z)\rangle_c\\
- &+\frac16\langle\mathcal V(V,Z);\mathcal V(V,Z);
-                        \mathcal V(V,Z)\rangle_c\\
- &-\frac1{24}\langle\mathcal V(V,Z);\mathcal V(V,Z);
-                        \mathcal V(V,Z);\mathcal V(V,Z)\rangle_c+\cdots.
+ ={}&\langle\mathcal V_{\mathrm{tot}}(V,Z)\rangle
+  -\frac12\langle\mathcal V_{\mathrm{tot}}(V,Z);
+                    \mathcal V_{\mathrm{tot}}(V,Z)\rangle_c\\
+ &+\frac16\langle\mathcal V_{\mathrm{tot}}(V,Z);
+                 \mathcal V_{\mathrm{tot}}(V,Z);
+                 \mathcal V_{\mathrm{tot}}(V,Z)\rangle_c\\
+ &-\frac1{24}\langle\mathcal V_{\mathrm{tot}}(V,Z);
+                    \mathcal V_{\mathrm{tot}}(V,Z);
+                    \mathcal V_{\mathrm{tot}}(V,Z);
+                    \mathcal V_{\mathrm{tot}}(V,Z)\rangle_c+\cdots.
  \end{aligned}
  \label{eq:pert-cumulants}
 \end{equation}
-%For each block-spin field $V$,
-%\eqref{eq:pert-connected-action} integrates the fine-spin
-%fluctuations and gives a function $\mathcal W''(V)$ of that
-%external field.
-
-\paragraph{Reference block spin configuration}
-
-To compute the local expansion of an output density anchored at
-$O$, take its anchor spin as the reference $n=V_O$ and hold it
-fixed.  Parametrize the other spins by relative tangent
-displacements $\eta_Y\in n^\perp$.  The displacement at the anchor
-is then $\eta_O=0$ automatically.  Consider the family
-\begin{equation}
- V_Y(\varepsilon)
-   =\sqrt{1-\varepsilon^2|\eta_Y|^2}\,n+\varepsilon\eta_Y,
- \qquad V_Y(0)=n.
- \label{eq:pert-external-field-family}
-\end{equation}
-Thus $V_O(\varepsilon)=n$ for every $\varepsilon$, while the
-other block spins may vary.  This is a parametrization relative
-to the anchor spin, not a restriction imposed on an already
-specified tangent field relative to another reference spin.
-The expansion point $V(0)$ is constant.
-At each value of $\varepsilon$ the block spin field $V(\epsilon)$
-is held fixed during the Gaussian integration.
-Expanding the resulting
-$\mathcal W''(V(\varepsilon))$ at $\varepsilon=0$ gives the
-response to these spatially varying perturbations.  The
-quadratic gradient part of that response determines the kinetic
-correction.  The background follows the prescribed field as
-$T_x(\varepsilon)=V_{[x]}(\varepsilon)$.  This is the background
-field of Section~\ref{sec:background-field}, implicit in the
-definition of $\mathcal V(V,Z)$ through the fluctuation coordinates.
-
-\paragraph{Perturbative order and Feynman diagrams}
-
-Assign order $g$ to both a relative output tangent $y$ and the
-fluctuation $gZ$.  Set $y=g\eta$ and expand (as a formal power series)
-\begin{equation}
-\mathcal V=\sum_{r\ge1}g^r\mathcal V_r(\eta,Z).
-\end{equation}
-The coefficients of $\mathcal W''(V(g\eta))$ at orders two and four are
-\begin{align}
- [g^2]\mathcal W''
- &=\langle \mathcal V_2\rangle-\tfrac12\langle \mathcal V_1;\mathcal V_1\rangle_c,\\
- [g^4]\mathcal W''
- &=\langle \mathcal V_4\rangle-\langle \mathcal V_1;\mathcal V_3\rangle_c
-   -\tfrac12\langle \mathcal V_2;\mathcal V_2\rangle_c
-   +\tfrac12\langle \mathcal V_1;\mathcal V_1;\mathcal V_2\rangle_c
-   -\tfrac1{24}\langle \mathcal V_1;\mathcal V_1;\mathcal V_1;\mathcal V_1\rangle_c.
- \label{eq:pert-cumulant-coefficients}
-\end{align}
 %
-%Wick's rule pairs Gaussian legs using
-%$\langle Z_x^a Z_y^b\rangle=(C)_{xy}\delta_{ab}$.
-%The cumulant retains pairings connecting all the vertices; pairs
-%within a vertex are allowed as well.  
-%
-%These formulas explain why merely averaging the interaction misses
-%part of the coupling correction.  Express the resulting polynomials
-%in the relative projection coordinates $y_o(x)$ of
-%\eqref{eq:canonical-tangent}.  Odd output degrees vanish by the
-%stabilizer $O(2)$ symmetry.
-After expanding the vertices into monomials and applying Wick's
+After expanding the vertices in $\mathcal V_{\mathrm{tot}}$ into monomials and applying Wick's
 rule, each output term corresponds to a Feynman diagram: its
 vertices are the input monomials, its internal lines are Gaussian
 covariance contractions, and its external legs are the remaining
 field factors.  A connected output term means that this diagram
 is connected, so that its input vertices are joined by paths of
-internal lines.  The cumulants retain precisely these connected
-diagrams.
+internal lines.  The cumulants retain only connected diagrams.
 
-\paragraph{Block spin anchoring}
 
-Each connected diagram contribution is anchored with a block.
-The anchors are assigned equivariantly by distributing each
-connected diagram contribution equally among its permitted coarse
-anchors \cite[Section~3]{OpenAI-O3}.
-For a contribution $G_\Gamma(V)$, let $A_\Gamma$ be its nonempty
-finite set of permitted anchors. %in its complete support and connected record.
+
+\subsection{Block spin anchoring}
+
+
+The incoming terms have anchors $o\in\Lambda$.
+The output will be organized analogously with block anchors $O\in\Lambda'$.
+Each contribution is distributed equally among its permitted coarse anchors \cite[Section~3]{OpenAI-O3}
+as follows: For a diagram $G_\Gamma(V)$,
+let $A_\Gamma$ be its nonempty finite set of permitted anchors.
 Set
 \begin{equation}
  G_{\Gamma,O}(V)
@@ -1700,39 +1665,90 @@ Set
  \qquad
  \sum_O G_{\Gamma,O}(V)=G_\Gamma(V).
 \end{equation}
-Each assigned copy retains the same complete support.  The
-permitted-anchor sets transform with the diagram, so equal
+% Each assigned copy retains the same complete support. 
+The permitted-anchor sets transform with the diagram, so equal
 distribution commutes with translations and lattice rotations.
-Express each copy in the relative tangent coordinates of
-\eqref{eq:canonical-tangent}, with $q_x,q_o$ replaced by $V_Y,V_O$.
-The exact interaction is unchanged by the anchoring, but its
-relative coordinates and anchored Taylor coefficients depend on the anchor.  
-In particular, $y_O(O)=0$ identically.  Taking $n=V_O$ as the
-reference and writing $y_O=g\eta$ therefore gives $\eta_O=0$
-automatically.  If a prescribed reference spin $n$ is preferred,
-a common rotation $R$ with $RV_O=n$ gives
+Write $\mathcal W''_O$ for the sum of the contributions assigned
+to $O$.  We introduce this assignment before the coefficient
+calculation below, but it is applied to connected outputs,
+including contractions between vertices with different input anchors.
+
+\paragraph{Reference block spin configuration}
+
+The anchored contribution $\mathcal W''_O$ is expressed 
+the relative tangent coordinates of \eqref{eq:canonical-tangent}, with $q_x,q_o$ replaced by $V_Y,V_O$.
+The summed interaction is unchanged by the anchoring, but its
+relative coordinates and anchored Taylor coefficients depend on $O$.  
+
+For the Taylor expansion at $O$, take $n=V_O$ as the reference
+spin.  Since $y_O(O)=0$ identically, the rescaled relative
+coordinates have $\eta_O=0$.  Consider the family
+\begin{equation}
+ V_Y(\varepsilon)
+   =\sqrt{1-\varepsilon^2|\eta_Y|^2}\,n+\varepsilon\eta_Y,
+ \qquad \eta_Y\in n^\perp,\qquad \eta_O=0.
+ \label{eq:pert-external-field-family}
+\end{equation}
+It satisfies $V_Y(0)=n$, $V_O(\varepsilon)=n$, and
+$y_O(Y)=\varepsilon\eta_Y$.  Thus $\varepsilon=g$ gives
+$y_O=g\eta$.  This parametrization is used separately for each
+anchored density.  It fixes the anchor spin while allowing the
+other spins to vary.
+If a prescribed reference spin $n$ is preferred, a common
+rotation $R$ with $RV_O=n$ gives
 \begin{equation}
  \mathcal W''_O(RV)=\mathcal W''_O(V).
 \end{equation}
 Thus global $O(3)$ invariance allows the anchor spin to be fixed
 without losing information about the invariant density.
-For the anchored family \eqref{eq:pert-external-field-family}, these
-coordinates satisfy the exact identity
-\begin{equation}
- y_O(Y)
- =V_Y(\varepsilon)-(n\cdot V_Y(\varepsilon))n
- =\varepsilon\eta_Y,
-\end{equation}
-and $\varepsilon=g$ gives $y_O=g\eta$, as used above.
-This relative parametrization is used separately for each
-anchored density.
-Write $\mathcal W''_O$ for the output density assigned to $O$.
+
+The block-spin field $V(\varepsilon)$ is held fixed during the Gaussian integration.
+Expanding the resulting output density at $\varepsilon=0$
+measures its response to spatially varying perturbations of the
+constant configuration.  The quadratic gradient part determines
+the kinetic correction.  The background follows the prescribed
+field as $T_x(\varepsilon)=V_{[x]}(\varepsilon)$; it is the
+background of Section~\ref{sec:background-field}, implicit in
+$\mathcal V(V,Z)$ through the fluctuation coordinates.
+
+\subsection{Perturbative order}
+
+Assign order $g$ to both a relative output tangent $y$ and the
+fluctuation $gZ$.  Set $y=g\eta$ and expand (as a formal power series)
+\begin{align}
+ \mathcal V(V(g\eta),Z)
+   &=\sum_{r\ge1}g^r\mathcal V_r(\eta,Z),\\
+ \mathcal W(q(V(g\eta),Z))
+   &=\sum_{r\ge2}g^r\mathcal W_r(\eta,Z),\\
+ \mathcal V_{\mathrm{tot},r}
+   &=\mathcal V_r+\mathcal W_r,\qquad \mathcal W_1=0.
+ \label{eq:pert-vertex-orders}
+\end{align}
+The incoming interaction starts at order $g^2$ by the slot
+power counting in \eqref{eq:canonical-slots}.
+The coefficients of $\mathcal W''(V(g\eta))$ at orders two and four are
+\begin{align}
+ [g^2]\mathcal W''
+ &=\langle \mathcal V_2+\mathcal W_2\rangle
+   -\tfrac12\langle \mathcal V_1;\mathcal V_1\rangle_c,\\
+ [g^4]\mathcal W''
+ &=\langle \mathcal V_{\mathrm{tot},4}\rangle
+   -\langle \mathcal V_1;\mathcal V_{\mathrm{tot},3}\rangle_c
+   -\tfrac12\langle \mathcal V_{\mathrm{tot},2};
+                         \mathcal V_{\mathrm{tot},2}\rangle_c\nonumber\\
+ &\quad+\tfrac12\langle \mathcal V_1;\mathcal V_1;
+                              \mathcal V_{\mathrm{tot},2}\rangle_c
+   -\tfrac1{24}\langle \mathcal V_1;\mathcal V_1;
+                        \mathcal V_1;\mathcal V_1\rangle_c.
+ \label{eq:pert-cumulant-coefficients}
+\end{align}
 
 \paragraph{Organization of the output}
 
 Apply the Taylor expansion \eqref{eq:kinetic-loc-taylor} to the coordinate expression
 of $\mathcal W''_O$.
-By $O(2)$ invariance for fixed block spin fields, only even degrees are nontrivial.
+Invariance under the $O(2)$ stabilizer of the fixed anchor spin
+allows only even field degrees.
 
 The degree-zero contribution is the value on the
 constant block spin field $V_Y=V_O$ for every $Y$.  Global $O(3)$ invariance
@@ -2098,13 +2114,16 @@ This assignment is made after contraction, including all input
 anchors.  Combining \eqref{eq:beta-affine-test} with the
 order-$g^2$ cumulant in \eqref{eq:pert-cumulant-coefficients} gives
 \begin{equation}
+ \begin{aligned}
  \alpha=\left.\frac{d^2}{d\lambda^2}\right|_{\lambda=0}
- \left[
-  \E_C\mathcal V_2(\lambda\eta^{(O)},Z)
-  -\frac12\operatorname{Cov}_C\bigl(
+ \Bigl[&
+  \E_C\bigl(\mathcal V_2(\lambda\eta^{(O)},Z)
+                 +\mathcal W_2(\lambda\eta^{(O)},Z)\bigr)\\
+ &-\frac12\operatorname{Cov}_C\bigl(
        \mathcal V_1(\lambda\eta^{(O)},Z),
        \mathcal V_1(\lambda\eta^{(O)},Z)\bigr)
- \right]_O.
+ \Bigr]_O.
+ \end{aligned}
  \label{eq:alpha-derivative-formula}
 \end{equation}
 Indeed, the second derivative extracts twice the quadratic
