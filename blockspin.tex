@@ -641,6 +641,7 @@ The constant is
 
 \newpage
 \section{Parametrization of the renormalized action}
+\label{sec:coordinates}
 
 The renormalized action or rather its exponential (the `retained density') is parametrized in \cite[(3.29)]{OpenAI-O3}.
 The density is relative to product normalized spherical area measure $\prod_xd\omega(q_x)$.
@@ -1263,7 +1264,7 @@ This is the asserted trace.
 
 \begin{definition}[Localization operator]
 \label{def:kinetic-loc}
-Use the full kinetic density of
+Use the kinetic density $S_{K,o}$ of
 Section~\ref{subsec:kinetic-energy}.
 %On densities $G$ for which the following affine evaluations
 %are defined and can be matched,
@@ -1447,14 +1448,15 @@ For such families, the range is $\operatorname{span}\{S_K\}$.
 We combine the fluctuation integral of
 Section~\ref{sec:background-field} with the extraction and
 localization operations of Section~\ref{sec:extraction-localization}
-to compute one block-spin step.  We denote coarse block-spin
-anchors by $O\in\Lambda'$; the notation $o$ in the preceding
-sections denotes a site anchor on the lattice under consideration.
+to compute one renormalization group step in the sense of formal perturbation theory.
+
+Block lattice anchors are denoted by $O\in\Lambda'$; the notation $o$ in the preceding
+sections denotes a site anchor on the fine lattice.
 %The calculation follows the canonical coefficient prescription in
 %\cite[Section~5.5]{OpenAI-O3}: take connected Gaussian expectations, extract
 %the kinetic term, and reassemble the remaining Taylor coefficients.
-We set the incoming regular errors $f_X$ to zero and $\Xi=1$,
-and compute the bulk coefficients around a slowly varying spin configuration.
+The incoming regular errors $f_X$ are set to zero and $\Xi=1$,
+and the bulk coefficients are computed around a slowly varying spin configuration.
 %The output field is allowed to vary near that configuration;
 %its quadratic variation determines the kinetic increment.
 
@@ -1463,7 +1465,7 @@ steps, use
 \begin{equation}
  b=b_j,\qquad g=b^{-1/2},\qquad K=K_h,\qquad K'=K_{h+1}.
 \end{equation}
-The incoming action on the small-gradient region is
+The incoming action on the small-gradient region is (see Section~\ref{sec:coordinates})
 \begin{equation}
  b\mathcal E(q)+\mathcal W(q),\qquad
  \mathcal E(q)=\tfrac12\langle q,Kq\rangle,\qquad
@@ -1493,27 +1495,26 @@ $\mathcal R'$ contains the omitted formal orders.
 
 \subsection{Fluctuation integral}
 
-Start from the coordinates and Gaussian identity of
-Section~\ref{sec:background-field}, assuming all fields are small
-and 
+Throughout we assume that all gradients are small and that there no bad regions.
+Start from the coordinates and Gaussian identity of Section~\ref{sec:background-field}:
 \begin{equation}
- A=D^*D=K+aQ^*Q,\qquad C=A^{-1},\qquad
+ A=D^*D=K+aQ^*Q,\qquad C=A^{-1},
+\end{equation}
+where we use $a=1$,
+no finite-range covariance truncation is made,
+and
+\begin{equation}
  \mu=-CD^*F,\qquad \xi=\mu+gZ,\qquad
  Z\sim N(0,C\otimes I_3).
 \end{equation}
-The preprint uses $a=1$.  For a row with reference
-$T_i=V_{O(i)}$, choose the projected affine constant
+Given the Section~\ref{sec:background-field} reference spins
+$T_i=V_{O(i)}$, the mean is chosen in terms of
 \begin{equation}
  F_i=\proj_{T_i^\perp}R_i(0,V).
 \end{equation}
-Here $R_i(0,V)$ is evaluated with zero intrinsic tangent
-coordinates, so the fine spins equal their block references
-$T_x=V_{[x]}$. 
-%The residual rows and their shifts use the full
-%free kernels; any prescribed average over reference choices is
-%retained.  This is the choice used for the canonical vertices
-%in \cite[Section~5.5]{OpenAI-O3}.
-No finite-range covariance truncation is made in this perturbative calculation.
+The notation means that $R_i(0,V)\in \R^3$ is evaluated with zero intrinsic tangent
+coordinates, i.e., their fine spins equal their block references $T_x=V_{[x]}$. 
+{\red [Explain this choice.]}
 
 Equation~\eqref{eq:cEqV} extracts $b\mathcal E'(V)$ with the incoming coupling $b$.
 Proposition~\ref{prop:background-expect}
