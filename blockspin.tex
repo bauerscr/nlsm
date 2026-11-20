@@ -73,8 +73,8 @@ The analogous computation for 4d Yang-Mills is \cite[Section~2.3]{MR1122810}.
 A very readable heuristic outline can be found in \cite[Section~4.3]{Tong-StatisticalFieldTheory}.
 
 \item
-Other explanations with emphasize on general target manifolds
-can be found in Gaw{\k{e}}dzki's CFT lectures \cite{MR1701610}
+Other explanations with emphasis on general target manifolds and the connection
+to the Ricci flow can be found in Gaw{\k{e}}dzki's CFT lectures \cite{MR1701610}
 and Friedan \cite{Friedan1980,MR811072}. These use dimensional regularization,
 not lattice regularization.
 
@@ -769,9 +769,157 @@ The constant is
 \end{equation}
 \end{proof}
 
+\newpage
+\section{Invariant tensors and invariant spin monomials}
+\label{sec:invariant-tensors}
+
+\subsection{Invariant tensors}
+
+\begin{definition}
+The relative tangent projection of $q_x$ at an anchor $o$ is
+\begin{equation}
+ y_o(x)=q_x-(q_o\cdot q_x)q_o\in q_o^\perp.
+ \label{eq:canonical-tangent}
+\end{equation}
+This is a projection, not the logarithmic coordinate $\Log_{q_o}q_x$.
+\end{definition}
+
+\begin{definition}
+An invariant tensor of degree $n$ is a multilinear map
+$T:(\R^2)^n\to\R$ satisfying
+\begin{equation}
+ T(Rv_1,\ldots,Rv_n)=T(v_1,\ldots,v_n)
+ \qquad\text{for every }R\in O(2).
+\end{equation}
+The vectors $v_i$ represent tangent vectors in $q_o^\perp$ for a fixed anchor $o$.
+\end{definition}
+
+\begin{example}
+At degree two, a basis consists of the single tensor
+\begin{equation}
+ T(v_1,v_2)=v_1\cdot v_2,
+ \qquad T_{ab}=\delta_{ab}.
+\end{equation}
+At degree four, a basis consists of the three pairings
+\begin{align}
+ T_{12|34}(v_1,v_2,v_3,v_4)
+   &=(v_1\cdot v_2)(v_3\cdot v_4),\\
+ T_{13|24}(v_1,v_2,v_3,v_4)
+   &=(v_1\cdot v_3)(v_2\cdot v_4),\\
+ T_{14|23}(v_1,v_2,v_3,v_4)
+   &=(v_1\cdot v_4)(v_2\cdot v_3).
+\end{align}
+For instance, $(T_{12|34})_{abcd}=\delta_{ab}\delta_{cd}$.
+%These are the tensor types in the quartic polynomial below.
+At degree six, examples are
+\begin{equation}
+ (v_1\cdot v_2)(v_3\cdot v_4)(v_5\cdot v_6),
+ \qquad
+ (v_1\cdot v_3)(v_2\cdot v_5)(v_4\cdot v_6).
+\end{equation}
+All fifteen pairings span the degree-six invariant space.  In
+dimension two they have linear relations, so a basis is obtained
+by choosing a linearly independent subset.  Odd degrees have no
+nonzero invariant tensors: applying $R=-I$ gives
+\begin{equation}
+ T(v_1,\ldots,v_n)=(-1)^nT(v_1,\ldots,v_n).
+\end{equation}
+The basis of tensor types is fixed once and for all.
+\end{example}
+
+
+\begin{proposition}
+\label{prop:tangent-tensor-invariance}
+Let $q_o\in S^2$ and let $T:(\R^2)^n\to\R$ be an invariant tensor.
+\begin{itemize}
+\item For $v_1,\ldots,v_n\in q_o^\perp$
+and any linear isometry $\iota:q_o^\perp\to\R^2$, the value
+\begin{equation}
+ T_{q_o}(v_1,\ldots,v_n):=T(\iota v_1,\ldots,\iota v_n)
+\end{equation}
+is independent of $\iota$.  Thus $T$ defines a multilinear tensor
+on the tangent plane.
+\item
+It is $O(3)$ invariance under rotation of the anchor spin and
+all tangent vectors simultaneously:
+\begin{equation}
+ T_{Rq_o}(Rv_1,\ldots,Rv_n)=T_{q_o}(v_1,\ldots,v_n),
+ \qquad R\in O(3).
+\end{equation}
+\item
+Holding the anchor spin $q_0$ fixed restricts this symmetry to its stabilizer:
+\begin{equation}
+ \{R\in O(3):Rq_o=q_o\}\cong O(2).
+\end{equation}
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Indeed, if $\iota$ is an orthonormal identification at $q_o$, then
+$\iota R^{-1}$ is one at $Rq_o$.  For tangent vectors obtained
+from physical spins, the same covariance follows from
+\begin{equation}
+ \proj_{(Rq_o)^\perp}(Rq_x)
+ =R\proj_{q_o^\perp}q_x.
+\end{equation}
+Thus a simultaneous global transformation of the spin configuration
+leaves each invariant polynomial unchanged. 
+\end{proof}
+
+\subsection{Invariant spin monomials}
+\label{subsec:anchored-invariant-monomials}
+
+\begin{definition}
+\label{def:anchored-invariant-monomial}
+Fix an anchor site $o\in\mathbb Z^2$, a displacement tuple
+$\mathbf r=(r_1,\ldots,r_n)\in(\mathbb Z^2)^n$, and an
+invariant tensor $T:(\mathbb R^2)^n\to\mathbb R$.
+\begin{itemize}
+\item
+For a spin configuration $q$, define the \emph{anchored invariant monomial}
+\begin{equation}
+ M(q) = 
+ T_{q_o}\bigl(y_o(o+r_1),\ldots,y_o(o+r_n)\bigr),
+ \label{eq:anchored-invariant-monomial}
+\end{equation}
+where $y_o$ is the tangent projection
+\eqref{eq:canonical-tangent} and $T_{q_o}$ is the tensor on
+$q_o^\perp$ defined in Proposition~\ref{prop:tangent-tensor-invariance}. 
+\item
+Also define the \emph{anchored invariant monomial}
+\begin{equation}
+ M_{q_0}(v_1,\dots, v_n) = 
+ T_{q_o}\bigl(v_1,\dots,v_n\bigr),
+\end{equation}
+\end{itemize}
+\end{definition}
+
+The function depends only on the spins at
+$\{o,o+r_1,\ldots,o+r_n\}$ and is independent of any choice
+of tangent frame.  By
+Proposition~\ref{prop:tangent-tensor-invariance}, it is globally
+$O(3)$-invariant:
+\begin{equation}
+ M(Rq) =M(q),
+ \qquad (Rq)_x=Rq_x,\quad R\in O(3).
+\end{equation}
+This rotates the anchor spin together with the other spins.
+
+Changing the anchor site generally changes the function, since
+it changes the tangent projections.
+For example, the degree-two tensor $T(v_1,v_2)=v_1\cdot v_2$
+gives
+\begin{equation}
+ M(q)
+ =q_{o+r}\cdot q_{o+s}
+    -(q_o\cdot q_{o+r})(q_o\cdot q_{o+s}).
+\end{equation}
+Hence the monomial constructed from the same $T$ but a different $o$
+is different.
+
 
 \newpage
-\section{Parametrization of the renormalized action}
+\section{Parametrization of the renormalized action and norms}
 \label{sec:coordinates}
 
 The renormalized action or rather its exponential (the `retained density') is parametrized in \cite[(3.29)]{OpenAI-O3}.
@@ -798,7 +946,7 @@ are small then
 \end{equation}
 and $t$ parametrizes a cutoff scale for the size of gradients.
 
-This term is marginal and has size $g^0$. Indeed, its prefactor $b\approx 1/g^2$ and fluctuations are of size $dq^2 \approx g^2$.
+This term is marginal and has size $g^0$. Indeed, its prefactor $b\approx 1/g^2$ and fluctuations are of size $|dq|^2 \approx g^2$.
 
 \item $\mathcal P_\alpha$ are irrelevant second- to sixth-order monomials, of formal orders $g^2$ and $g^4$.
 \item $f$ are the remaining irrelevant terms of size $\approx g^{4.1}$ (smaller than second order in $g^2$). 
@@ -876,27 +1024,38 @@ Summing over anchors counts each edge and row twice, so
 \end{equation}
 
 
-\subsection{High order irrelevant terms $f$}
+\subsection{High-order irrelevant terms $f$}
 
 The contribution is
 \begin{equation}
-  \exp\left\{-\sum_X 1_X(q) f_X(q) \right\}.
+  \exp\left\{-\sum_X 1_X(q) f_X(q) \right\},
 \end{equation}
-The actitivies $f_X$ are defined for connected $X$ with support and have norms
+where each $X$ is a labelled graph in $\Z^2$ (labelled means that same graph can appear multiple times)
+with vertex set $V(X)$, edges $E(X)$, together with a selected anchor $o = o(X) \in V(X)$.
+%
+The actitivies $f_X$ has support in the vertex set of $X$. The norm of
+the collection of activities is
 \begin{equation}
-  \|f\| = \sup_o \sum_{X \ni o} [f_X].
+  \|f\| = \sup_o \sum_{X \ni o} \|f_X\|_X.
 \end{equation}
-The brackets denote the scaled local $C^k$ norm
+The brackets denote the scaled local $C^8$ norm given by
 \begin{equation}
- [f_X]_{k,j}
- =\sum_{r=0}^{k}
+ \|f_X\|_X
+ =\sum_{r=0}^{8}
+ \left[
    \sup_{q\in\mathcal U_{X}}
    \sup_{v_1,\ldots,v_r}
-   |D_{v_1,\ldots,v_r}f_X(q)|,
- \qquad 0\le k\le8.
+   |D_{v_1,\ldots,v_r}f_X(q)|
+   \right],
  \label{eq:error-seminorm}
 \end{equation}
-where $\mathcal U_X$ is a set of spins containing the support of $1_X$.
+where the small gradient spin domain $\mathcal U_X$ is given by
+\begin{equation}
+ \mathcal U_X
+ =\left\{q\in(S^2)^{V(X)}:
+       |q_y-q_x|<4t\ \text{for every }e=(x,y)\in E(X)\right\} \supset \operatorname{supp}(1_X).
+ \label{eq:error-graph-domain}
+\end{equation}
 Writing $v\times$ for the skew-symmetric linear map
 $w\mapsto v\times w$ on $\R^3$, the rotation derivatives are
 \begin{equation}
@@ -917,9 +1076,8 @@ The supremum runs over vector fields satisfying
 \end{equation}
 The rotations keep the spins on $S^2$.
 Each derivative is scaled by $t$, so schematically this norm resembles
-$\sum_{r=0}^k t^r\|\nabla^r f_X\|_\infty$, with spatial weights
-and derivatives adapted to the sphere.  The exact definition is
-\cite[(3.20)--(3.22)]{OpenAI-O3}.
+$\sum_{r=0}^k t^r\|\nabla^r f_X\|_\infty$.
+The exact definition is \cite[(3.20)--(3.22)]{OpenAI-O3}.
 
 \subsection{Nonperturbative terms $\Xi$}
 
@@ -931,26 +1089,30 @@ The exact sum is
                     \prod_{\ell\in\Gamma}k_\ell(q).
  \label{eq:covering}
 \end{equation}
-The polymer activities satisfy:
+The sum runs over:
 \begin{itemize}
-  \item 
-Each $k_\ell(q)$ is supported in the large field region:
-\begin{equation}
- k_\ell(q)=0\quad\text{unless}\quad J_\ell\subset D(q).
-\end{equation}
+\item $P_\ell$ (the \emph{complete support}) is a set of lattices sites
+all spin arguments of $k_\ell$, including any indicator of cutoff factors in its construction.
+
+\item $J_\ell$ (the \emph{inventory}) is a set of large gradient edges
+(whose endpoints lie in $P_\ell$) contained in the large gradient set $D(q)$:
+$k_\ell(q)=0$ unless $J_\ell \subset D(q)$.
+\item $s_\ell$ (the \emph{load}) is positive integer that determines the 
+size of $P_\ell$ and other things such as the ``length of the record''. {\red Clarify what the record is.}
+\end{itemize}
 In particular, if $D(q)=\varnothing$ (there are no large fields), then $\Xi(q)=1$.
-\item
-The size of the $k_\ell$ is measured in $L^\infty$ rather than $C^8$:
+The size of the $k_\ell$ is measured in $L^\infty$ rather than $C^8$ as the small gradient
+polymer activities:
 \begin{equation}
  \|k\|
  = \sup_x\sum_{\ell:x\in P_\ell}
  e^{64s_\ell}\|k_\ell\|_\infty
  \label{eq:cover-bound}
 \end{equation}
-and eventually $\|k\| \le w=e^{-p^{1/4}}$.
-\end{itemize} 
+Eventually the condition imposed is that $\|k\| \le w=e^{-p^{1/4}}$
+so that $k$ is nonperturbatively small.
 
-\subsection{Low order irrelevant terms $\mathcal P$}
+\subsection{Low-order irrelevant terms $\mathcal P$}
 
 These are the terms:
 \begin{equation}
@@ -961,89 +1123,8 @@ These are the terms:
 \end{equation}
 These are essentially irrelevant sixth order polynomials
 written in tangent coordinates relative to a reference spin (part of $\alpha$).
-They are defined in \cite[(3.13)--(3.19)]{OpenAI-O3}. 
-
-\begin{definition}
-The relative tangent projection of $q_x$ at an anchor $o$ is
-\begin{equation}
- y_o(x)=q_x-(q_o\cdot q_x)q_o\in q_o^\perp.
- \label{eq:canonical-tangent}
-\end{equation}
-This is a projection, not the logarithmic coordinate $\Log_{q_o}q_x$.
-\end{definition}
-
-\begin{definition}
-An invariant tensor of degree $n$ is a multilinear map
-$T:(\R^2)^n\to\R$ satisfying
-\begin{equation}
- T(Rv_1,\ldots,Rv_n)=T(v_1,\ldots,v_n)
- \qquad\text{for every }R\in O(2).
-\end{equation}
-The vectors $v_i$ represent tangent vectors in $q_o^\perp$ for a fixed anchor $o$.
-\end{definition}
-
-\begin{example}
-At degree two, a basis consists of the single tensor
-\begin{equation}
- T(v_1,v_2)=v_1\cdot v_2,
- \qquad T_{ab}=\delta_{ab}.
-\end{equation}
-At degree four, a basis consists of the three pairings
-\begin{align}
- T_{12|34}(v_1,v_2,v_3,v_4)
-   &=(v_1\cdot v_2)(v_3\cdot v_4),\\
- T_{13|24}(v_1,v_2,v_3,v_4)
-   &=(v_1\cdot v_3)(v_2\cdot v_4),\\
- T_{14|23}(v_1,v_2,v_3,v_4)
-   &=(v_1\cdot v_4)(v_2\cdot v_3).
-\end{align}
-For instance, $(T_{12|34})_{abcd}=\delta_{ab}\delta_{cd}$.
-%These are the tensor types in the quartic polynomial below.
-At degree six, examples are
-\begin{equation}
- (v_1\cdot v_2)(v_3\cdot v_4)(v_5\cdot v_6),
- \qquad
- (v_1\cdot v_3)(v_2\cdot v_5)(v_4\cdot v_6).
-\end{equation}
-All fifteen pairings span the degree-six invariant space.  In
-dimension two they have linear relations, so a basis is obtained
-by choosing a linearly independent subset.  Odd degrees have no
-nonzero invariant tensors: applying $R=-I$ gives
-\begin{equation}
- T(v_1,\ldots,v_n)=(-1)^nT(v_1,\ldots,v_n).
-\end{equation}
-The basis of tensor types is fixed once and for all.
-\end{example}
-
-Let $q_o\in S^2$ and let $T:(\R^2)^n\to\R$ be an
-$O(2)$-invariant multilinear tensor.  For $v_1,\ldots,v_n\in q_o^\perp$
-and any linear isometry $\iota:q_o^\perp\to\R^2$, the value
-\begin{equation}
- T_{q_o}(v_1,\ldots,v_n):=T(\iota v_1,\ldots,\iota v_n)
-\end{equation}
-is independent of $\iota$.  Thus $T$ defines a multilinear tensor
-on the tangent plane without choosing an orthonormal frame.
-
-The corresponding global covariance rotates the anchor spin and
-all tangent vectors simultaneously:
-\begin{equation}
- T_{Rq_o}(Rv_1,\ldots,Rv_n)=T_{q_o}(v_1,\ldots,v_n),
- \qquad R\in O(3).
-\end{equation}
-Indeed, if $\iota$ is an orthonormal identification at $q_o$, then
-$\iota R^{-1}$ is one at $Rq_o$.  For tangent vectors obtained
-from physical spins, the same covariance follows from
-\begin{equation}
- \proj_{(Rq_o)^\perp}(Rq_x)
- =R\proj_{q_o^\perp}q_x.
-\end{equation}
-Thus a simultaneous global transformation of the spin configuration
-leaves each invariant polynomial unchanged.  Holding the anchor
-spin fixed restricts this symmetry to its stabilizer,
-\begin{equation}
- \{R\in O(3):Rq_o=q_o\}\cong O(2),
-\end{equation}
-which is the $O(2)$ acting on tangent vectors in the definition of $T_\alpha$. 
+They are defined in \cite[(3.13)--(3.19)]{OpenAI-O3}.
+% and discussed in Section~\ref{sec:irrelevant-terms}.
 
 \begin{definition}
 A monomial label 
@@ -1053,11 +1134,15 @@ A monomial label
 specifies an anchor $o_\alpha$, a degree $n_\alpha$, a coefficient
 $a_\alpha$, displacements $r_1^\alpha,\ldots,r_{n_\alpha}^\alpha\in\mathbb Z^2$, and an
 $O(2)$-invariant multilinear tensor $T_\alpha$.  Writing $o=o_\alpha$,
-its monomial is
+its monomial is the scalar multiple of
+Definition~\ref{def:anchored-invariant-monomial}
 \begin{equation}
- a_\alpha T_\alpha\bigl(y_o(o+r_1^\alpha),\ldots,y_o(o+r_{n_\alpha}^\alpha)\bigr).
+ a_\alpha\mathcal M_{o,\mathbf r_\alpha,T_\alpha}(q)
+ =a_\alpha (T_\alpha)_{q_o}
+    \bigl(y_o(o+r_1^\alpha),\ldots,y_o(o+r_{n_\alpha}^\alpha)\bigr).
 \end{equation}
 The tensors $T_\alpha$ are chosen from a fixed basis of the invariant tensor space.
+The tangent-plane subscript $q_o$ is suppressed below.
 The label also contains the following geometric data:
 \begin{itemize}
 \item the mask graph $X_\alpha$ is a connected graph
@@ -1225,6 +1310,7 @@ Global $O(3)$ invariance is explicit because only scalar products
 of spins occur.  The word ``quartic'' refers to degree in the
 relative tangent coordinates, not degree in all the ambient spin
 variables $q$.
+
 
 
 
