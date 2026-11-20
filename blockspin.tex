@@ -2498,15 +2498,38 @@ which proves the claim.
 \end{proof}
 
 \begin{remark}
+\label{rem:geometric-finite-part}
 The $O(1)$ remainder contains nonzero finite contributions:
 at empty history, $K=d^*d$ gives
 $R_{\mathrm{kin}}=-1/4+O(L^{-2})$.
-For an admissible smooth averaging profile, numerical evaluation
-also indicates a nonzero limit of the total remainder,
-approximately $-0.54044$ when $a=1$.
-Thus an improvement to $o(1)$ would require a cancellation
-not established by the lemma; nonvanishing of the total limit
-for this example is supported numerically, not proved here.
+For $O(3)$, define the remainder after $h$ blocking steps and
+its limiting-history value by
+\begin{equation}
+ r_h(L):=\alpha_{\mathrm{geom},h}(L)+\frac{\log L}{2\pi},
+ \qquad r_\infty(L):=\lim_{h\to\infty}r_h(L),
+ \label{eq:geometric-history-remainder}
+\end{equation}
+where the history limit is taken at fixed $L$.
+Numerical iteration of the Gaussian recursion indicates that
+this limit does not remove the finite correction.
+For $a=1$ and the profile
+$\chi(t)=\exp\{-1/[1-(t/0.14)^2]\}$ on $|t|<0.14$,
+extended by zero outside this interval, we conjecture
+\begin{equation}
+ r_\infty(L)=c_{\mathrm{geom}}+o(1)
+ \quad (L\to\infty),\qquad
+ c_{\mathrm{geom}}\approx-3.00667\ne0.
+ \label{eq:geometric-finite-part-conjecture}
+\end{equation}
+This is a numerical conjecture for the specified profile and
+observation strength, not a universal constant or a proved
+asymptotic formula.
+It differs from the empty-history remainder, whose numerical
+large-$L$ limit is approximately $-0.54044$.
+The preprint's exact limiting increment for the full coefficient
+instead requires
+$r_\infty(L)+\alpha_{\mathrm{pert},\infty}(L)=0$;
+it does not require either contribution to vanish separately.
 \end{remark}
 
 % Calculation underlying the preceding remark (O(3), empty history).
@@ -2556,6 +2579,30 @@ for this example is supported numerically, not proved here.
 % The limit here is L -> infinity at empty history; the preprint's
 % exact logarithmic increment concerns the full coefficient as the
 % history length tends to infinity at fixed L.
+%
+% Limiting-history calculation for the same profile and a=1.
+% Iterate the exact Fourier recursion
+% \begin{equation}
+%  K_{h+1}(p)^{-1}
+%   =a^{-1}+\frac1{L^2}
+%       \sum_{\ell\in(\mathbb Z/L\mathbb Z)^2}
+%       \frac{|\widehat w_L(k_\ell)|^2}{K_h(k_\ell)},
+%  \qquad k_\ell=(p+2\pi\ell)/L,
+% \end{equation}
+% with the massless zero mode defined by continuation.
+% Evaluating the geometric coefficient at the resulting fixed point gives
+% L=32:  r_infty approximately -3.059060;
+% L=64:  r_infty approximately -3.020290;
+% L=128: r_infty approximately -3.010109.
+% At L=64 the terms in the exact remainder decomposition are
+% -1.431791875, -1.589570236, and +0.001072335, respectively.
+% Checks: convergence with history length, increased Fourier resolution,
+% and direct finite differences of the Gaussian log determinant.
+% A separate continuum-alias calculation of the large-L free symbol
+% gives a finite-part change of approximately -2.466226 relative to
+% empty history, hence the conjectured constant approximately -3.00667.
+% These checks are numerical and do not give certified error bounds
+% or an analytic proof of the conjecture.
 
 
 \subsection{Perturbative contribution}
