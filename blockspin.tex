@@ -30,13 +30,15 @@
 
 \newcommand{\commentrb}[1]{\begin{quote}\textbf{Comment from RB:} #1 \end{quote}}
 
-\newtheorem{proposition}{Proposition}
-\newtheorem{lemma}{Lemma}
-\newtheorem{definition}{Definition}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
 %\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
 \theoremstyle{definition}
-\newtheorem{example}{Example}
+\newtheorem{example}[theorem]{Example}
 \theoremstyle{plain}
 
 \title{Block spins and fluctuation integral}
@@ -57,6 +59,21 @@ and the calculation of the 1-loop beta function.}
 %\begin{itemize}
 %\item 
 %\end{itemize}
+
+\newpage
+\section{Background reading}
+
+\begin{itemize}
+\item 
+The construction is a rigorous version of Polyakov's background field method with intrinsic spins on the sphere.
+A very readable heuristic outline can be found in \cite[Section~4.3]{Tong-StatisticalFieldTheory}.
+
+\item
+Other explanations and discussion of general target manifolds
+can be found in Gaw{\k{e}}dzki's CFT lectures \cite{MR1701610}
+and Friedan \cite{Friedan1980,MR811072}. These use dimensional regularization,
+not lattice regularization.
+\end{itemize}
 
 \newpage
 \section{Block spin transforms}
@@ -166,6 +183,106 @@ for $K_{h+1}$.
 Note that $K_h$ is not finite range when $h \neq \varnothing$.
 A sequence of block spin transformations is called \emph{history}
 and the corresponding kinetic term $K_h$.
+
+
+\subsection{Covariance estimates}
+\label{subsec:free-covariance-estimates}
+
+For the estimates, we use square blocks of side $L$ on
+$\mathbb Z^2$ and a fixed smooth averaging profile $\chi$, as in
+\cite[Sections~3.1 and~4.1]{OpenAI-O3}.
+Fix $0<\rho<1/4$ and a nonzero, nonnegative, even function
+$\chi\in C_c^\infty((-\rho,\rho))$, independently of $L$ and
+of the history.  If $c_Y$ is the centre of $Y$, set
+\begin{equation}
+ w_Y(x)=
+ \frac{\chi((x_1-c_{Y,1})/L)\chi((x_2-c_{Y,2})/L)}
+ {\displaystyle\sum_{z\in Y}
+   \chi((z_1-c_{Y,1})/L)\chi((z_2-c_{Y,2})/L)},
+ \qquad x\in Y.
+ \label{eq:smooth-block-weights}
+\end{equation}
+Take $L$ to be a sufficiently large integer. The normalization denominator satisfies
+\begin{equation}
+ \sum_{z\in Y}
+ \chi\!\left(\frac{z_1-c_{Y,1}}L\right)
+ \chi\!\left(\frac{z_2-c_{Y,2}}L\right)
+ =L^2\left(\int_{\mathbb R}\chi(t)\,dt\right)^2+o(L^2)
+ \qquad (L\to\infty).
+ \label{eq:block-weight-normalization}
+\end{equation}
+The weights have zero centred first moment,
+$\max_x w_Y(x)\le c_\chi L^{-2}$, and their discrete derivatives
+of order $k$ have $\ell^1$ norm at most $c_{\chi,k}L^{-k}$.
+The constants do not depend on $L$ or the history (number of steps).
+
+\begin{proposition}
+\label{prop:uniform-covariance-estimates}
+Fix $a>0$.
+Let $K=K_h$ be the bulk kinetic term obtained from $d^*d$ by
+any finite history of square block transformations
+with the same weights \eqref{eq:smooth-block-weights}.
+Every transformation in the history uses the same block side $L$,
+measured in the lattice units of that step.
+Set
+\begin{equation}
+ C=(K+aQ^*Q)^{-1},\qquad
+ \overline C_L=\frac1{L^2}\sum_{x\in Y_0}C_{xx},
+ \label{eq:free-fluctuation-covariance}
+\end{equation}
+where $Y_0$ is a reference block and $w_x=w_{Y_0}(x)$.
+There is a constant $M$, independent of $L$ and $h$, such that,
+for all $z,r,s\in\mathbb Z^2$,
+\begin{align}
+ \left|\overline C_L-\frac{\log L}{2\pi}\right|&\leq M,\\
+ \frac1{L^2}\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
+   |K_{xy}|\,|C_{xy}-C_{xx}|\,|x-y|^2&\leq M,\\
+ \sum_{x,y\in Y_0}w_xw_y|C_{xy}|&\leq M.
+ \label{eq:geom-uniform-bounds}
+ \\
+ \left|C_{z+r,z+s}-C_{z+r,z}-C_{z,z+s}+C_{zz}\right|
+   &\le M|r|\,|s|.
+ \label{eq:free-covariance-increments}
+\end{align}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The uniform ellipticity, normalization $K_h(p)=|p|^2+O(|p|^4)$
+and exponential kernel bounds of \cite[Section~4.2]{OpenAI-O3},
+together with the rapid Fourier decay of the sampled weights,
+give by the one-cell Fourier inversion formula
+\begin{equation}
+ C_{xy}=G_L(x-y)+R_{h,L}(x,y),\qquad
+ G_L=(d^*d+L^{-2}\Id)^{-1},\qquad
+ \sup_{h,L,x,y}|R_{h,L}(x,y)|<\infty.
+ \label{eq:free-massive-comparison}
+\end{equation}
+Indeed, inversion of the rank-one observation term cancels the
+principal Fourier pole, and after subtracting $G_L$ the remaining
+alias sums are uniformly summable; the three estimates then follow from
+$G_L(0)=(\log L)/(2\pi)+O(1)$,
+$|G_L(r)-G_L(0)|\le c\log(2+|r|)$, and
+$G_L\ge0$, $\sum_rG_L(r)=L^2$, using the exponential moments
+of $K_h$ for the second estimate and $\max w_x\le c_\chi L^{-2}$
+for the third.  The diagonal asymptotic follows by comparing the
+Fourier integral of $G_L$ with the annular integral
+\begin{equation}
+ \int_{1/L\leq |p|\leq1}
+       \frac{d^2p}{(2\pi)^2|p|^2}
+   =\frac1{2\pi}\int_{1/L}^1\frac{dr}{r}
+   =\frac{\log L}{2\pi}.
+ \label{eq:geom-shell-log}
+\end{equation}
+The mass regularizes momenta below $L^{-1}$; that region and
+the difference between the lattice integrand and the annular
+integrand contribute only $O(1)$.  This comparison concerns
+$G_L$, not an exact scalar Fourier representation of $C$,
+which is only block-translation invariant.
+Finally, uniform ellipticity and comparison with the massless
+lattice Green function bound the variance of an increment
+over $r$ by a constant times $|r|^2$; Cauchy--Schwarz then gives
+\eqref{eq:free-covariance-increments}.
+\end{proof}
 
 
 \subsection{Lifting the energy}
@@ -1015,6 +1132,7 @@ With $W_\sigma(u)=e^{\sigma u}(1+u)^2$, the degree-four and -six norms are
  \|A_n\|_\sigma
  =\sup_o\sum_{\alpha\text{ at }o}
  |a_\alpha|W_\sigma\!\left(1+\sum_{i=1}^n|r_i|_1\right).
+ \label{eq:canonical-coefficient-norm}
 \end{equation}
 Here $A_n$ denotes the entire degree-$n$ coefficient list
 $(a_\alpha)_\alpha$, together with its labels.  Each label specifies
@@ -2091,18 +2209,19 @@ $\kappa_\infty$ is not evaluated numerically.   We will try
 to reproduce the computation of $\alpha$.
 
 \begin{proposition}
-  The one-loop beta function coefficient defined in
+  Assume the Gaussian fluctuation covariance estimates of Proposition~\ref{prop:uniform-covariance-estimates}.
+  Then the one-loop beta function coefficient defined in
   Proposition~\ref{prop:beta-localization} satisfies
   \begin{equation}
-    \alpha \to -\frac{\log L}{2\pi}
+    \alpha = -(n-2)\frac{\log L}{2\pi} + O(1),
   \end{equation}
-  provided that the covariance satisfies (...).
+  where $n=3$ for the $O(3)$ model.
 \end{proposition}
 
-{\red The current argument is pretty horrible and only gives $-\frac{\log L}{2\pi} + O(1)$.
+{\red The current argument only gives $-\frac{\log L}{2\pi} + O(1)$.
 There is something to be understood.}
 
-\subsection{Geometric and perturbative contributions}
+ \subsection{Geometric and perturbative contributions}
 
 For a connected contribution, $[\cdot]_O$ denotes its share
 assigned to $O$ by the rule in Section~\ref{subsec:pert-connected}.
@@ -2124,7 +2243,8 @@ Define the geometric and incoming-interaction contributions by
        \left(\Tay_2\left[
           \E_C\mathcal V_2
           -\frac12\operatorname{Cov}_C(\mathcal V_1,\mathcal V_1)
-       \right]_O\right)_O\right),\\
+       \right]_O\right)_O\right),
+       \label{eq:alpha-geom-definition}\\
  \alpha_{\mathrm{pert}}
    &:=\mathfrak a\left(
        \left(\Tay_2[\E_C\mathcal W_2]_O\right)_O\right).
@@ -2141,183 +2261,16 @@ Linearity gives
 \end{equation}
 Thus $\alpha_{\mathrm{geom}}$ is the increment with the incoming
 interaction set to zero, including the nonlinear kinetic and
-observation terms and the spherical measure.
-
-\subsection{Perturbative contribution}
-
- \begin{lemma}
-\label{lem:alpha-quartic-transfer}
-The coefficient $\alpha_{\mathrm{pert}}$ is determined by a single
-Gaussian contraction of $P_4$:
+observation terms and the spherical measure. We will show that:
 \begin{equation}
- \alpha_{\mathrm{pert}}=\alpha_{P_4}
-             =\mathfrak a\bigl((F_{2,0;O}^{P_4})_O\bigr)
-             =2F_{2,0;O}^{P_4}(n;\eta^{(O)}).
- \label{eq:alpha-quartic-transfer}
+ \alpha_{\mathrm{geom}}
+   =-(n-2)\frac{\log L}{2\pi}+O(1),
+   \qquad
+ \alpha_{\mathrm{pert}}
+  = O(1).
 \end{equation}
-Here $F_{2,0;O}^{P_4}$ is the quadratic output density given
-explicitly in \eqref{eq:alpha-quartic-covariance}, $n=V_O$,
-and $\eta^{(O)}$ is the rank-one affine test function of
-\eqref{eq:beta-affine-test}.  The coefficient is independent
-of $O$ and $n$.
-\end{lemma}
+{\red It seems that the two $O(1)$ are not separately vanishing, see below.}
 
-\begin{proof}
-The Gaussian completion
-in \eqref{eq:Gauss-var} gives the linear harmonic extension
-\begin{equation}
- H=aCQ^*,\qquad C=(K+aQ^*Q)^{-1},\qquad
- \psi=H\eta+Z^\top.
- \label{eq:alpha-harmonic-extension}
-\end{equation}
-Here $n=V_O$, $\psi$ is the rescaled physical fine tangent field, and
-$Z^\top=\proj_{n^\perp}Z$ has covariance $C$ in each of its two
-tangent components.  The mean $H\eta$ includes the variation of
-$T_x=V_{[x]}$; it is not the coordinate shift $\mu$ alone.
-
-Let $P_4^{\mathrm{tan}}(\psi)$ be the leading homogeneous quartic
-part of the incoming $P_4$.  It is obtained from the polynomials
-in \eqref{eq:quartic-anchor-polynomial} by replacing every
-relative tangent argument at a fine anchor $z$ by
-$\psi_{z+r}-\psi_z$.  All masks equal one in this formal
-calculation.  Since $b=g^{-2}$, this term enters the action at
-order $g^2$.  Its quadratic output is obtained by pairing exactly
-two fluctuation factors.  Define that output density by
-\begin{equation}
- F_{2,0;O}^{P_4}(n;\eta)
- =\left[
-   \left.\frac12\sum_{x,y}C_{xy}\sum_{a=1}^2
-       \frac{\partial^2P_4^{\mathrm{tan}}(\psi)}
-            {\partial\psi_x^a\,\partial\psi_y^a}
-   \right|_{\psi=H\eta}
-  \right]_O.
- \label{eq:alpha-quartic-covariance}
-\end{equation}
-The factor $1/2$ is the Gaussian contraction factor.  With no
-contraction the output has degree four; with two contractions it
-is a scalar.  Thus \eqref{eq:alpha-quartic-covariance} is exactly
-the anchored degree-two part of
-$\E_C P_4^{\mathrm{tan}}(H\eta+Z^\top)$, with $\Tay_2$ understood
-as in \eqref{eq:kinetic-loc-taylor}.
-
-For example, consider the quartic monomial
-$(v_1\cdot v_2)(v_3\cdot v_4)$ in
-\eqref{eq:quartic-anchor-polynomial}, with $x_i=z+r_i$ and
-$v_i=\psi_{x_i}-\psi_z$.  Define its mean differences and
-fluctuation covariances by
-\begin{equation}
- m_i=(H\eta)_{x_i}-(H\eta)_z,\qquad
- C^{(z)}_{ij}=C_{x_i x_j}-C_{x_i z}-C_{z x_j}+C_{zz}.
-\end{equation}
-At fixed external anchor spin $n$, its degree-two part in
-$\eta$, before distributing the contribution among output
-anchors, is
-\begin{equation}
- \begin{aligned}
- \Tay_2\E_C[(v_1\cdot v_2)(v_3\cdot v_4)]
- ={}&2C^{(z)}_{12}(m_3\cdot m_4)+2C^{(z)}_{34}(m_1\cdot m_2)\\
- &+C^{(z)}_{13}(m_2\cdot m_4)+C^{(z)}_{14}(m_2\cdot m_3)\\
- &+C^{(z)}_{23}(m_1\cdot m_4)+C^{(z)}_{24}(m_1\cdot m_3).
- \end{aligned}
-\end{equation}
-The factors $2$ count the two tangent components.  Multiply by
-the incoming monomial coefficient, sum over its fine anchors
-and displacements, and apply $[\cdot]_O$ to obtain its contribution
-to \eqref{eq:alpha-quartic-covariance}.  The other two tensor
-pairings in \eqref{eq:quartic-anchor-polynomial} follow by
-permuting the indices.
-
-The Gaussian average of the incoming $I_2$ has quadratic part
-$I_2^{\mathrm{tan}}(H\eta)$; its contraction is a scalar.
-Its kinetic coefficient is zero.  The harmonic extension maps affine
-coarse fields to affine fine fields, on which the compensated
-quadratic packets have zero affine Hessian; see
-\cite[Section~5.5]{OpenAI-O3}.  The other incoming slots start at
-order $g^4$ and hence do not enter $\alpha$.
-
-Thus $\alpha_{\mathrm{pert}}=\alpha_{P_4}$.  Applying
-\eqref{eq:beta-affine-test} to the quadratic output gives the
-last equality in \eqref{eq:alpha-quartic-transfer}.
-Independence of $O$ and $n$ follows from
-Proposition~\ref{prop:kinetic-coefficient-symmetries}.
-\end{proof}
-
-
-\begin{lemma}[Bounded perturbative contribution]
-\label{lem:pert-uniform-bound}
-In the setting of Lemma~\ref{lem:alpha-quartic-transfer}, write
-the incoming quartic polynomial in the pairing basis as
-\begin{equation}
- P_4^{\mathrm{tan}}(\psi)
- =\sum_z\sum_\lambda a_{z,\lambda}
-       (v_1\cdot v_2)(v_3\cdot v_4),
- \qquad v_i=\psi_{z+r_i}-\psi_z.
- \label{eq:pert-quartic-pairing-list}
-\end{equation}
-Here $\lambda$ records the displacements and the pairing;
-the other pairings are represented by permuting the slots.
-Assume translation covariance under coarse lattice translations
-and that the harmonic extension of the rank-one affine test
-function in \eqref{eq:beta-affine-test} has fine-scale gradient
-$e\otimes e_1/L$, where $e$ is a unit tangent vector.
-Suppose there are constants $M_C,M_4$ independent of $L$ and
-the histories considered such that, for all $z,r,s$,
-\begin{align}
- \left|C_{z+r,z+s}-C_{z+r,z}-C_{z,z+s}+C_{zz}\right|
-   &\le M_C|r|\,|s|,\\
- A_4:=\sup_z\sum_\lambda |a_{z,\lambda}|
-                      \prod_{i=1}^4|r_i|
-   &\le M_4.
- \label{eq:pert-uniform-assumptions}
-\end{align}
-Then
-\begin{equation}
- |\alpha_{\mathrm{pert}}|\le 16M_CM_4.
- \label{eq:pert-uniform-bound}
-\end{equation}
-In particular, $\alpha_{\mathrm{pert}}=O(1)$ uniformly in
-$L$ and the history under these assumptions.
-\end{lemma}
-
-\begin{proof}
-The affine-extension assumption gives
-\begin{equation}
- |m_i|=\left|(H\eta)_{z+r_i}-(H\eta)_z\right|
-       \le \frac{|r_i|}{L}.
-\end{equation}
-The six terms in the single-contraction formula in the proof
-of Lemma~\ref{lem:alpha-quartic-transfer} have numerical
-coefficients $2,2,1,1,1,1$.  The absolute quadratic contribution
-of one monomial, including its coefficient, is consequently
-at most
-\begin{equation}
- \frac{8M_C}{L^2}|a_{z,\lambda}|
-                     \prod_{i=1}^4|r_i|.
-\end{equation}
-There are $L^2$ fine anchors per coarse block.  The assignment
-to output anchors preserves the sum and has nonnegative
-weights summing to one for each contribution.  Translation
-covariance therefore bounds the absolute assigned density
-per coarse block by $8M_CA_4$.  This can equivalently be seen
-by summing over one translation cell before distributing
-the contributions.  All resulting quadratic terms depend
-on differences of the affine field, so changing its anchor
-does not change this evaluation.  Finally,
-\eqref{eq:alpha-quartic-transfer} supplies the factor $2$
-from affine extraction and proves
-\eqref{eq:pert-uniform-bound}.
-\end{proof}
-
-The covariance in \eqref{eq:pert-uniform-assumptions} is a
-double difference, which cancels any common additive
-logarithmic part.  The uniform bounds on these differences
-and on the incoming coefficient moment are additional
-hypotheses; they do not follow merely from the assumptions
-on $C$ in Definition~\ref{def:uniform-covariance-estimates}.
-A uniform bound on $\|A_4\|_\sigma$ with a fixed
-$\sigma>0$ controls the fourth displacement moment above.
-The conclusion is boundedness, not vanishing, of
-$\alpha_{\mathrm{pert}}$.
 
 \subsection{The geometric contribution}
 
@@ -2340,7 +2293,9 @@ define the dimensionless within-block second moment
  \sum_{x\in Y_0}w_xu_x=0.
  \label{eq:geom-weight-moment}
 \end{equation}
-Then the formal geometric one-loop coefficient is
+Then the geometric one-loop coefficient
+$\alpha_{\mathrm{geom}}$ defined in
+\eqref{eq:alpha-geom-definition} is
 \begin{align}
  \alpha_{\mathrm{geom}}
  ={}&-\frac{2}{L^2}\sum_{x\in Y_0}C_{xx}
@@ -2360,9 +2315,7 @@ Using $K=C^{-1}-aQ^*Q$ gives the equivalent formula
                          (2\sigma_w^2-u_xu_y).
  \label{eq:alpha-geom-covariance}
 \end{align}
-Here $C^{-1}$ is the inverse operator, not the entrywise inverse.
-Once the observation geometry is fixed, this expression uses only
-$C$, its inverse, and the known weights and coordinates.
+This expression uses only $C$, its inverse, and the known weights and coordinates.
 \end{lemma}
 
 \begin{proof}
@@ -2481,42 +2434,33 @@ $2\sigma_w^2-u_xu_y$ and proves
 \end{proof}
 
 
-\begin{definition}[Uniform covariance estimates]
-\label{def:uniform-covariance-estimates}
-The covariance $C$ satisfies \emph{uniform estimates} if there
-exists a constant $M$ independent of $L$ and the histories
-considered such that
-\begin{align}
- \left|\overline C_L-\frac{\log L}{2\pi}\right|&\leq M,\\
- \frac1{L^2}\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
-   |K_{xy}|\,|C_{xy}-C_{xx}|\,|x-y|^2&\leq M,\\
- \sum_{x,y\in Y_0}w_xw_y|C_{xy}|&\leq M,
- \label{eq:geom-uniform-bounds}
-\end{align}
-where
-\begin{equation}
- \overline C_L=\frac1{L^2}\sum_{x\in Y_0}C_{xx}.
-\end{equation}
-\end{definition}
 
-\begin{lemma}[Leading logarithm under uniform covariance estimates]
+
+\begin{lemma}
 \label{lem:geom-leading-log}
-In the setting of Lemma~\ref{lem:alpha-geometric}, suppose that
-$K$ is translation invariant with $K(p)=|p|^2+O(|p|^4)$.
-Keep $a$ fixed, use nonnegative normalized weights, and assume
-$|u_x|\le u_*$ uniformly in $L$ and the histories considered.
-Suppose that $C$ satisfies the uniform estimates of
-Definition~\ref{def:uniform-covariance-estimates}.
+In the setting of Proposition~\ref{prop:uniform-covariance-estimates},
+let $\alpha_{\mathrm{geom}}$ be the coefficient defined in
+Lemma~\ref{lem:alpha-geometric}.
 Then
 \begin{equation}
  \alpha_{\mathrm{geom}}
-   =-\frac{\log L}{2\pi}+O(1),
+   =-(n-2)\frac{\log L}{2\pi}+O(1),
  \label{eq:geom-leading-log}
 \end{equation}
-where the remainder is bounded uniformly in $L$ and the history.
+where $n=3$ since we are considering the $O(3)$ model.
 \end{lemma}
 
 \begin{proof}
+The square-block coordinates in \eqref{eq:geom-affine-coordinates}
+satisfy $|u_x|\le u_*:=1/2$, independently of $L$ and the history.
+For $S^{n-1}$ there is one tangent direction parallel to the
+helical background and $n-2$ perpendicular tangent directions.
+Thus the logarithmic determinant in \eqref{eq:geom-logdet}
+contains $\log A_\parallel+(n-2)\log A_\perp-(n-1)\log A$.
+In \eqref{eq:alpha-geom-kernel}, the diagonal coefficient $-2$
+is consequently replaced by $-(n-1)$ and $2\sigma_w^2$ by
+$(n-1)\sigma_w^2$; the term containing
+$K_{xy}(h_x-h_y)^2$ is unchanged.
 Translation invariance and the normalization
 $K(p)=|p|^2+O(|p|^4)$ imply the exact moment identity
 \begin{equation}
@@ -2527,56 +2471,288 @@ $K(p)=|p|^2+O(|p|^4)$ imply the exact moment identity
 In the second term of \eqref{eq:alpha-geom-kernel}, use
 $h_x-h_y=(x_1-y_1)/L$ and split
 $C_{xy}=C_{xx}+(C_{xy}-C_{xx})$.  The part containing $C_{xx}$
-is $+\overline C_L$, cancelling one of the two diagonal
+is $+\overline C_L$, cancelling one of the $n-1$ diagonal
 contributions.  Thus, exactly,
 \begin{align}
  \alpha_{\mathrm{geom}}
-   &=-\overline C_L+R_{\mathrm{kin}}+R_{\mathrm{obs}},
+   &=-(n-2)\overline C_L+R_{\mathrm{kin}}+R_{\mathrm{obs}},
        \label{eq:geom-log-decomposition}\\
  R_{\mathrm{kin}}
    &=-\frac1{2L^2}\sum_{\substack{x\in Y_0\\y\in\mathbb Z^2}}
        K_{xy}(C_{xy}-C_{xx})(x_1-y_1)^2,\\
  R_{\mathrm{obs}}
    &=a\sum_{x,y\in Y_0}w_xw_yC_{xy}
-          \left(2\sigma_w^2-\frac{u_x^2+u_y^2}{2}\right).
+          \left((n-1)\sigma_w^2-\frac{u_x^2+u_y^2}{2}\right).
 \end{align}
 The three assumed bounds give
 \begin{equation}
  |R_{\mathrm{kin}}|\le\frac M2,\qquad
- |R_{\mathrm{obs}}|\le 3a u_*^2M,
+ |R_{\mathrm{obs}}|\le na u_*^2M,
 \end{equation}
 since $\sigma_w^2\le u_*^2$.  Consequently,
 \begin{equation}
- \left|\alpha_{\mathrm{geom}}+\frac{\log L}{2\pi}\right|
- \le \left(\frac32+3a u_*^2\right)M,
+ \left|\alpha_{\mathrm{geom}}+(n-2)\frac{\log L}{2\pi}\right|
+ \le \left(n-\frac32+na u_*^2\right)M,
 \end{equation}
 which proves the claim.
 \end{proof}
 
-The uniform estimates \eqref{eq:geom-uniform-bounds} are
-additional hypotheses; they have not been established in this
-calculation.  Fixed-$L$ localization estimates alone do not
-supply their uniformity as $L\to\infty$.
+\begin{remark}
+The $O(1)$ remainder contains nonzero finite contributions:
+at empty history, $K=d^*d$ gives
+$R_{\mathrm{kin}}=-1/4+O(L^{-2})$.
+For an admissible smooth averaging profile, numerical evaluation
+also indicates a nonzero limit of the total remainder,
+approximately $-0.54044$ when $a=1$.
+Thus an improvement to $o(1)$ would require a cancellation
+not established by the lemma; nonvanishing of the total limit
+for this example is supported numerically, not proved here.
+\end{remark}
 
-The expected logarithm in $\overline C_L$ comes from wavelengths
-between the fine scale $1$ and the block scale $L$.  On the
-corresponding momenta the leading continuum covariance is
-$|p|^{-2}$, and
+% Calculation underlying the preceding remark (O(3), empty history).
+% The exact decomposition is
+% \begin{equation}
+%  \alpha_{\mathrm{geom}}+\frac{\log L}{2\pi}
+%  =-\left(\overline C_L-\frac{\log L}{2\pi}\right)
+%    +R_{\mathrm{kin}}+R_{\mathrm{obs}}.
+% \end{equation}
+% For K=d^*d, quarter-turn symmetry and KC=I-aQ^*QC give
+% \begin{equation}
+%  R_{\mathrm{kin}}
+%   =-\frac{1}{4L^2}\tr_{\mathrm{cell}}(KC)
+%   =-\frac14+\frac{a}{4L^2}(QCQ^*)_{Y_0Y_0}.
+% \end{equation}
+% Since 0 <= aQCQ^* <= I, this proves
+% \begin{equation}
+%  -\frac14\le R_{\mathrm{kin}}
+%    \le-\frac14+\frac{1}{4L^2}.
+% \end{equation}
+% The comparison Green function also has a finite lattice correction:
+% \begin{equation}
+%  G_L(0)=\frac{\log L}{2\pi}+\frac{\log 32}{4\pi}+o(1).
+% \end{equation}
+% This is not the full finite part of \overline C_L; the averaging
+% profile and observation strength contribute through C-G_L.
+%
+% Numerical example: a=1 and
+% \begin{equation}
+%  \chi(t)=
+%  \begin{cases}
+%   \exp\{-1/[1-(t/0.14)^2]\},& |t|<0.14,\\
+%   0,& |t|\ge0.14.
+%  \end{cases}
+% \end{equation}
+% Evaluation of the one-cell Fourier inverse, including its rank-one
+% observation correction, gives the following total remainders:
+% L=32:  -0.540329437;
+% L=64:  -0.540429646;
+% L=128: -0.540440130.
+% At L=128 the three terms in the decomposition are approximately
+% -0.291503055, -0.249995031, and +0.001057955, respectively.
+% Midpoint Fourier integration with 64 and 128 points in each coarse
+% momentum direction gives the same displayed digits at L=128.
+% These computations provide evidence, not an analytic proof, of a
+% nonzero total limiting constant for this profile.
+% The limit here is L -> infinity at empty history; the preprint's
+% exact logarithmic increment concerns the full coefficient as the
+% history length tends to infinity at fixed L.
+
+
+\subsection{Perturbative contribution}
+
+ \begin{lemma}
+\label{lem:alpha-quartic-transfer}
+The coefficient $\alpha_{\mathrm{pert}}$ is determined by a single
+Gaussian contraction of $P_4$:
 \begin{equation}
- \int_{1/L\leq |p|\leq1}
-       \frac{d^2p}{(2\pi)^2|p|^2}
-   =\frac1{2\pi}\int_{1/L}^1\frac{dr}{r}
-   =\frac{\log L}{2\pi}.
- \label{eq:geom-shell-log}
+ \alpha_{\mathrm{pert}}=\alpha_{P_4}
+             =\mathfrak a\bigl((F_{2,0;O}^{P_4})_O\bigr)
+             =2F_{2,0;O}^{P_4}(n;\eta^{(O)}).
+ \label{eq:alpha-quartic-transfer}
 \end{equation}
-This explains the leading term; it is not an exact Fourier
-representation of $C$, which is only block-translation invariant.
-In $R_{\mathrm{kin}}$, a covariance difference removes the common
-logarithmic part, while localization of $K$ controls the remaining
-displacements.  In $R_{\mathrm{obs}}$, averaging over two sites
-in the block makes the logarithmic singularity integrable:
-the diagonal value alone does not determine this average.
+Here $F_{2,0;O}^{P_4}$ is the quadratic output density given
+explicitly in \eqref{eq:alpha-quartic-covariance}, $n=V_O$,
+and $\eta^{(O)}$ is the rank-one affine test function of
+\eqref{eq:beta-affine-test}.  The coefficient is independent
+of $O$ and $n$.
+\end{lemma}
 
+\begin{proof}
+The Gaussian completion
+in \eqref{eq:Gauss-var} gives the linear harmonic extension
+\begin{equation}
+ H=aCQ^*,\qquad C=(K+aQ^*Q)^{-1},\qquad
+ \psi=H\eta+Z^\top.
+ \label{eq:alpha-harmonic-extension}
+\end{equation}
+Here $n=V_O$, $\psi$ is the rescaled physical fine tangent field, and
+$Z^\top=\proj_{n^\perp}Z$ has covariance $C$ in each of its two
+tangent components.  The mean $H\eta$ includes the variation of
+$T_x=V_{[x]}$; it is not the coordinate shift $\mu$ alone.
+
+Let $P_4^{\mathrm{tan}}(\psi)$ be the leading homogeneous quartic
+part of the incoming $P_4$.  It is obtained from the polynomials
+in \eqref{eq:quartic-anchor-polynomial} by replacing every
+relative tangent argument at a fine anchor $z$ by
+$\psi_{z+r}-\psi_z$.  All masks equal one in this formal
+calculation.  Since $b=g^{-2}$, this term enters the action at
+order $g^2$.  Its quadratic output is obtained by pairing exactly
+two fluctuation factors.  Define that output density by
+\begin{equation}
+ F_{2,0;O}^{P_4}(n;\eta)
+ =\left[
+   \left.\frac12\sum_{x,y}C_{xy}\sum_{a=1}^2
+       \frac{\partial^2P_4^{\mathrm{tan}}(\psi)}
+            {\partial\psi_x^a\,\partial\psi_y^a}
+   \right|_{\psi=H\eta}
+  \right]_O.
+ \label{eq:alpha-quartic-covariance}
+\end{equation}
+The factor $1/2$ is the Gaussian contraction factor.  With no
+contraction the output has degree four; with two contractions it
+is a scalar.  Thus \eqref{eq:alpha-quartic-covariance} is exactly
+the anchored degree-two part of
+$\E_C P_4^{\mathrm{tan}}(H\eta+Z^\top)$, with $\Tay_2$ understood
+as in \eqref{eq:kinetic-loc-taylor}.
+
+For example, consider the quartic monomial
+$(v_1\cdot v_2)(v_3\cdot v_4)$ in
+\eqref{eq:quartic-anchor-polynomial}, with $x_i=z+r_i$ and
+$v_i=\psi_{x_i}-\psi_z$.  Define its mean differences and
+fluctuation covariances by
+\begin{equation}
+ m_i=(H\eta)_{x_i}-(H\eta)_z,\qquad
+ C^{(z)}_{ij}=C_{x_i x_j}-C_{x_i z}-C_{z x_j}+C_{zz}.
+\end{equation}
+At fixed external anchor spin $n$, its degree-two part in
+$\eta$, before distributing the contribution among output
+anchors, is
+\begin{equation}
+ \begin{aligned}
+ \Tay_2\E_C[(v_1\cdot v_2)(v_3\cdot v_4)]
+ ={}&2C^{(z)}_{12}(m_3\cdot m_4)+2C^{(z)}_{34}(m_1\cdot m_2)\\
+ &+C^{(z)}_{13}(m_2\cdot m_4)+C^{(z)}_{14}(m_2\cdot m_3)\\
+ &+C^{(z)}_{23}(m_1\cdot m_4)+C^{(z)}_{24}(m_1\cdot m_3).
+ \end{aligned}
+\end{equation}
+The factors $2$ count the two tangent components.  Multiply by
+the incoming monomial coefficient, sum over its fine anchors
+and displacements, and apply $[\cdot]_O$ to obtain its contribution
+to \eqref{eq:alpha-quartic-covariance}.  The other two tensor
+pairings in \eqref{eq:quartic-anchor-polynomial} follow by
+permuting the indices.
+
+The Gaussian average of the incoming $I_2$ has quadratic part
+$I_2^{\mathrm{tan}}(H\eta)$; its contraction is a scalar.
+Its kinetic coefficient is zero.  The harmonic extension maps affine
+coarse fields to affine fine fields, on which the compensated
+quadratic packets have zero affine Hessian; see
+\cite[Section~5.5]{OpenAI-O3}.  The other incoming slots start at
+order $g^4$ and hence do not enter $\alpha$.
+
+Thus $\alpha_{\mathrm{pert}}=\alpha_{P_4}$.  Applying
+\eqref{eq:beta-affine-test} to the quadratic output gives the
+last equality in \eqref{eq:alpha-quartic-transfer}.
+Independence of $O$ and $n$ follows from
+Proposition~\ref{prop:kinetic-coefficient-symmetries}.
+\end{proof}
+
+
+\begin{lemma}
+\label{lem:pert-uniform-bound}
+In the setting of Lemma~\ref{lem:alpha-quartic-transfer}, write
+the incoming quartic polynomial in the pairing basis as
+\begin{equation}
+ P_4^{\mathrm{tan}}(\psi)
+ =\sum_z\sum_\lambda a_{z,\lambda}
+       (v_1\cdot v_2)(v_3\cdot v_4),
+ \qquad v_i=\psi_{z+r_i}-\psi_z.
+ \label{eq:pert-quartic-pairing-list}
+\end{equation}
+Here $\lambda$ records the displacements and the pairing;
+the other pairings are represented by permuting the slots.
+Assume translation covariance under coarse lattice translations
+and that the harmonic extension of the rank-one affine test
+function in \eqref{eq:beta-affine-test} has fine-scale gradient
+$e\otimes e_1/L$, where $e$ is a unit tangent vector.
+Assume the covariance increment bound
+\eqref{eq:free-covariance-increments} with constant $M$,
+and suppose that, for a fixed $\sigma>0$,
+\begin{equation}
+ \|P_4\|_\sigma\le M_4,
+ \label{eq:pert-uniform-assumptions}
+\end{equation}
+where the norm is the coefficient-list norm
+\eqref{eq:canonical-coefficient-norm} with $A_4=P_4$,
+and $\sigma$, $M$ and $M_4$ are independent of $L$ and the
+histories considered.
+Then
+\begin{equation}
+ |\alpha_{\mathrm{pert}}|\le 16c_\sigma MM_4,
+ \label{eq:pert-uniform-bound}
+\end{equation}
+where $c_\sigma$ depends only on $\sigma$.
+In particular, $\alpha_{\mathrm{pert}}=O(1)$ uniformly in
+$L$ and the history under these assumptions.
+\end{lemma}
+
+\begin{proof}
+First, the norm assumption implies the fourth displacement
+moment bound needed below.  Indeed, for
+$S_\lambda=\sum_{i=1}^4|r_i|_1$, the arithmetic--geometric
+mean inequality gives
+\begin{equation}
+ \prod_{i=1}^4|r_i|
+ \le (S_\lambda/4)^4
+ \le c_\sigma W_\sigma(1+S_\lambda),
+ \qquad
+ c_\sigma:=\sup_{t\ge0}
+      \frac{(t/4)^4}{e^{\sigma(1+t)}(2+t)^2}<\infty.
+\end{equation}
+Consequently,
+\begin{equation}
+ \mathcal M_4:=\sup_z\sum_\lambda |a_{z,\lambda}|
+                          \prod_{i=1}^4|r_i|
+ \le c_\sigma\|P_4\|_\sigma
+ \le c_\sigma M_4.
+ \label{eq:pert-fourth-moment}
+\end{equation}
+The affine-extension assumption gives
+\begin{equation}
+ |m_i|=\left|(H\eta)_{z+r_i}-(H\eta)_z\right|
+       \le \frac{|r_i|}{L}.
+\end{equation}
+The six terms in the single-contraction formula in the proof
+of Lemma~\ref{lem:alpha-quartic-transfer} have numerical
+coefficients $2,2,1,1,1,1$.  The absolute quadratic contribution
+of one monomial, including its coefficient, is consequently
+at most
+\begin{equation}
+ \frac{8M}{L^2}|a_{z,\lambda}|
+                     \prod_{i=1}^4|r_i|.
+\end{equation}
+There are $L^2$ fine anchors per coarse block.  The assignment
+to output anchors preserves the sum and has nonnegative
+weights summing to one for each contribution.  Translation
+covariance therefore bounds the absolute assigned density
+per coarse block by $8M\mathcal M_4$.  This can equivalently be seen
+by summing over one translation cell before distributing
+the contributions.  All resulting quadratic terms depend
+on differences of the affine field, so changing its anchor
+does not change this evaluation.  Finally,
+\eqref{eq:alpha-quartic-transfer} supplies the factor $2$
+from affine extraction and proves
+\eqref{eq:pert-uniform-bound} using \eqref{eq:pert-fourth-moment}.
+\end{proof}
+
+The covariance in \eqref{eq:free-covariance-increments} is a
+double difference, which cancels any common additive
+logarithmic part.  The incoming coefficient norm bound remains
+an additional hypothesis: the covariance bounds in
+Proposition~\ref{prop:uniform-covariance-estimates} do not
+control the incoming quartic coefficients.
+The conclusion is boundedness, not vanishing, of
+$\alpha_{\mathrm{pert}}$.
 
 \newpage
 \section{Finite range fluctuation integrals}
