@@ -42,7 +42,7 @@
 \theoremstyle{plain}
 
 \title{Block spins and fluctuation integral}
-\author{}
+\author{NLSM working group}
 \date{}
 
 
@@ -73,6 +73,16 @@ Other explanations and discussion of general target manifolds
 can be found in Gaw{\k{e}}dzki's CFT lectures \cite{MR1701610}
 and Friedan \cite{Friedan1980,MR811072}. These use dimensional regularization,
 not lattice regularization.
+
+\item 
+Useful material for the Gaussian block spin calculus is in \cite{MR588686}.
+
+
+\item
+The extraction and localization step is organized roughly following
+\cite{MR3332939}, see also \cite{MR3969983}.
+
+
 \end{itemize}
 
 \newpage
@@ -2203,23 +2213,21 @@ the one- and two-loop beta function coefficients are given by
  \qquad \gamma=\frac{\log L}{2\pi},\qquad
  \kappa_h\longrightarrow\kappa_\infty.
 \end{equation}
-The value of $\alpha_\infty$ is identified there by matching a
-finite-volume Laplace coefficient before and after blocking;
-$\kappa_\infty$ is not evaluated numerically.   We will try
-to reproduce the computation of $\alpha$.
+The value of $\alpha_\infty$ is identified indirectly;
+$\kappa_\infty$ is not evaluated numerically.
 
 \begin{proposition}
-  Assume the Gaussian fluctuation covariance estimates of Proposition~\ref{prop:uniform-covariance-estimates}.
+  Assume the covariance estimates of Proposition~\ref{prop:uniform-covariance-estimates}
+  and an upper bound on $\mathbf P$.
   Then the one-loop beta function coefficient defined in
   Proposition~\ref{prop:beta-localization} satisfies
   \begin{equation}
     \alpha = -(n-2)\frac{\log L}{2\pi} + O(1),
   \end{equation}
   where $n=3$ for the $O(3)$ model.
+  {\red Nontrivial work is required to remove the $+O(1)$.}
 \end{proposition}
 
-{\red The current argument only gives $-\frac{\log L}{2\pi} + O(1)$.
-There is something to be understood.}
 
  \subsection{Geometric and perturbative contributions}
 
@@ -2269,7 +2277,16 @@ observation terms and the spherical measure. We will show that:
  \alpha_{\mathrm{pert}}
   = O(1).
 \end{equation}
-{\red It seems that the two $O(1)$ are not separately vanishing, see below.}
+{\red The two $O(1)$ do not vanish separately,
+see Remark~\ref{rem:geometric-finite-part}.
+Numerically, it seems that when $n=3$,
+\begin{equation}
+ \alpha_{\mathrm{geom}}
+   \sim -\frac{\log L}{2\pi}+3.
+\end{equation}
+The $+3$ is cancelled in $\alpha_{\mathrm{pert}}$ evaluated along the flow,
+but this requires serious work.
+}
 
 
 \subsection{The geometric contribution}
@@ -2526,10 +2543,13 @@ observation strength, not a universal constant or a proved
 asymptotic formula.
 It differs from the empty-history remainder, whose numerical
 large-$L$ limit is approximately $-0.54044$.
-The preprint's exact limiting increment for the full coefficient
-instead requires
-$r_\infty(L)+\alpha_{\mathrm{pert},\infty}(L)=0$;
-it does not require either contribution to vanish separately.
+The cancellation identity in
+Proposition~\ref{prop:limiting-one-loop-cancellation} below gives
+$r_\infty(L)+\alpha_{\mathrm{pert},\infty}(L)=0$
+for the limiting formal perturbative orbit under its stated
+convergence assumptions.  Neither contribution has to vanish
+separately.  This identity does not prove the numerical
+large-$L$ conjecture \eqref{eq:geometric-finite-part-conjecture}.
 \end{remark}
 
 % Calculation underlying the preceding remark (O(3), empty history).
@@ -2800,6 +2820,316 @@ Proposition~\ref{prop:uniform-covariance-estimates} do not
 control the incoming quartic coefficients.
 The conclusion is boundedness, not vanishing, of
 $\alpha_{\mathrm{pert}}$.
+
+\subsection{Quartic recursion and identification of $O(1)$ term}
+\label{subsec:quartic-history}
+
+Throughout this subsection $h$ counts blocking steps, with $L$
+fixed, and every output lattice is rescaled to unit spacing.
+We work with the formal bulk coefficients, with all masks equal
+to one and no regular error or covering factor.  Write
+$P_h=P_{4,h}^{\mathrm{tan}}$ for the homogeneous quartic action,
+with the factor $b$ removed.  The free operators are
+\begin{equation}
+ C_h=(K_h+aQ_h^*Q_h)^{-1},\qquad
+ H_h=aC_hQ_h^*,\qquad
+ K_{h+1}=aI-a^2Q_hC_hQ_h^*.
+ \label{eq:quartic-history-free}
+\end{equation}
+The profiles are centred and even, so $H_h$ takes a coarse affine
+field to a fine affine field with gradient divided by $L$.
+
+\paragraph{The quartic recursion}
+For $q(u)=(u,\sqrt{1-|u|^2})$, the homogeneous quartic part of
+the kinetic action is
+\begin{equation}
+ E_{4,K}(u)=\frac18\sum_{x,y}K_{xy}|u_x|^2|u_y|^2.
+ \label{eq:quartic-tree-kinetic}
+\end{equation}
+For fine and coarse tangent fields $u$ and $v$, respectively, set
+$t_Y=(Q_hu)_Y$ and $A_Y=(Q_h|u|^2)_Y$.  Expansion of the
+normalized block observation gives its quartic part as
+\begin{equation}
+ O_{4,h}(u,v)
+ =a\sum_Y\left\{
+   \frac{(|v_Y|^2-|t_Y|^2)^2}{8}
+   -\frac{A_Y-|t_Y|^2}{2}(v_Y-t_Y)\cdot t_Y
+             \right\}.
+ \label{eq:quartic-tree-observation}
+\end{equation}
+Thus the source quartic action and the transport of an incoming
+quartic action are
+\begin{align}
+ G_h(v)&=E_{4,K_h}(H_hv)+O_{4,h}(H_hv,v)
+                           -E_{4,K_{h+1}}(v),
+ \label{eq:quartic-tree-source}\\
+ (\mathcal T_hP)(v)&=P(H_hv),\qquad
+ P_{h+1}=G_h+\mathcal T_hP_h,\qquad P_0=0.
+ \label{eq:quartic-history-recursion}
+\end{align}
+These are identities of summed actions; their coefficient lists
+use the fixed assignment to output anchors.  Indeed, $H_hv$
+minimizes the quadratic action, so the cubic correction to this
+minimizer does not change the quartic stationary value.
+Subtracting the output kinetic quartic leaves precisely $G_h$.
+The same argument transports the incoming $P_h$ by substitution.
+Gaussian contractions lower the field degree and do not enter
+this leading quartic recursion.  In the reassembly prescription
+\eqref{eq:pert-formal-reassembly}, this is the equation
+$P'_4=F_{2,1}$; the order-one change in $b$ affects the $I_4$
+slot instead.
+
+Define the linear contraction functional, with two Gaussian
+tangent components, by
+\begin{equation}
+ \mathfrak B_hP
+ :=\mathfrak a_{K_{h+1}}\!\left(
+       \bigl([\Tay_2\E_{C_h}P(H_hv+Z)]_O\bigr)_O\right),
+ \qquad \alpha_{\mathrm{pert},h}=\mathfrak B_hP_h.
+ \label{eq:quartic-history-contraction}
+\end{equation}
+The subscript on $\mathfrak a$ specifies the kinetic density
+used for localization.  The Taylor operation and the distribution
+over anchors are those of \eqref{eq:kinetic-loc-taylor} and
+\eqref{eq:alpha-quartic-covariance}.  Consequently,
+\begin{equation}
+ \alpha_{\mathrm{pert},h+1}
+   =\mathfrak B_{h+1}G_h
+       +\mathfrak B_{h+1}\mathcal T_hP_h.
+ \label{eq:quartic-history-alpha-recursion}
+\end{equation}
+This is not generally a closed scalar recursion: the second term
+depends on the incoming quartic coefficients, not just on their
+previous contraction $\mathfrak B_hP_h$.
+
+Suppose the free history and these operators converge, and use
+the fixed coefficient norm \eqref{eq:canonical-coefficient-norm}.
+The quartic diagonal contraction estimate in
+\cite[Section~5.5]{OpenAI-O3} gives
+$\|\mathcal T_h\|\le\theta=CL^{-2}<1$ for sufficiently large $L$.
+Writing $G_\infty$, $\mathcal T_\infty$ and
+$\mathfrak B_\infty$ for the limits gives
+\begin{equation}
+ P_\infty=(I-\mathcal T_\infty)^{-1}G_\infty
+     =\sum_{m\ge0}\mathcal T_\infty^mG_\infty,\qquad
+ \alpha_{\mathrm{pert},\infty}
+     =\sum_{m\ge0}\mathfrak B_\infty
+                             \mathcal T_\infty^mG_\infty.
+ \label{eq:quartic-history-neumann}
+\end{equation}
+Lemma~\ref{lem:pert-uniform-bound} bounds the error after the term
+$m=N$ by
+\begin{equation}
+ \left|\alpha_{\mathrm{pert},\infty}
+       -\sum_{m=0}^N\mathfrak B_\infty
+                                  \mathcal T_\infty^mG_\infty\right|
+ \le16c_\sigma M\|G_\infty\|_\sigma
+                       \frac{\theta^{N+1}}{1-\theta}.
+ \label{eq:quartic-history-tail}
+\end{equation}
+
+\paragraph{A contraction that telescopes}
+There is a way to compute the limiting coefficient without
+retaining the full quartic list.  For a translation-invariant
+quartic action $P$ in tangent differences, let $D_P(p)$ be the
+Fourier symbol of the sum over tangent components of its Hessian
+at a unit affine field:
+\begin{equation}
+ (D_P)_{xy}
+ :=[\varepsilon^2]\sum_{a=1}^2
+     \left.
+     \frac{\partial^2P(u)}{\partial u_x^a\partial u_y^a}
+     \right|_{u_z=\varepsilon z_1 e},
+ \qquad |e|=1.
+ \label{eq:quartic-affine-hessian}
+\end{equation}
+Here $[\varepsilon^2]$ means the coefficient of $\varepsilon^2$.
+The kernel depends on $x-y$: all background differences are
+constant.  Since every differentiated field still occurs through
+a difference, $D_P(0)=0$ and $D_P(p)=O(|p|^2)$.
+Exponential coefficient summability justifies these statements
+and the Fourier derivatives below.
+On the Brillouin zone $\mathbb T^2=[-\pi,\pi]^2$, define
+\begin{equation}
+ \mathcal I_K(D):=\int_{\mathbb T^2}\frac{D(p)}{K(p)}
+                                    \frac{d^2p}{(2\pi)^2}.
+ \label{eq:quartic-massless-contraction}
+\end{equation}
+This integral is finite, despite the massless denominator.
+
+For completeness, the induced transport $\mathcal U_h$ of Hessian
+symbols is explicit.  If $k_\ell=(p+2\pi\ell)/L$ are the $L^2$
+fine aliases modulo $2\pi$, set
+\begin{equation}
+ q_\ell(p)=\widehat w_L(k_\ell),\qquad
+ H_{h,\ell}(p)
+   =\frac{K_{h+1}(p)\overline{q_\ell(p)}}{L^2K_h(k_\ell)},
+ \qquad
+ (\mathcal U_hD)(p)=\sum_\ell|H_{h,\ell}(p)|^2D(k_\ell).
+ \label{eq:quartic-hessian-transport}
+\end{equation}
+These $H_{h,\ell}$ are the amplitudes of the fine plane waves
+in the extension of a coarse plane wave.  Values at zero are
+defined by continuation.  The factor $L^{-2}$ from the two
+background gradients cancels the $L^2$ fine sites per cell, so
+\begin{equation}
+ D_{\mathcal T_hP}=\mathcal U_hD_P,\qquad
+ D_{h+1}=g_h+\mathcal U_hD_h,\qquad
+ D_h:=D_{P_h},\quad g_h:=D_{G_h}.
+ \label{eq:quartic-hessian-recursion}
+\end{equation}
+The Gaussian covariance identity, understood on differences, is
+\begin{equation}
+ K_h^{-1}=C_h+H_hK_{h+1}^{-1}H_h^*.
+ \label{eq:quartic-covariance-telescope}
+\end{equation}
+Contracting \eqref{eq:quartic-affine-hessian} with this identity
+and using the affine normalization of $\mathfrak a$ gives
+\begin{align}
+ \mathfrak B_hP
+   &=\mathcal I_{K_h}(D_P)
+       -\mathcal I_{K_{h+1}}(\mathcal U_hD_P),\\
+ \alpha_{\mathrm{pert},h}
+   &=s_h+\beta_h-\beta_{h+1},\qquad
+ s_h:=\mathcal I_{K_{h+1}}(g_h),\quad
+ \beta_h:=\mathcal I_{K_h}(D_h).
+ \label{eq:quartic-alpha-telescope}
+\end{align}
+The factor $1/2$ in a Wick contraction cancels the factor $2$
+in affine extraction, as in
+\eqref{eq:alpha-quartic-transfer}.  Thus, if $\beta_h$ converges,
+\begin{equation}
+ \alpha_{\mathrm{pert},\infty}
+      =s_\infty=\mathcal I_{K_\infty}(g_\infty).
+ \label{eq:quartic-limit-source-contraction}
+\end{equation}
+The right-hand side contracts only the source quartic with the
+full massless covariance; the left-hand side contracts the
+accumulated quartic with one fluctuation covariance.
+
+\begin{proposition}[Cancellation of the geometric finite part]
+\label{prop:limiting-one-loop-cancellation}
+Consider the formal quartic orbit
+\eqref{eq:quartic-history-recursion} for the centred, even block
+profile above.  Assume uniform ellipticity and exponential
+localization of $K_h$, with
+$K_h(p)=|p|^2+O(|p|^4)$, and convergence of $K_h$ with its
+derivatives through order four.  Assume also convergence of
+$P_h$ in the fixed exponential coefficient norm, and convergence
+of the free operators defining $G_h$ and
+$\alpha_{\mathrm{geom},h}$.  Define
+\begin{equation}
+ b_K(p):=\tfrac12\partial_1^2K(p)-2,\qquad
+ \mathcal F(K):=\lim_{\delta\downarrow0}\left\{
+   \int_{\mathbb T^2\setminus B_\delta}
+          \frac{b_K(p)}{K(p)}\frac{d^2p}{(2\pi)^2}
+          +\frac{\log(1/\delta)}{2\pi}\right\}.
+ \label{eq:kinetic-hessian-finite-part}
+\end{equation}
+Here $B_\delta$ is the Euclidean disk about zero; $b_K$ is a
+Hessian symbol, not the running coupling.  At each step,
+\begin{align}
+ \alpha_{\mathrm{geom},h}+s_h
+   &=-\frac{\log L}{2\pi}
+        +\mathcal F(K_h)-\mathcal F(K_{h+1}),
+ \label{eq:geom-source-telescope}\\
+ \alpha_{\mathrm{geom},h}+\alpha_{\mathrm{pert},h}
+   &=-\frac{\log L}{2\pi}
+       +\mathcal F(K_h)+\beta_h
+       -\mathcal F(K_{h+1})-\beta_{h+1}.
+ \label{eq:full-one-loop-telescope}
+\end{align}
+Consequently, at fixed $L$,
+\begin{equation}
+ \alpha_{\mathrm{pert},\infty}(L)=-r_\infty(L),\qquad
+ \alpha_{\mathrm{geom},\infty}(L)
+       +\alpha_{\mathrm{pert},\infty}(L)
+       =-\frac{\log L}{2\pi}.
+ \label{eq:limiting-one-loop-cancellation}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Use the helical stationary background
+\eqref{eq:geom-helical-background}.  In its two intrinsic tangent
+frames, let $F_h(\varepsilon)$ be the Hessian of the fine kinetic
+energy alone, and let $J_h(\varepsilon)$ be the derivative of
+the normalized block observation.  At this background the
+observation equals $V$, so the joint fine/coarse Hessian and its
+coarse Schur complement are
+\begin{equation}
+ \begin{pmatrix}
+ A_h&-aJ_h^*\\-aJ_h&aI
+ \end{pmatrix},\qquad
+ A_h=F_h+aJ_h^*J_h,\qquad
+ S_h=aI-a^2J_hA_h^{-1}J_h^*.
+ \label{eq:helical-joint-schur}
+\end{equation}
+All these expressions depend on $\varepsilon$.
+The two components of $A_h$ are exactly
+\eqref{eq:geom-two-hessians}.  Computing the block determinant
+in either order gives, at each nonzero Bloch momentum,
+\begin{equation}
+ \log\det A_h+\log\det S_h
+     =\log\det F_h+\log\det(aI).
+ \label{eq:helical-determinant-identity}
+\end{equation}
+Derivatives at $\varepsilon=0$ are taken before removing an
+infrared cutoff, so no determinant of a massless zero mode is
+used.
+
+The trace over the two tangent components of the coefficient
+of $\varepsilon^2$ in the fine kinetic Hessian has symbol
+$L^{-2}b_{K_h}(k)$.  Indeed, the parallel component contributes
+$L^{-2}(\tfrac12\partial_1^2K_h-1)$ and the perpendicular
+component contributes $-L^{-2}$; see
+\eqref{eq:geom-two-hessians} without its observation terms.
+The stationary coarse action has quadratic kernel $K_{h+1}$
+and excess quartic $G_h$.  Hence the corresponding coefficient
+in $S_h$ has symbol $b_{K_{h+1}}+g_h$.
+There are no first-order terms in these Hessians.
+Taking the $\varepsilon^2$ coefficient of
+\eqref{eq:helical-determinant-identity}, summing over tangent
+components and integrating over coarse momenta gives the
+geometric trace of \eqref{eq:geom-logdet} plus the source
+contraction $s_h$ on the left after subtracting the coarse
+kinetic contribution.
+
+The infrared cutoffs on the two kinetic traces must be matched
+under $p=Lk$.  Excluding $|p|\le\delta$ in the principal coarse
+alias excludes $|k|\le\delta/L$ in the fine trace.  The omitted
+pieces in the other aliases tend to zero.  Consequently the
+determinant identity gives precisely
+\begin{equation}
+ \alpha_{\mathrm{geom},h}+s_h
+ =\lim_{\delta\downarrow0}\left\{
+   \int_{\mathbb T^2\setminus B_{\delta/L}}
+        \frac{b_{K_h}(k)}{K_h(k)}\frac{d^2k}{(2\pi)^2}
+   -\int_{\mathbb T^2\setminus B_\delta}
+        \frac{b_{K_{h+1}}(p)}{K_{h+1}(p)}
+                                      \frac{d^2p}{(2\pi)^2}
+                              \right\}.
+ \label{eq:matched-infrared-finite-parts}
+\end{equation}
+Since $b_K(p)/K(p)=-|p|^{-2}+O(1)$ near zero, the difference
+of the logarithmic subtractions is $-(\log L)/(2\pi)$.
+This proves \eqref{eq:geom-source-telescope}; adding
+\eqref{eq:quartic-alpha-telescope} proves
+\eqref{eq:full-one-loop-telescope}.
+The stated convergence and uniform moment bounds imply
+convergence of both $\mathcal F(K_h)$ and $\beta_h$.
+Taking the history limit proves
+\eqref{eq:limiting-one-loop-cancellation}.
+\end{proof}
+
+Thus the limiting perturbative term cancels the entire finite
+geometric remainder, not just its large-$L$ limit.  Under the
+profile-specific conjecture in
+Remark~\ref{rem:geometric-finite-part}, this would give
+$\alpha_{\mathrm{pert},\infty}(L)\to+3.00667$ as $L\to\infty$.
+The cancellation above is a statement about the formal one-loop
+orbit; estimates for the regular errors and the large-field
+terms of the actual density are separate requirements.
 
 \newpage
 \section{Finite range fluctuation integrals}
